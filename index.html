@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Banner 產生器——天下雜誌</title>
+    <meta content="telephone=no" name="format-detection">
+    <meta property="og:image" content="https://topic.cw.com.tw/salesforce/assets/images/meta-share-marketing.jpg"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="https://www.cw.com.tw/assets_new/img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="https://yutinghcw.github.io/design/assets/css/cw.css">
+</head>
+<body>
+  <div id="app">
+    <header>
+      <div class="container px20">
+        <a href="https://www.cw.com.tw/" target="_blank" class="logo logo--main">
+          <img src="https://www.cw.com.tw/images/common/logo.svg" alt="">
+        </a>
+        <a class="logo logo--sub">
+          Banner 產生器
+        </a>
+      </div>
+    </header>
+    <main class="py40">
+      <div class="container">
+        <input type="file" name="Filedata" id="file_upload" accept="image/*" />
+        <div class="imgUploaded"></div>
+      </div>
+    </main>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
+  <script src="assets/js/generator.js" type="module"></script>
+</body>
+</html>
