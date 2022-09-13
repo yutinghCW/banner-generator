@@ -8,9 +8,24 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-basic-styles": "^35.1.0",
+    "@ckeditor/ckeditor5-build-classic": "^35.1.0",
+    "@ckeditor/ckeditor5-dev-utils": "^31.0.0",
+    "@ckeditor/ckeditor5-dev-webpack-plugin": "^31.0.0",
+    "@ckeditor/ckeditor5-editor-classic": "^35.1.0",
+    "@ckeditor/ckeditor5-essentials": "^35.1.0",
+    "@ckeditor/ckeditor5-font": "^35.1.0",
+    "@ckeditor/ckeditor5-link": "^35.1.0",
+    "@ckeditor/ckeditor5-paragraph": "^35.1.0",
+    "@ckeditor/ckeditor5-theme-lark": "^35.1.0",
+    "@ckeditor/ckeditor5-vue": "^4.0.1",
+    "@popperjs/core": "^2.11.6",
+    "bootstrap": "^5.2.1",
     "core-js": "^3.8.3",
+    "jquery": "^3.6.1",
     "vue": "^3.2.13",
-    "vue-router": "^4.0.3"
+    "vue-router": "^4.0.3",
+    "vue3-summernote-editor": "^1.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
