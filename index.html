@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="https://www.cw.com.tw/assets_new/img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap-grid.min.css">
     <link rel="stylesheet" href="https://yutinghcw.github.io/design/assets/css/cw.css">
 </head>
 <body>
@@ -27,13 +28,40 @@
     </header>
     <main class="py40">
       <div class="container">
-        <input type="file" name="Filedata" id="file_upload" accept="image/*" />
-        <div class="imgUploaded"></div>
+        <div class="row g-5">
+          <div class="col-md-6">
+            <h2 class="mt0">請選擇社群及類型</h2>
+            <div class="d-flex mb40">
+              <div class="select__group select__group--filled select__group--defalt">
+                <select id="social" name="social" v-model="social.select">
+                  <option v-for="item in social.items" :value="item.value">{{ item.display }}</option>
+                </select>
+              </div>
+              <div class="select__group select__group--filled select__group--defalt">
+                <select id="identity" name="identity">
+                  <option v-for="item in type.items" :value="item.value">{{ item.display }}</option>
+                </select>
+              </div>
+            </div>
+            <h2 class="mt0">請填寫欄位</h2>
+            <div class="mb20">
+              <input type="file" name="Filedata" id="file_upload" accept="image/*" />
+            </div>
+            <div class="form__group form__group--filled w-100 mb20">
+              <label class="label form__group--defalt" :class="{'hasValue': value.subtitle.value}">
+                <div class="form__group__placeholder">請輸入副標</div>
+                <input type="text" class="form__group__input form__group__input--default" v-model="value.subtitle.value">
+              </label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="img-uploaded"></div>
+          </div>
+        </div>
       </div>
     </main>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
   <script src="assets/js/generator.js" type="module"></script>
 </body>
 </html>
