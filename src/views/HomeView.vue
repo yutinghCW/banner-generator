@@ -15,10 +15,9 @@
             class="select__group select__group--filled select__group--defalt"
             v-if="types.length !== 0"
           >
-            <select id="identity" name="identity">
+            <select id="type" name="type" v-model="type.select">
               <option
-                v-for="(item, index) in types" :value="item.value" :key="item.value"
-                :selected="index === 0"
+                v-for="item in types" :value="item.value" :key="item.value"
                 :disabled="types.length === 0"
               >{{ item.display }}</option>
             </select>
@@ -26,33 +25,63 @@
         </div>
         <h2 class="mt0">請填寫欄位</h2>
         <div class="mb20">
+          <h3 class="mb-0">上傳檔案</h3>
           <input type="file" name="Filedata" id="file_upload" accept="image/*" />
         </div>
         <div class="form__group form__group--ckeditor w-100 mb20">
-          <div class="label form__group--defalt">
-            <div class="form__group__placeholder">請輸入標題</div>
-            <ckeditor
-              :editor="editor"
-              v-model="value.title.value"
-              :config="editorConfig"
-            ></ckeditor>
-          </div>
+          <h3 class="mb-0">標題</h3>
+          <ckeditor
+            :editor="editor"
+            v-model="value.title.value"
+            :config="editorConfig"
+          ></ckeditor>
         </div>
         <div class="form__group form__group--ckeditor w-100 mb20">
-          <div class="label form__group--defalt">
-            <div class="form__group__placeholder">請輸入副標</div>
-            <ckeditor
-              :editor="editor"
-              v-model="value.subtitle.value"
-              :config="editorConfig"
-            ></ckeditor>
+          <h3 class="mb-0">副標</h3>
+          <ckeditor
+            :editor="editor"
+            v-model="value.subtitle.value"
+            :config="editorConfig"
+          ></ckeditor>
+        </div>
+        <div class="form__group form__group--outlined w-100 mb20">
+          <h3 class="mb-1">內文</h3>
+          <div class="label form__group--defalt" :class="{'hasValue': value.content.value !== ''}">
+            <textarea v-model="value.content.value" class="form__group__input"></textarea>
+          </div>
+        </div>
+        <div class="form__group form__group--outlined w-100 mb20">
+          <h3 class="mb-1">CTA 文字</h3>
+          <div class="label form__group--defalt" :class="{'hasValue': value.cta.value !== ''}">
+            <textarea
+              v-model="value.cta.value"
+              class="form__group__input"
+              style="min-height: 80px;"
+            ></textarea>
           </div>
         </div>
       </div>
-      <div class="col-md-6 preview__section">
-        <div class="row">
-          <h1 v-html="value.title.value"></h1>
-          <h2 v-html="value.subtitle.value"></h2>
+      <div class="col-md-6">
+        <div class="preview__section" :class="type.select" id="preview">
+          <div class="label">
+            天下圖擊
+          </div>
+          <div class="title">
+            <h2 v-html="value.subtitle.value"></h2>
+            <h1 v-html="value.title.value"></h1>
+          </div>
+          <div class="imgarea">
+            <img :src="value.img" :alt="value.title.value">
+          </div>
+          <p v-html="value.content.value"></p>
+          <div class="swipe__cta" v-html="value.cta.value"></div>
+        </div>
+        <div class="text-center mt20">
+          <button
+            type="button"
+            class="btn btn--contained"
+            @click="screenshot();"
+          >下載</button>
         </div>
       </div>
     </div>
@@ -69,11 +98,13 @@ import Link from '@ckeditor/ckeditor5-link/src/link';
 import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph';
 import Font from '@ckeditor/ckeditor5-font/src/font';
 
+import html2canvas from 'html2canvas';
+
 export default {
   data() {
     return {
       social: {
-        select: 'line',
+        select: 'instagram',
         items: [
           {
             value: 'line',
@@ -105,65 +136,77 @@ export default {
           },
         ],
       },
+      type: {
+        select: 'cw-picture-story',
+      },
       types: [
         {
-          value: 'popular-articles',
-          display: '熱文',
+          value: 'cw-picture-post',
+          display: '天下圖擊圖卡',
           size: {
-            w: 1024,
-            h: 1024,
+            w: 1080,
+            h: 1080,
           },
         },
         {
-          value: 'podcast-cw',
-          display: '聽天下',
+          value: 'cw-picture-story',
+          display: '天下圖擊限動',
           size: {
-            w: 1024,
-            h: 1024,
+            w: 1080,
+            h: 1920,
           },
         },
         {
-          value: 'podcast-channel',
-          display: '闖天下',
+          value: 'summary-post',
+          display: '書摘圖卡（金句類）',
           size: {
-            w: 1024,
-            h: 1024,
+            w: 1080,
+            h: 1080,
           },
         },
         {
-          value: 'english',
-          display: '英網',
+          value: 'summary-story',
+          display: '書摘限時動態',
           size: {
-            w: 1024,
-            h: 1024,
+            w: 1080,
+            h: 1920,
           },
         },
         {
-          value: 'podcast-list',
-          display: '聽天下選單',
+          value: 'quote-post',
+          display: '金句圖卡',
           size: {
-            w: 1024,
-            h: 1024,
+            w: 1080,
+            h: 1080,
           },
         },
         {
-          value: 'weekly-popular',
-          display: '本週最熱文章',
+          value: 'quote-story',
+          display: '金句限動',
           size: {
-            w: 1024,
-            h: 1024,
+            w: 1080,
+            h: 1920,
           },
         },
         {
-          value: 'specific-recommendation',
-          display: '專屬文章推薦',
+          value: 'faq-1-story',
+          display: '問答限動（文字版）',
           size: {
-            w: 1024,
-            h: 1024,
+            w: 1080,
+            h: 1920,
+          },
+        },
+        {
+          value: 'faq-2-story',
+          display: '問答限動（有圖版）',
+          size: {
+            w: 1080,
+            h: 1920,
           },
         },
       ],
       value: {
+        img: 'https://storage.googleapis.com/www-cw-com-tw/article/202206/article-62ba6d9c751c6.jpg',
         title: {
           limit: 19,
           value: '<p>房租隨房價飆、政府統計卻躺平</p>',
@@ -174,11 +217,11 @@ export default {
         },
         content: {
           limit: null,
-          value: '',
+          value: '疫情與戰爭，讓全球通膨怪獸已經失控，\n台灣雖號稱處於溫和通膨，\n但這其實是個假象，\n將造成台灣貧富差距擴大、\n窮人更難翻身。\n\n房租漲幅失真、政府不再撒幣，\n通膨實況到底如何',
         },
         cta: {
           limit: 10,
-          value: '',
+          value: '上滑\n看完整文章',
         },
         label: {
           limit: 10,
@@ -234,6 +277,20 @@ export default {
     };
   },
   methods: {
+    screenshot() {
+      html2canvas(document.querySelector('#preview'), {
+        logging: true,
+        letterRendering: 1,
+        allowTaint: false,
+        useCORS: true,
+      }).then((canvas) => {
+        document.body.appendChild(canvas);
+        const a = document.createElement('a');
+        a.href = canvas.toDataURL('image/jpeg').replace('image/jpeg', 'image/octet-stream');
+        a.download = 'image.jpg';
+        a.click();
+      });
+    },
   },
   watch: {
     'social.select': function select() {
@@ -466,8 +523,7 @@ body main p {
   margin-bottom: 0;
 }
 .ck.ck-content {
-  padding: 1rem;
-  height: 80px;
+  height: 60px;
 }
 </style>
 <style lang="scss" scoped>
@@ -475,18 +531,6 @@ body main p {
   .form__group__placeholder {
     top: 3rem;
     z-index: 1;
-  }
-}
-.preview__section {
-  h1 {
-    margin-top: 0;
-    margin-bottom: 0;
-    font-size: 24px;
-  }
-  h2 {
-    margin-top: 0;
-    margin-bottom: 0;
-    font-size: 20px;
   }
 }
 </style>
