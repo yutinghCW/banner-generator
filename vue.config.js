@@ -41,6 +41,9 @@ module.exports = {
           })
         };
       });
-  }
+  },
   /* eslint-disable */
+
+  publicPath: process.env.NODE_ENV === 'production' ? '/banner-generator/' : '/',
+
 };
