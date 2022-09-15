@@ -14,6 +14,16 @@
   </main>
 </template>
 
+<script>
+export default {
+  watch: {
+    $route() {
+      document.title = '天下雜誌圖卡產生器';
+    },
+  },
+};
+</script>
+
 <style lang="scss">
 @import "@/assets/sass/style";
 </style>
