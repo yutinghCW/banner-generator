@@ -26,7 +26,10 @@
         <h2 class="mt0">請填寫欄位</h2>
         <div class="mb20">
           <h3 class="mb-0">上傳檔案</h3>
-          <input type="file" name="Filedata" id="file_upload" accept="image/*" />
+          <input
+            type="file" name="Filedata" ref="Filedata" id="file_upload"
+            accept="image/*" @change="onFileSelected"
+          />
         </div>
         <div class="form__group form__group--ckeditor w-100 mb20">
           <h3 class="mb-0">標題</h3>
@@ -294,6 +297,16 @@ export default {
         .catch((error) => {
           console.error('oops, something went wrong!', error);
         });
+    },
+    onFileSelected() {
+      const file = document.querySelector('#file_upload').files[0]
+      const reader = new FileReader();
+      let rawImg;
+      reader.onloadend = () => {
+        rawImg = reader.result;
+        this.value.img = rawImg;
+      }
+      reader.readAsDataURL(file);
     },
     /* eslint-disable */
   },
