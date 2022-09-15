@@ -93,8 +93,6 @@
 import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
 import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials';
 import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold';
-import Italic from '@ckeditor/ckeditor5-basic-styles/src/italic';
-import Link from '@ckeditor/ckeditor5-link/src/link';
 import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph';
 import Font from '@ckeditor/ckeditor5-font/src/font';
 
@@ -238,8 +236,6 @@ export default {
         plugins: [
           Essentials,
           Bold,
-          Italic,
-          Link,
           Paragraph,
           Font,
         ],
