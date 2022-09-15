@@ -44,6 +44,8 @@ module.exports = {
   },
   /* eslint-disable */
 
+  parallel: false,
+
   publicPath: process.env.NODE_ENV === 'production' ? '/banner-generator/' : '/',
 
 };
