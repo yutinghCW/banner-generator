@@ -67,18 +67,29 @@
   }
   > .swipe__cta {
     position: absolute;
-    bottom: 0;
     left: 50%;
+    bottom: 0;
     width: 7em;
-    height: 7em;
+    height: 3.5em;
     padding: .5em;
     font-size: 18px;
     color: $primary;
     line-height: 1.2;
     text-align: center;
-    background-color: $white;
     white-space: break-spaces;
-    border-radius: 50%;
-    transform: translate(-50%, 50%);
+    transform: translateX(-50%);
+    overflow: hidden;
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding-top: 100%;
+      background-color: $white;
+      border-radius: 50%;
+      z-index: -1;
+    }
   }
 }

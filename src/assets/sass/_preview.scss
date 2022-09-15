@@ -1,9 +1,11 @@
 .preview__section {
   position: relative;
-  margin-left: auto;
-  margin-right: auto;
+  overflow: hidden;
   img {
     vertical-align: middle;
+  }
+  * {
+    font-variant: normal;
   }
 }
 

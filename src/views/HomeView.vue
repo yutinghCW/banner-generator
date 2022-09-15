@@ -61,7 +61,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 d-flex flex-column align-items-center">
         <div class="preview__section" :class="type.select" id="preview">
           <div class="label">
             天下圖擊
@@ -98,7 +98,7 @@ import Link from '@ckeditor/ckeditor5-link/src/link';
 import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph';
 import Font from '@ckeditor/ckeditor5-font/src/font';
 
-import html2canvas from 'html2canvas';
+import domtoimage from 'dom-to-image-more-v2';
 
 export default {
   data() {
@@ -277,20 +277,29 @@ export default {
     };
   },
   methods: {
+    /* eslint-disable */
     screenshot() {
-      html2canvas(document.querySelector('#preview'), {
-        logging: true,
-        letterRendering: 1,
-        allowTaint: false,
-        useCORS: true,
-      }).then((canvas) => {
-        document.body.appendChild(canvas);
-        const a = document.createElement('a');
-        a.href = canvas.toDataURL('image/jpeg').replace('image/jpeg', 'image/octet-stream');
-        a.download = 'image.jpg';
-        a.click();
-      });
+      const el = document.querySelector('#preview');
+      domtoimage.toPng(el, {
+        quality: 1,
+        width: 1080,
+        height: 1920,
+        style: {
+          'transform': 'scale(2)',
+          'transform-origin': 'top left',
+        },
+      })
+        .then((dataUrl) => {
+          const a = document.createElement('a');
+          a.href = dataUrl;
+          a.download = 'image.jpg';
+          a.click();
+        })
+        .catch((error) => {
+          console.error('oops, something went wrong!', error);
+        });
     },
+    /* eslint-disable */
   },
   watch: {
     'social.select': function select() {
