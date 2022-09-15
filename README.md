@@ -1,4 +1,4 @@
-# banner-generator
+# 天下雜誌圖卡產生器
 
 ## Project setup
 ```

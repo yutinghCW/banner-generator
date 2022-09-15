@@ -4,5 +4,16 @@
 $gray-100: #EFEFEF;
 $primary:  #D60C18;
 
+.form__editable {
+  input[type='range'] {
+    width: 100%;
+    appearance: auto;
+  }
+  .btn {
+    min-width: auto;
+    border: 0;
+  }
+}
+
 @import "./preview";
 @import "./instagram/cw-picture-story";

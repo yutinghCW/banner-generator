@@ -27,9 +27,93 @@
         <div class="mb20">
           <h3 class="mb-0">上傳檔案</h3>
           <input
-            type="file" name="Filedata" ref="Filedata" id="file_upload"
-            accept="image/*" @change="onFileSelected"
+          type="file" name="Filedata" ref="Filedata" id="file_upload"
+          accept="image/*" @change="onFileSelected"
           />
+        </div>
+        <div class="form__editable mb20">
+          <label class="d-block">
+            <span class="label--check">
+              <input type="checkbox" v-model="editable.switch" name="啟動修改">
+              <span class="label__check__mark"></span>
+              <span class="label__check__txt">修改圖片縮放及位置</span>
+            </span>
+          </label>
+          <div class="bg-gray-100 mt10 p-4" v-if="editable.switch">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-6 px-4">
+                  <h4 class="color-secondary-variant my0">圖片縮放</h4>
+                  <div class="row g-4 align-items-center pt-3">
+                    <div class="col-auto text-center">
+                      <button type="button" class="btn p-0">
+                        <i class="icon icon-minus"></i>
+                      </button>
+                    </div>
+                    <div class="col">
+                      <input
+                        type="range"
+                        class="form-range"
+                        v-model="editable.scale"
+                        min="-100"
+                        id="customRange1"
+                      >
+                    </div>
+                    <div class="col-auto text-center">
+                      <button type="button" class="btn p-0">
+                        <i class="icon icon-plus"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 px-4">
+                  <h4 class="color-secondary-variant my0">圖片位移</h4>
+                  <div class="row g-4 align-items-center pt-3">
+                    <div class="col-auto text-center">
+                      <button type="button" class="btn p-0">
+                        左
+                      </button>
+                    </div>
+                    <div class="col">
+                      <input
+                        type="range"
+                        class="form-range"
+                        v-model="editable.horizontal"
+                        min="-100"
+                        id="customRange2"
+                      >
+                    </div>
+                    <div class="col-auto text-center">
+                      <button type="button" class="btn p-0">
+                        右
+                      </button>
+                    </div>
+                  </div>
+                  <div class="row g-4 align-items-center pt-3">
+                    <div class="col-auto text-center">
+                      <button type="button" class="btn p-0">
+                        上
+                      </button>
+                    </div>
+                    <div class="col">
+                      <input
+                        type="range"
+                        class="form-range"
+                        v-model="editable.vertical"
+                        min="-100"
+                        id="customRange3"
+                      >
+                    </div>
+                    <div class="col-auto text-center">
+                      <button type="button" class="btn p-0">
+                        下
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="form__group form__group--ckeditor w-100 mb20">
           <h3 class="mb-0">標題</h3>
@@ -66,6 +150,7 @@
       </div>
       <div class="col-md-6 d-flex flex-column align-items-center">
         <div class="preview__section" :class="type.select" id="preview">
+          <img src="@/assets/images/cw-logo-white-primary.svg" alt="天下雜誌" class="logo">
           <div class="label">
             天下圖擊
           </div>
@@ -73,13 +158,28 @@
             <h2 v-html="value.subtitle.value"></h2>
             <h1 v-html="value.title.value"></h1>
           </div>
-          <div class="imgarea">
-            <img :src="value.img" :alt="value.title.value">
+          <div
+            class="imgarea bg-gray-200"
+            :class="{
+              'object-cover': !editable.switch,
+              'object-customized': editable.switch
+            }"
+          >
+            <img
+            :src="value.img"
+            :alt="value.title.value"
+            :style="`
+              transform:
+                scale(${1+(editable.scale/100)})
+                translateX(${editable.horizontal}px)
+                translateY(${editable.vertical}px)
+              ;
+            `">
           </div>
           <p v-html="value.content.value"></p>
           <div class="swipe__cta" v-html="value.cta.value"></div>
         </div>
-        <div class="text-center mt20">
+        <div class="text-center mt40">
           <button
             type="button"
             class="btn btn--contained"
@@ -232,6 +332,12 @@ export default {
           limit: 19,
           value: 'assets/images/cw-logo-white-primary.svg',
         },
+      },
+      editable: {
+        switch: false,
+        vertical: 0,
+        horizontal: 0,
+        scale: 1,
       },
       editor: ClassicEditor,
       editorData: '',
