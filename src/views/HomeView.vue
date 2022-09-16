@@ -5,7 +5,7 @@
         <h2 class="mt0">請選擇社群及類型</h2>
         <div class="d-flex mb40">
           <div class="select__group select__group--filled select__group--defalt">
-            <select id="social" name="social" v-model="social.select">
+            <select id="social" name="social" v-model="social.select" disabled>
               <option
                 v-for="item in social.items" :value="item.value" :key="item.value"
               >{{ item.display }}</option>
@@ -15,7 +15,7 @@
             class="select__group select__group--filled select__group--defalt"
             v-if="types.length !== 0"
           >
-            <select id="type" name="type" v-model="type.select">
+            <select id="type" name="type" v-model="type.select" disabled>
               <option
                 v-for="item in types" :value="item.value" :key="item.value"
                 :disabled="types.length === 0"
