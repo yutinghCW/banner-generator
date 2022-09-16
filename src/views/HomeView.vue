@@ -379,11 +379,11 @@ export default {
         ],
       },
       type: {
-        select: 'cw-picture-story',
+        select: 'ig-cw-picture-story',
       },
       types: [
         {
-          value: 'cw-picture-post',
+          value: 'ig-cw-picture-post',
           display: '天下圖擊圖卡',
           size: {
             w: 1080,
@@ -391,7 +391,7 @@ export default {
           },
         },
         {
-          value: 'cw-picture-story',
+          value: 'ig-cw-picture-story',
           display: '天下圖擊限動',
           size: {
             w: 1080,
@@ -399,7 +399,7 @@ export default {
           },
         },
         {
-          value: 'summary-post',
+          value: 'ig-summary-post',
           display: '書摘圖卡（金句類）',
           size: {
             w: 1080,
@@ -407,7 +407,7 @@ export default {
           },
         },
         {
-          value: 'summary-story',
+          value: 'ig-summary-story',
           display: '書摘限時動態',
           size: {
             w: 1080,
@@ -415,7 +415,7 @@ export default {
           },
         },
         {
-          value: 'quote-post',
+          value: 'ig-quote-post',
           display: '金句圖卡',
           size: {
             w: 1080,
@@ -423,7 +423,7 @@ export default {
           },
         },
         {
-          value: 'quote-story',
+          value: 'ig-quote-story',
           display: '金句限動',
           size: {
             w: 1080,
@@ -431,7 +431,7 @@ export default {
           },
         },
         {
-          value: 'faq-1-story',
+          value: 'ig-faq-word-story',
           display: '問答限動（文字版）',
           size: {
             w: 1080,
@@ -439,7 +439,7 @@ export default {
           },
         },
         {
-          value: 'faq-2-story',
+          value: 'ig-faq-picture-story',
           display: '問答限動（有圖版）',
           size: {
             w: 1080,
@@ -543,9 +543,15 @@ export default {
         },
       })
         .then((dataUrl) => {
+          let today = new Date();
+          const dd = String(today.getDate()).padStart(2, '0');
+          const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+          const yyyy = today.getFullYear();
+          today = `${yyyy}${mm}${dd}`;
+          console.log(today);
           const a = document.createElement('a');
           a.href = dataUrl;
-          a.download = 'image.jpg';
+          a.download = `${this.type.select}-${today}.png`;
           a.click();
         })
         .catch((error) => {
@@ -642,7 +648,7 @@ export default {
         case 'instagram':
           this.types = [
             {
-              value: 'cw-picture-post',
+              value: 'ig-cw-picture-post',
               display: '天下圖擊圖卡',
               size: {
                 w: 1080,
@@ -650,7 +656,7 @@ export default {
               },
             },
             {
-              value: 'cw-picture-story',
+              value: 'ig-cw-picture-story',
               display: '天下圖擊限動',
               size: {
                 w: 1080,
@@ -658,7 +664,7 @@ export default {
               },
             },
             {
-              value: 'summary-post',
+              value: 'ig-summary-post',
               display: '書摘圖卡（金句類）',
               size: {
                 w: 1080,
@@ -666,7 +672,7 @@ export default {
               },
             },
             {
-              value: 'summary-story',
+              value: 'ig-summary-story',
               display: '書摘限時動態',
               size: {
                 w: 1080,
@@ -674,7 +680,7 @@ export default {
               },
             },
             {
-              value: 'quote-post',
+              value: 'ig-quote-post',
               display: '金句圖卡',
               size: {
                 w: 1080,
@@ -682,7 +688,7 @@ export default {
               },
             },
             {
-              value: 'quote-story',
+              value: 'ig-quote-story',
               display: '金句限動',
               size: {
                 w: 1080,
@@ -690,7 +696,7 @@ export default {
               },
             },
             {
-              value: 'faq-1-story',
+              value: 'ig-faq-word-story',
               display: '問答限動（文字版）',
               size: {
                 w: 1080,
@@ -698,7 +704,7 @@ export default {
               },
             },
             {
-              value: 'faq-2-story',
+              value: 'ig-faq-picture-story',
               display: '問答限動（有圖版）',
               size: {
                 w: 1080,
