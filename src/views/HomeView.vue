@@ -240,7 +240,7 @@
                 >
                 <span class="label__radio__mark"></span>
                 <span class="label__radio__txt">
-                  <img src="/images/cw-logo-white-primary.svg" alt="">
+                  <img src="images/cw-logo-white-primary.svg" alt="">
                 </span>
               </label>
             </div>
@@ -254,7 +254,7 @@
                 >
                 <span class="label__radio__mark"></span>
                 <span class="label__radio__txt">
-                  <img src="/images/cw-logo-white-black.svg" alt="">
+                  <img src="images/cw-logo-white-black.svg" alt="">
                 </span>
               </label>
             </div>
@@ -268,7 +268,7 @@
                 >
                 <span class="label__radio__mark"></span>
                 <span class="label__radio__txt">
-                  <img src="/images/cw-logo-primary-transparent.svg" alt="">
+                  <img src="images/cw-logo-primary-transparent.svg" alt="">
                 </span>
               </label>
             </div>
@@ -282,7 +282,7 @@
                 >
                 <span class="label__radio__mark"></span>
                 <span class="label__radio__txt">
-                  <img src="/images/cw-logo-black-transparent.svg" alt="">
+                  <img src="images/cw-logo-black-transparent.svg" alt="">
                 </span>
               </label>
             </div>
@@ -470,14 +470,14 @@ export default {
           value: '',
         },
         logo: {
-          select: '/images/cw-logo-white-primary.svg',
+          select: 'images/cw-logo-white-primary.svg',
           white: {
-            primary: '/images/cw-logo-white-primary.svg',
-            black: '/images/cw-logo-white-black.svg',
+            primary: 'images/cw-logo-white-primary.svg',
+            black: 'images/cw-logo-white-black.svg',
           },
           transparent: {
-            primary: '/images/cw-logo-primary-transparent.svg',
-            black: '/images/cw-logo-black-transparent.svg',
+            primary: 'images/cw-logo-primary-transparent.svg',
+            black: 'images/cw-logo-black-transparent.svg',
           },
         },
       },
@@ -548,7 +548,6 @@ export default {
           const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
           const yyyy = today.getFullYear();
           today = `${yyyy}${mm}${dd}`;
-          console.log(today);
           const a = document.createElement('a');
           a.href = dataUrl;
           a.download = `${this.type.select}-${today}.png`;
