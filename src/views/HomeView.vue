@@ -117,40 +117,181 @@
         </div>
         <div class="form__group form__group--ckeditor w-100 mb20">
           <h3 class="mb-0">標題</h3>
-          <ckeditor
-            :editor="editor"
-            v-model="value.title.value"
-            :config="editorConfig"
-          ></ckeditor>
+          <div
+            class="label form__group--defalt"
+            :class="{
+              'form__group--error': removeTags(value.title.value).length > value.title.limit,
+            }"
+          >
+            <div class="h5 mt0">建議字數{{ value.title.limit }}字</div>
+            <ckeditor
+              :editor="editor"
+              v-model="value.title.value"
+              :config="editorConfig"
+            ></ckeditor>
+            <span
+              class="form__group__help--strong"
+              :class="{
+                'form__group__help--highlight':
+                removeTags(value.title.value).length > value.title.limit
+              }"
+            >
+              <template v-if="!(removeTags(value.title.value).length > value.title.limit)">
+                建議字數{{ value.title.limit }}字
+              </template>
+              <template v-if="removeTags(value.title.value).length > value.title.limit">
+                已超過建議字數，請透過預覽查看是否有跑版
+              </template>
+            </span>
+          </div>
         </div>
         <div class="form__group form__group--ckeditor w-100 mb20">
           <h3 class="mb-0">副標</h3>
-          <ckeditor
-            :editor="editor"
-            v-model="value.subtitle.value"
-            :config="editorConfig"
-          ></ckeditor>
+          <div
+            class="label form__group--defalt"
+            :class="{
+              'form__group--error': removeTags(value.subtitle.value).length > value.subtitle.limit,
+            }"
+          >
+            <ckeditor
+              :editor="editor"
+              v-model="value.subtitle.value"
+              :config="editorConfig"
+            ></ckeditor>
+            <span
+              class="form__group__help--strong"
+              :class="{
+                'form__group__help--highlight':
+                removeTags(value.subtitle.value).length > value.subtitle.limit
+              }"
+            >
+              <template v-if="!(removeTags(value.subtitle.value).length > value.subtitle.limit)">
+                建議字數{{ value.subtitle.limit }}字
+              </template>
+              <template v-if="removeTags(value.subtitle.value).length > value.subtitle.limit">
+                已超過建議字數，請透過預覽查看是否有跑版
+              </template>
+            </span>
+          </div>
         </div>
         <div class="form__group form__group--outlined w-100 mb20">
           <h3 class="mb-1">內文</h3>
-          <div class="label form__group--defalt" :class="{'hasValue': value.content.value !== ''}">
-            <textarea v-model="value.content.value" class="form__group__input"></textarea>
+          <div
+            class="label form__group--defalt"
+            :class="{
+              'hasValue': value.content.value !== '',
+              'form__group--error': countLines(value.content.value) > value.content.limit,
+            }"
+          >
+            <textarea v-model="value.content.value" class="form__group__input d-block"></textarea>
+            <span
+              class="form__group__help--strong d-block"
+              :class="{
+                'form__group__help--highlight':
+                countLines(value.content.value) > value.content.limit
+              }"
+            >
+              <template v-if="!(countLines(value.content.value) > value.content.limit)">
+                建議行數{{ value.cta.limit }}字
+              </template>
+              <template v-if="countLines(value.content.value) > value.content.limit">
+                已超過建議行數，請透過預覽查看是否有跑版
+              </template>
+            </span>
           </div>
         </div>
         <div class="form__group form__group--outlined w-100 mb20">
           <h3 class="mb-1">CTA 文字</h3>
-          <div class="label form__group--defalt" :class="{'hasValue': value.cta.value !== ''}">
+          <div
+            class="label form__group--defalt"
+            :class="{
+              'hasValue': value.cta.value !== '',
+              'form__group--error': value.cta.value.length > value.cta.limit,
+            }"
+          >
             <textarea
               v-model="value.cta.value"
-              class="form__group__input"
+              class="form__group__input d-block"
               style="min-height: 80px;"
             ></textarea>
+            <span
+              class="form__group__help--strong d-block"
+              :class="{'form__group__help--highlight': value.cta.value.length > value.cta.limit}"
+            >
+              <template v-if="!(value.cta.value.length > value.cta.limit)">
+                建議字數{{ value.cta.limit }}字
+              </template>
+              <template v-if="value.cta.value.length > value.cta.limit">
+                已超過建議字數，請透過預覽查看是否有跑版
+              </template>
+            </span>
+          </div>
+        </div>
+        <div class="form__logos mb20">
+          <h3 class="mb-1">選擇 Logo 樣式</h3>
+          <div class="row mt-2">
+            <div class="col-md-3">
+              <label class="label--radio d-flex align-items-center">
+                <input
+                  type="radio" id="logo-white-primary"
+                  :value="value.logo.white.primary"
+                  v-model="value.logo.select"
+                  :checked="value.logo.select === value.logo.white.primary"
+                >
+                <span class="label__radio__mark"></span>
+                <span class="label__radio__txt">
+                  <img src="/images/cw-logo-white-primary.svg" alt="">
+                </span>
+              </label>
+            </div>
+            <div class="col-md-3">
+              <label class="label--radio d-flex align-items-center">
+                <input
+                  type="radio" id="logo-white-primary"
+                  :value="value.logo.white.black"
+                  v-model="value.logo.select"
+                  :checked="value.logo.select === value.logo.white.black"
+                >
+                <span class="label__radio__mark"></span>
+                <span class="label__radio__txt">
+                  <img src="/images/cw-logo-white-black.svg" alt="">
+                </span>
+              </label>
+            </div>
+            <div class="col-md-3">
+              <label class="label--radio d-flex align-items-center">
+                <input
+                  type="radio" id="logo-white-primary"
+                  :value="value.logo.transparent.primary"
+                  v-model="value.logo.select"
+                  :checked="value.logo.select === value.logo.transparent.primary"
+                >
+                <span class="label__radio__mark"></span>
+                <span class="label__radio__txt">
+                  <img src="/images/cw-logo-primary-transparent.svg" alt="">
+                </span>
+              </label>
+            </div>
+            <div class="col-md-3">
+              <label class="label--radio d-flex align-items-center">
+                <input
+                  type="radio" id="logo-white-primary"
+                  :value="value.logo.transparent.black"
+                  v-model="value.logo.select"
+                  :checked="value.logo.select === value.logo.transparent.black"
+                >
+                <span class="label__radio__mark"></span>
+                <span class="label__radio__txt">
+                  <img src="/images/cw-logo-black-transparent.svg" alt="">
+                </span>
+              </label>
+            </div>
           </div>
         </div>
       </div>
       <div class="col-md-6 d-flex flex-column align-items-center">
         <div class="preview__section" :class="type.select" id="preview">
-          <img src="@/assets/images/cw-logo-white-primary.svg" alt="天下雜誌" class="logo">
+          <img :src="value.logo.select" alt="天下雜誌" class="logo">
           <div class="label">
             天下圖擊
           </div>
@@ -317,7 +458,7 @@ export default {
           value: '<p>溫和通膨陷阱1》<span style="color:#d60c18;">30到45歲</span>最慘</p>',
         },
         content: {
-          limit: null,
+          limit: 10,
           value: '疫情與戰爭，讓全球通膨怪獸已經失控，\n台灣雖號稱處於溫和通膨，\n但這其實是個假象，\n將造成台灣貧富差距擴大、\n窮人更難翻身。\n\n房租漲幅失真、政府不再撒幣，\n通膨實況到底如何',
         },
         cta: {
@@ -329,8 +470,15 @@ export default {
           value: '',
         },
         logo: {
-          limit: 19,
-          value: 'assets/images/cw-logo-white-primary.svg',
+          select: '/images/cw-logo-white-primary.svg',
+          white: {
+            primary: '/images/cw-logo-white-primary.svg',
+            black: '/images/cw-logo-white-black.svg',
+          },
+          transparent: {
+            primary: '/images/cw-logo-primary-transparent.svg',
+            black: '/images/cw-logo-black-transparent.svg',
+          },
         },
       },
       editable: {
@@ -415,6 +563,18 @@ export default {
       reader.readAsDataURL(file);
     },
     /* eslint-disable */
+    countLines(el) {
+      const line = el.split('\n').length;
+      return line;
+    },
+    removeTags(str) {
+      if ((str===null) || (str==='')) {
+        return false;
+      } else {
+        str = str.toString();
+      }
+      return str.replace(/(<([^>]+)>)/ig, '');
+    },
   },
   watch: {
     'social.select': function select() {
