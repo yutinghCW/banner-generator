@@ -1,0 +1,33 @@
+.form__editable {
+  input[type='range'] {
+    width: 100%;
+    appearance: auto;
+  }
+  .btn {
+    min-width: auto;
+    border: 0;
+  }
+}
+
+.form__logos {
+  img {
+    height: 35px;
+  }
+}
+
+.ck.ck-editor__editable.ck-focused:not(.ck-editor__nested-editable) {
+  outline: 0 !important;
+}
+
+.ck.ck-editor__main>.ck-editor__editable:not(.ck-focused) {
+  &:focus-visible {
+    outline: 0 !important;
+  }
+  @at-root .form__group--error {
+    --ck-color-base-border: #{$primary};
+  }
+}
+
+textarea.form__group__input:focus-visible {
+  outline: 0;
+}

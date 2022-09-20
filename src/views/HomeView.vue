@@ -5,7 +5,7 @@
         <h2 class="mt0">請選擇社群及類型</h2>
         <div class="d-flex mb40">
           <div class="select__group select__group--filled select__group--defalt">
-            <select id="social" name="social" v-model="social.select" disabled>
+            <select id="social" name="social" v-model="social.select" @change="detectType()">
               <option
                 v-for="item in social.items" :value="item.value" :key="item.value"
               >{{ item.display }}</option>
@@ -15,7 +15,7 @@
             class="select__group select__group--filled select__group--defalt"
             v-if="types.length !== 0"
           >
-            <select id="type" name="type" v-model="type.select" disabled>
+            <select id="type" name="type" v-model="type.select" @change="detectType()">
               <option
                 v-for="item in types" :value="item.value" :key="item.value"
                 :disabled="types.length === 0"
@@ -24,14 +24,14 @@
           </div>
         </div>
         <h2 class="mt0">請填寫欄位</h2>
-        <div class="mb20">
+        <div class="mb20" v-if="checkImg()">
           <h3 class="mb-0">上傳檔案</h3>
           <input
           type="file" name="Filedata" ref="Filedata" id="file_upload"
           accept="image/*" @change="onFileSelected"
           />
         </div>
-        <div class="form__editable mb20">
+        <div class="form__editable mb20" v-if="checkImg()">
           <label class="d-block">
             <span class="label--check">
               <input type="checkbox" v-model="editable.switch" name="啟動修改">
@@ -115,7 +115,10 @@
             </div>
           </div>
         </div>
-        <div class="form__group form__group--ckeditor w-100 mb20">
+        <div
+          class="form__group form__group--ckeditor w-100 mb20"
+          v-if="checkTitle() && checkEditor()"
+        >
           <h3 class="mb-0">標題</h3>
           <div
             class="label form__group--defalt"
@@ -123,7 +126,6 @@
               'form__group--error': removeTags(value.title.value).length > value.title.limit,
             }"
           >
-            <div class="h5 mt0">建議字數{{ value.title.limit }}字</div>
             <ckeditor
               :editor="editor"
               v-model="value.title.value"
@@ -145,7 +147,33 @@
             </span>
           </div>
         </div>
-        <div class="form__group form__group--ckeditor w-100 mb20">
+        <div
+          class="form__group form__group--ckeditor w-100 mb20"
+          v-else-if="checkTitle()"
+        >
+          <h3 class="mb-0">標題</h3>
+          <div class="label form__group--defalt">
+            <textarea v-model="value.title.value" class="form__group__input d-block"></textarea>
+            <span
+              class="form__group__help--strong"
+              :class="{
+                'form__group__help--highlight':
+                removeTags(value.title.value).length > value.title.limit
+              }"
+            >
+              <template v-if="!(removeTags(value.title.value).length > value.title.limit)">
+                建議字數{{ value.title.limit }}字
+              </template>
+              <template v-if="removeTags(value.title.value).length > value.title.limit">
+                已超過建議字數，請透過預覽查看是否有跑版
+              </template>
+            </span>
+          </div>
+        </div>
+        <div
+          class="form__group form__group--ckeditor w-100 mb20"
+          v-if="checkSubtitle() && checkEditor()"
+        >
           <h3 class="mb-0">副標</h3>
           <div
             class="label form__group--defalt"
@@ -174,7 +202,30 @@
             </span>
           </div>
         </div>
-        <div class="form__group form__group--outlined w-100 mb20">
+        <div
+          class="form__group form__group--ckeditor w-100 mb20"
+          v-else-if="checkSubtitle()"
+        >
+          <h3 class="mb-0">副標</h3>
+          <div class="label form__group--defalt">
+            <textarea v-model="value.subtitle.value" class="form__group__input d-block"></textarea>
+            <span
+              class="form__group__help--strong"
+              :class="{
+                'form__group__help--highlight':
+                removeTags(value.subtitle.value).length > value.subtitle.limit
+              }"
+            >
+              <template v-if="!(removeTags(value.subtitle.value).length > value.subtitle.limit)">
+                建議字數{{ value.subtitle.limit }}字
+              </template>
+              <template v-if="removeTags(value.subtitle.value).length > value.subtitle.limit">
+                已超過建議字數，請透過預覽查看是否有跑版
+              </template>
+            </span>
+          </div>
+        </div>
+        <div class="form__group form__group--outlined w-100 mb20" v-if="checkContent()">
           <h3 class="mb-1">內文</h3>
           <div
             class="label form__group--defalt"
@@ -192,7 +243,7 @@
               }"
             >
               <template v-if="!(countLines(value.content.value) > value.content.limit)">
-                建議行數{{ value.cta.limit }}字
+                建議行數{{ value.cta.limit }}行
               </template>
               <template v-if="countLines(value.content.value) > value.content.limit">
                 已超過建議行數，請透過預覽查看是否有跑版
@@ -200,7 +251,7 @@
             </span>
           </div>
         </div>
-        <div class="form__group form__group--outlined w-100 mb20">
+        <div class="form__group form__group--outlined w-100 mb20" v-if="checkCta()">
           <h3 class="mb-1">CTA 文字</h3>
           <div
             class="label form__group--defalt"
@@ -227,7 +278,7 @@
             </span>
           </div>
         </div>
-        <div class="form__logos mb20">
+        <div class="form__logos mb20" v-if="checkLogo()">
           <h3 class="mb-1">選擇 Logo 樣式</h3>
           <div class="row mt-2">
             <div class="col-md-3">
@@ -317,7 +368,11 @@
               ;
             `">
           </div>
-          <p v-html="value.content.value"></p>
+          <div class="content__block">
+            <img src="@/assets/images/quote@3x.png" alt="">
+            <p v-html="value.content.value"></p>
+            <img src="@/assets/images/quote@3x.png" alt="">
+          </div>
           <div class="swipe__cta" v-html="value.cta.value"></div>
         </div>
         <div class="text-center mt40">
@@ -345,6 +400,10 @@ import domtoimage from 'dom-to-image-more-v2';
 export default {
   data() {
     return {
+      output: {
+        width: 1080,
+        height: 1080,
+      },
       social: {
         select: 'instagram',
         items: [
@@ -535,8 +594,8 @@ export default {
       const el = document.querySelector('#preview');
       domtoimage.toPng(el, {
         quality: 1,
-        width: 1080,
-        height: 1920,
+        width: this.output.width,
+        height: this.output.height,
         style: {
           'transform': 'scale(2)',
           'transform-origin': 'top left',
@@ -579,6 +638,129 @@ export default {
         str = str.toString();
       }
       return str.replace(/(<([^>]+)>)/ig, '');
+    },
+    detectType() {
+      switch (this.type.select) {
+        case 'ig-cw-picture-story':
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202206/article-62ba6d9c751c6.jpg';
+          this.value.title.limit = 19;
+          this.value.title.value = '<p>房租隨房價飆、政府統計卻躺平</p>';
+          this.value.subtitle.limit = 19;
+          this.value.subtitle.value = '<p>溫和通膨陷阱1》<span style="color:#d60c18;">30到45歲</span>最慘</p>';
+          this.value.cta.value = '上滑\n看完整文章';
+          break;
+        case 'ig-cw-picture-post':
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202111/purchase-reauisition-619205a3e6711.jpg';
+          this.value.title.limit = 19;
+          this.value.title.value = '<p>中國<span style="color:#d60c18;">米兔</span>VS.西方<span style="color:#d60c18;">#MeToo</span> 為何命運大不同？</p>';
+          this.value.subtitle.limit = 19;
+          this.value.subtitle.value = '<p>彭帥指控中國前副總理性侵後人間蒸發</p>';
+          this.value.cta.value = '到限時動態查看';
+          break;
+        case 'ig-summary-post':
+          this.value.title.limit = 19;
+          this.value.title.value = '《懂權力，在每個角色上發光》';
+          this.value.content.limit = 19;
+          this.value.content.value = '提防那些對你很特別，同時卻對其他人表現出不尊重或幾近鄙視的人。當你無法滿足他們的需求時，他們就不再重視你，還會貶低你。';
+          this.value.logo.select = this.value.logo.white.black;
+          break;
+        case 'ig-cw-picture-post':
+        
+          break;
+        case 'ig-cw-picture-post':
+        
+          break;
+        case 'ig-cw-picture-post':
+        
+          break;
+        case 'ig-cw-picture-post':
+        
+          break;
+        case 'ig-cw-picture-post':
+        
+          break;
+        default:
+          break;
+      }
+      console.log('Change');
+    },
+    checkEditor() {
+      switch (this.type.select) {
+        case 'ig-summary-post':
+        case 'ig-summary-story':
+          return false;
+          break;
+        default:
+          return true;
+          break;
+      }
+    },
+    checkImg() {
+      switch (this.type.select) {
+        case 'ig-summary-post':
+        case 'ig-summary-story':
+        case 'ig-faq-word-story':
+          return false;
+          break;
+        default:
+          return true;
+          break;
+      }
+    },
+    checkTitle() {
+      switch (this.type.select) {
+        case 'ig-faq-word-story':
+          return false;
+          break;
+        default:
+          return true;
+          break;
+      }
+    },
+    checkSubtitle() {
+      switch (this.type.select) {
+        case 'ig-summary-post':
+        case 'ig-summary-story':
+          return false;
+          break;
+        default:
+          return true;
+          break;
+      }
+    },
+    checkContent() {
+      switch (this.type.select) {
+        case 'ig-cw-picture-post':
+          return false
+          break;
+        default:
+          return true;
+          break;
+      }
+    },
+    checkCta() {
+      switch (this.type.select) {
+        case 'ig-summary-post':
+        case 'ig-summary-story':
+        return false
+          break;
+        default:
+          return true;
+          break;
+      }
+    },
+    checkLogo() {
+      switch (this.type.select) {
+        case 'ig-cw-picture-post':
+        case 'ig-cw-picture-story':
+        case 'ig-summary-post':
+        case 'ig-summary-story':
+          return false;
+          break;
+        default:
+          return true;
+          break;
+      }
     },
   },
   watch: {

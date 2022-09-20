@@ -1,15 +1,16 @@
-.ig-cw-picture-story {
+.ig-cw-picture-post {
   width: 540px;
-  height: 960px;
-  padding-top: 40px;
+  height: 540px;
+  padding-top: 20px;
   line-height: 1.5;
   background-color: $gray-100;
 
   img.logo {
     position: absolute;
-    top: 17px;
-    right: 28px;
-    width: 84px;
+    bottom: 11px;
+    right: 41px;
+    width: 46px;
+    z-index: 1;
   }
   .label {
     padding-bottom: 5px;
@@ -19,7 +20,7 @@
   }
   .title {
     width: 447px;
-    margin-bottom: 28px;
+    margin-bottom: 25px;
     padding-top: 17.5px;
     padding-bottom: 17.5px;
     margin-left: auto;
@@ -50,27 +51,27 @@
       font-size: 20px;
     }
   }
-  .content__block {
-    > img {
-      display: none;
-    }
-    > p {
-      margin-top: 14px;
-      margin-bottom: 28px;
-      font-size: 20px;
-      font-weight: 300;
-      line-height: 1.2;
-      text-align: center;
-      white-space: break-spaces;
-    }
-  }
   > .imgarea {
-    position: relative;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
     overflow: hidden;
     &::before {
       content: '';
       display: block;
-      padding-top: calc(766 / 1080 * 100%);
+      padding-top: calc(760 / 1080 * 100%);
+    }
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 84px;
+      background: rgb(246,246,246);
+      background: linear-gradient(180deg, rgba(246,246,246,0) 0%, rgba(246,246,246,1) 100%);
     }
     img {
       position: absolute;
@@ -88,29 +89,31 @@
   }
   > .swipe__cta {
     position: absolute;
-    left: 50%;
-    bottom: 0;
-    width: 7em;
-    height: 3.5em;
-    padding: .5em;
-    font-size: 18px;
-    color: $primary;
-    line-height: 1.2;
+    left: 0;
+    bottom: 11px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding-left: .05em;
+    font-size: 12px;
+    color: $black;
+    letter-spacing: .05em;
     text-align: center;
-    white-space: break-spaces;
-    transform: translateX(-50%);
-    overflow: hidden;
+
     &::before {
       content: '';
-      display: block;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      padding-top: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      font-size: 24px;
       background-color: $white;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='48' width='48'%3E%3Cpath d='m14.3 30.1-1.6-1.65L24 17.15 35.3 28.4l-1.6 1.65-9.7-9.7Z'/%3E%3C/svg%3E");
+      background-size: 100%;
       border-radius: 50%;
-      z-index: -1;
+      transform: scale(.5);
     }
   }
 }
