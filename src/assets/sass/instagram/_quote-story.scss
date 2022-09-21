@@ -1,0 +1,78 @@
+.ig-quote-story {
+  display: flex;
+  flex-direction: column;
+  width: 540px;
+  height: 960px;
+  padding-top: 125px;
+  background-color: $gray-200;
+
+  img.logo {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    width: 90px;
+    z-index: 1;
+  }
+
+  .title {
+    position: relative;
+    padding: 24px 59px 4px 59px;
+    > img {
+      position: absolute;
+      width: 55px;
+      height: 45px;
+      object-fit: contain;
+      &:first-child {
+        bottom: 100%;
+        left: 28px;
+      }
+      &:last-child {
+        top : 100%;
+        right: 30px;
+        transform: rotate(180deg);
+      }
+    }
+    > h1 {
+      margin: 25px 0 0;
+      padding: 0 4px;
+      font-size: 18px;
+      font-weight: 300;
+      letter-spacing: 0.0475em;
+    }
+    > p {
+      color: #46535c;
+      font-size: 24px;
+      line-height: 1.2;
+      letter-spacing: .02em;
+    }
+  }
+
+  > .imgarea {
+    position: absolute;
+    top: 460px;
+    width: 100%;
+    overflow: hidden;
+    &::before {
+      content: '';
+      display: block;
+      padding-top: calc(766 / 1080 * 100%);
+    }
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+    }
+    &.object-cover {
+      img {
+        height: 100%;
+        object-fit: cover;
+        transform: none !important;
+      }
+    }
+  }
+
+  .label, > .swipe__cta {
+    display: none;
+  }
+}

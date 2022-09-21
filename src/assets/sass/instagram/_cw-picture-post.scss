@@ -1,9 +1,9 @@
 .ig-cw-picture-post {
   width: 540px;
   height: 540px;
-  padding-top: 20px;
+  padding-top: 17px;
   line-height: 1.5;
-  background-color: $gray-100;
+  background-color: $gray-200;
 
   img.logo {
     position: absolute;
@@ -13,16 +13,16 @@
     z-index: 1;
   }
   .label {
-    padding-bottom: 5px;
+    padding-bottom: 3px;
     color: $primary;
     font-size: 18px;
     text-align: center;
   }
   .title {
     width: 447px;
-    margin-bottom: 25px;
-    padding-top: 17.5px;
-    padding-bottom: 17.5px;
+    margin-bottom: 21px;
+    padding-top: 19.5px;
+    padding-bottom: 15.5px;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
@@ -47,7 +47,7 @@
       font-size: 24px;
     }
     > h2 {
-      margin-bottom: 10px;
+      margin-bottom: 11px;
       font-size: 20px;
     }
   }
@@ -87,10 +87,13 @@
       }
     }
   }
+  .content__block {
+    display: none;
+  }
   > .swipe__cta {
     position: absolute;
     left: 0;
-    bottom: 11px;
+    bottom: 9px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -108,6 +111,7 @@
       justify-content: center;
       width: 28px;
       height: 28px;
+      margin-bottom: -1px;
       font-size: 24px;
       background-color: $white;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='48' width='48'%3E%3Cpath d='m14.3 30.1-1.6-1.65L24 17.15 35.3 28.4l-1.6 1.65-9.7-9.7Z'/%3E%3C/svg%3E");

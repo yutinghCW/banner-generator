@@ -1,17 +1,17 @@
-.ig-summary-post {
+.ig-summary-story {
   display: flex;
   flex-direction: column;
   width: 540px;
-  height: 540px;
-  padding-top: 86px;
-  padding-bottom: 40px;
+  height: 960px;
+  padding-top: 148px;
+  padding-bottom: 137px;
   background-color: $gray-100;
 
   img.logo {
     position: absolute;
-    bottom: 13px;
-    right: 29px;
-    width: 51px;
+    top: 24px;
+    right: 28px;
+    width: 90px;
     z-index: 1;
   }
 
@@ -36,7 +36,7 @@
   .content__block {
     position: relative;
     margin: 45px 0;
-    padding: 52px 59px 9px 59px;
+    padding: 65px 59px 24px 59px;
     > img {
       position: absolute;
       width: 55px;

@@ -1,11 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500&display=swap');
 @import "./bootstrap";
 
-$gray-100: #EFEFEF;
+$gray-100: #F6F6F6;
+$gray-200: #EFEFEF;
 $primary:  #D60C18;
 
 @import "./form";
 @import "./preview";
+
 @import "./instagram/cw-picture-post";
 @import "./instagram/cw-picture-story";
+
 @import "./instagram/summary-post";
+@import "./instagram/summary-story";
+
+@import "./instagram/quote-post";
+@import "./instagram/quote-story";
+
+@import "./instagram/faq-word-story";
+@import "./instagram/faq-picture-story";

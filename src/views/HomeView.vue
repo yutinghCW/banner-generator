@@ -243,7 +243,7 @@
               }"
             >
               <template v-if="!(countLines(value.content.value) > value.content.limit)">
-                建議行數{{ value.cta.limit }}行
+                建議行數{{ value.content.limit }}行
               </template>
               <template v-if="countLines(value.content.value) > value.content.limit">
                 已超過建議行數，請透過預覽查看是否有跑版
@@ -341,10 +341,48 @@
         </div>
       </div>
       <div class="col-md-6 d-flex flex-column align-items-center">
-        <div class="preview__section" :class="type.select" id="preview">
+        <div
+          class="preview__section"
+          :class="type.select"
+          id="preview"
+          v-if="type.select === 'ig-quote-post' || type.select === 'ig-quote-story'"
+        >
+          <img :src="value.logo.select" alt="天下雜誌" class="logo">
+          <div class="title">
+            <img src="@/assets/images/quote@3x.png" alt="">
+            <p v-html="value.content.value"></p>
+            <h1 v-html="value.title.value"></h1>
+            <img src="@/assets/images/quote@3x.png" alt="">
+          </div>
+          <div
+            class="imgarea bg-gray-200"
+            :class="{
+              'object-cover': !editable.switch,
+              'object-customized': editable.switch
+            }"
+          >
+            <img
+            :src="value.img"
+            :alt="value.title.value"
+            :style="`
+              transform:
+                scale(${1+(editable.scale/100)})
+                translateX(${editable.horizontal}px)
+                translateY(${editable.vertical}px)
+              ;
+            `">
+          </div>
+          <div class="swipe__cta" v-html="value.cta.value"></div>
+        </div>
+        <div
+          class="preview__section"
+          :class="type.select"
+          id="preview"
+          v-else
+        >
           <img :src="value.logo.select" alt="天下雜誌" class="logo">
           <div class="label">
-            天下圖擊
+            {{ value.label.value }}
           </div>
           <div class="title">
             <h2 v-html="value.subtitle.value"></h2>
@@ -402,7 +440,7 @@ export default {
     return {
       output: {
         width: 1080,
-        height: 1080,
+        height: 1920,
       },
       social: {
         select: 'instagram',
@@ -526,7 +564,7 @@ export default {
         },
         label: {
           limit: 10,
-          value: '',
+          value: '天下圖擊',
         },
         logo: {
           select: 'images/cw-logo-white-primary.svg',
@@ -647,7 +685,12 @@ export default {
           this.value.title.value = '<p>房租隨房價飆、政府統計卻躺平</p>';
           this.value.subtitle.limit = 19;
           this.value.subtitle.value = '<p>溫和通膨陷阱1》<span style="color:#d60c18;">30到45歲</span>最慘</p>';
+          this.value.content.value = '疫情與戰爭，讓全球通膨怪獸已經失控，\n台灣雖號稱處於溫和通膨，\n但這其實是個假象，\n將造成台灣貧富差距擴大、\n窮人更難翻身。\n\n房租漲幅失真、政府不再撒幣，\n通膨實況到底如何';
           this.value.cta.value = '上滑\n看完整文章';
+          this.value.label.value = '天下圖擊';
+          this.value.logo.select = this.value.logo.white.primary;
+          this.output.width = 1080;
+          this.output.height = 1920;
           break;
         case 'ig-cw-picture-post':
           this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202111/purchase-reauisition-619205a3e6711.jpg';
@@ -656,28 +699,66 @@ export default {
           this.value.subtitle.limit = 19;
           this.value.subtitle.value = '<p>彭帥指控中國前副總理性侵後人間蒸發</p>';
           this.value.cta.value = '到限時動態查看';
+          this.value.label.value = '天下圖擊';
+          this.value.logo.select = this.value.logo.white.primary;
+          this.output.width = 1080;
+          this.output.height = 1080;
           break;
         case 'ig-summary-post':
-          this.value.title.limit = 19;
+          this.value.title.limit = 25;
           this.value.title.value = '《懂權力，在每個角色上發光》';
           this.value.content.limit = 19;
           this.value.content.value = '提防那些對你很特別，同時卻對其他人表現出不尊重或幾近鄙視的人。當你無法滿足他們的需求時，他們就不再重視你，還會貶低你。';
           this.value.logo.select = this.value.logo.white.black;
+          this.output.width = 1080;
+          this.output.height = 1080;
           break;
-        case 'ig-cw-picture-post':
-        
+        case 'ig-summary-story':
+          this.value.title.limit = 25;
+          this.value.title.value = '《懂權力，在每個角色上發光》';
+          this.value.content.limit = 13;
+          this.value.content.value = '做得多、會的多，並不值得驕傲，有自己最具競爭力的特長和優勢，才值得大聲說話。';
+          this.output.width = 1080;
+          this.output.height = 1920;
           break;
-        case 'ig-cw-picture-post':
-        
+        case 'ig-quote-story':
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202112/article-61cd3acbb7c9a.jpg';
+          this.value.title.limit = 25;
+          this.value.title.value = '–AIA國際設計獎得主/建築師 張淑征';
+          this.value.content.limit = 13;
+          this.value.content.value = '我希望每天都學一樣新的東西，很廢的也沒關係，要永遠保持好奇心。';
+          this.value.logo.select = this.value.logo.white.primary;
+          this.output.width = 1080;
+          this.output.height = 1920;
           break;
-        case 'ig-cw-picture-post':
-        
+        case 'ig-quote-post':
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202111/purchase-reauisition-617f92e81195c.jpg';
+          this.value.logo.select = this.value.logo.white.primary;
+          this.value.title.limit = 26;
+          this.value.title.value = '—台泥董事長 張安平';
+          this.value.content.limit = 36;
+          this.value.content.value = '「有道德的生意，才會是好生意。」';
+          this.output.width = 1080;
+          this.output.height = 1080;
           break;
-        case 'ig-cw-picture-post':
-        
+        case 'ig-faq-word-story':
+          this.value.title.limit = 19;
+          this.value.title.value = '<p><span style="color:#d60c18;">軍事支出</span>佔GDP比重，比台灣還要高？</p>';
+          this.value.subtitle.limit = 19;
+          this.value.subtitle.value = '<p>下列哪一個國家</p>';
+          this.value.content.value = '小編七點半準時公佈解答喔！';
+          this.value.label.value = '猜一猜';
+          this.output.width = 1080;
+          this.output.height = 1920;
           break;
-        case 'ig-cw-picture-post':
-        
+        case 'ig-faq-picture-story':
+          this.value.img = 'http://m.niusnews.com/upload/posts/posts_image3_105708_1618825479.jpg';
+          this.value.title.value = '哥吉拉公仔別亂送！\n日本影史最經典怪獸知多少？';
+          this.value.content.value = 'Ｑ１：哥吉拉的名稱是哪兩種動物組合而成？';
+          this.value.label.value = '猜一猜';
+          this.value.logo.select = this.value.logo.white.primary;
+          this.output.width = 1080;
+          this.output.height = 1920;
           break;
         default:
           break;
@@ -688,6 +769,9 @@ export default {
       switch (this.type.select) {
         case 'ig-summary-post':
         case 'ig-summary-story':
+        case 'ig-quote-post':
+        case 'ig-quote-story':
+        case 'ig-faq-picture-story':
           return false;
           break;
         default:
@@ -709,7 +793,7 @@ export default {
     },
     checkTitle() {
       switch (this.type.select) {
-        case 'ig-faq-word-story':
+        case '':
           return false;
           break;
         default:
@@ -721,6 +805,9 @@ export default {
       switch (this.type.select) {
         case 'ig-summary-post':
         case 'ig-summary-story':
+        case 'ig-quote-post':
+        case 'ig-quote-story':
+        case 'ig-faq-picture-story':
           return false;
           break;
         default:
@@ -741,7 +828,9 @@ export default {
     checkCta() {
       switch (this.type.select) {
         case 'ig-summary-post':
-        case 'ig-summary-story':
+        case 'ig-quote-post':
+        case 'ig-faq-word-story':
+        case 'ig-faq-picture-story':
         return false
           break;
         default:
@@ -755,6 +844,8 @@ export default {
         case 'ig-cw-picture-story':
         case 'ig-summary-post':
         case 'ig-summary-story':
+        case 'ig-quote-story':
+        case 'ig-faq-word-story':
           return false;
           break;
         default:
@@ -825,6 +916,7 @@ export default {
               },
             },
           ];
+          this.type.select = 'popular-articles';
           break;
         case 'instagram':
           this.types = [
@@ -893,6 +985,7 @@ export default {
               },
             },
           ];
+          this.type.select = 'ig-cw-picture-post';
           break;
         case 'edm':
           this.types = [
@@ -905,6 +998,7 @@ export default {
               },
             },
           ];
+          this.type.select = 'economist-podcast';
           break;
         case 'youtube':
           this.types = [
@@ -957,6 +1051,7 @@ export default {
               },
             },
           ];
+          this.type.select = 'enterprise';
           break;
         case 'webpush':
           this.types = [
@@ -977,6 +1072,7 @@ export default {
               },
             },
           ];
+          this.type.select = 'webaccess';
           break;
         default:
           this.types = [];
@@ -1003,5 +1099,8 @@ body main p {
     top: 3rem;
     z-index: 1;
   }
+}
+.ig-faq-picture-story {
+  // background: top center/contain url('@/assets/images/test@2x.png');
 }
 </style>
