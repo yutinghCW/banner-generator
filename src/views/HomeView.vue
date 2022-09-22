@@ -473,6 +473,10 @@ export default {
             value: 'cwvido',
             display: '天下影音',
           },
+          {
+            value: 'cw',
+            display: '天下官網',
+          },
         ],
       },
       type: {
@@ -760,6 +764,42 @@ export default {
           this.output.width = 1080;
           this.output.height = 1920;
           break;
+        case 'line-popular-articles':
+          break;
+        case 'line-podcast-cw':
+          break;
+        case 'line-podcast-channel':
+          break;
+        case 'line-english':
+          break;
+        case 'line-podcast-list':
+          break;
+        case 'line-weekly-popular':
+          break;
+        case 'line-specific-recommendation':
+          break;
+        case 'youtube-enterprise':
+          break;
+        case 'youtube-investigation':
+          break;
+        case 'youtube-interview':
+          break;
+        case 'youtube-podcast':
+          break;
+        case 'youtube-sustainable':
+          break;
+        case 'youtube-forum':
+          break;
+        case 'webpush-webaccess':
+          break;
+        case 'webpush-covid19':
+          break;
+        case 'cwvido-slider':
+          break;
+        case 'cwvido-list':
+          break;
+        case 'cw-logo':
+          break;
         default:
           break;
       }
@@ -846,6 +886,7 @@ export default {
         case 'ig-summary-story':
         case 'ig-quote-story':
         case 'ig-faq-word-story':
+        case 'ig-faq-picture-story':
           return false;
           break;
         default:
@@ -860,129 +901,69 @@ export default {
         case 'line':
           this.types = [
             {
-              value: 'popular-articles',
+              value: 'line-popular-articles',
               display: '熱文',
-              size: {
-                w: 1024,
-                h: 1024,
-              },
             },
             {
-              value: 'podcast-cw',
+              value: 'line-podcast-cw',
               display: '聽天下',
-              size: {
-                w: 1024,
-                h: 1024,
-              },
             },
             {
-              value: 'podcast-channel',
+              value: 'line-podcast-channel',
               display: '闖天下',
-              size: {
-                w: 1024,
-                h: 1024,
-              },
             },
             {
-              value: 'english',
+              value: 'line-english',
               display: '英網',
-              size: {
-                w: 1024,
-                h: 1024,
-              },
             },
             {
-              value: 'podcast-list',
+              value: 'line-podcast-list',
               display: '聽天下選單',
-              size: {
-                w: 1024,
-                h: 1024,
-              },
             },
             {
-              value: 'weekly-popular',
+              value: 'line-weekly-popular',
               display: '本週最熱文章',
-              size: {
-                w: 1024,
-                h: 1024,
-              },
             },
             {
-              value: 'specific-recommendation',
+              value: 'line-specific-recommendation',
               display: '專屬文章推薦',
-              size: {
-                w: 1024,
-                h: 1024,
-              },
             },
           ];
-          this.type.select = 'popular-articles';
+          this.type.select = 'line-popular-articles';
           break;
         case 'instagram':
           this.types = [
             {
               value: 'ig-cw-picture-post',
               display: '天下圖擊圖卡',
-              size: {
-                w: 1080,
-                h: 1080,
-              },
             },
             {
               value: 'ig-cw-picture-story',
               display: '天下圖擊限動',
-              size: {
-                w: 1080,
-                h: 1920,
-              },
             },
             {
               value: 'ig-summary-post',
               display: '書摘圖卡（金句類）',
-              size: {
-                w: 1080,
-                h: 1080,
-              },
             },
             {
               value: 'ig-summary-story',
               display: '書摘限時動態',
-              size: {
-                w: 1080,
-                h: 1920,
-              },
             },
             {
               value: 'ig-quote-post',
               display: '金句圖卡',
-              size: {
-                w: 1080,
-                h: 1080,
-              },
             },
             {
               value: 'ig-quote-story',
               display: '金句限動',
-              size: {
-                w: 1080,
-                h: 1920,
-              },
             },
             {
               value: 'ig-faq-word-story',
               display: '問答限動（文字版）',
-              size: {
-                w: 1080,
-                h: 1920,
-              },
             },
             {
               value: 'ig-faq-picture-story',
               display: '問答限動（有圖版）',
-              size: {
-                w: 1080,
-                h: 1920,
-              },
             },
           ];
           this.type.select = 'ig-cw-picture-post';
@@ -990,89 +971,75 @@ export default {
         case 'edm':
           this.types = [
             {
-              value: 'economist-podcast',
+              value: 'edm-economist-podcast',
               display: '經濟學人聽天下首圖',
-              size: {
-                w: 1600,
-                h: 1072,
-              },
             },
           ];
-          this.type.select = 'economist-podcast';
+          this.type.select = 'edm-economist-podcast';
           break;
         case 'youtube':
           this.types = [
             {
-              value: 'enterprise',
+              value: 'youtube-enterprise',
               display: '企業類型',
-              size: {
-                w: 1920,
-                h: 1080,
-              },
             },
             {
-              value: 'investigation',
+              value: 'youtube-investigation',
               display: '調查報導',
-              size: {
-                w: 1920,
-                h: 1080,
-              },
             },
             {
-              value: 'interview',
+              value: 'youtube-interview',
               display: '人物專訪',
-              size: {
-                w: 1920,
-                h: 1080,
-              },
             },
             {
-              value: 'podcast',
+              value: 'youtube-podcast',
               display: 'Podcast',
-              size: {
-                w: 1920,
-                h: 1080,
-              },
             },
             {
-              value: 'sustainable',
+              value: 'youtube-sustainable',
               display: '永續報導',
-              size: {
-                w: 1920,
-                h: 1080,
-              },
             },
             {
-              value: 'forum',
+              value: 'youtube-forum',
               display: '論壇精華',
-              size: {
-                w: 1920,
-                h: 1080,
-              },
             },
           ];
-          this.type.select = 'enterprise';
+          this.type.select = 'youtube-enterprise';
           break;
         case 'webpush':
           this.types = [
             {
-              value: 'webaccess',
+              value: 'webpush-webaccess',
               display: '訂戶專屬',
-              size: {
-                w: 1024,
-                h: 512,
-              },
             },
             {
-              value: 'covid19',
+              value: 'webpush-covid19',
               display: '疫情更新',
-              size: {
-                w: 1024,
-                h: 512,
-              },
             },
           ];
-          this.type.select = 'webaccess';
+          this.type.select = 'webpush-webaccess';
+          break;
+        case 'cwvido':
+          this.types = [
+            {
+              value: 'cwvido-slider',
+              display: 'Slider',
+            },
+            {
+              value: 'cwvido-list',
+              display: '列表圖',
+            },
+          ];
+          this.type.select = 'cwvido-slider';
+          break;
+        case 'cw':
+          this.types = [
+            {
+              value: 'cw-logo',
+              display: '主圖壓 Logo',
+            },
+          ];
+          this.type.select = 'cw-logo';
           break;
         default:
           this.types = [];
