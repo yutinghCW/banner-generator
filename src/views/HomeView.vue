@@ -1067,7 +1067,7 @@ body main p {
     z-index: 1;
   }
 }
-.ig-faq-picture-story {
-  // background: top center/contain url('@/assets/images/test@2x.png');
+.edm-economist-podcast {
+  background: top center/contain url('@/assets/images/test@2x.png');
 }
 </style>
