@@ -339,42 +339,65 @@
             </div>
           </div>
         </div>
+        <div
+          class="mb20"
+          v-if="type.select !== 'youtube-enterprise' || type.select !== 'youtube-investigation'"
+        >
+          <h3 class="mb-0">用途</h3>
+          <label class="d-block">
+            <span class="label--check">
+              <input type="checkbox" v-model="value.logo.disabled" name="廣編影音">
+              <span class="label__check__mark"></span>
+              <span class="label__check__txt">廣編影音（LAB）</span>
+            </span>
+          </label>
+        </div>
       </div>
       <div class="col-md-6 d-flex flex-column align-items-center">
-        <div
-          class="preview__section"
+        <IgPicture
           :class="type.select"
+          :value="value"
+          :editable="editable"
+          id="preview"
+          v-if="type.select === 'ig-cw-picture-post' || type.select === 'ig-cw-picture-story'"
+        />
+        <IgQuote
+          :class="type.select"
+          :value="value"
+          :editable="editable"
           id="preview"
           v-if="type.select === 'ig-quote-post' || type.select === 'ig-quote-story'"
-        >
-          <img :src="value.logo.select" alt="天下雜誌" class="logo">
-          <div class="title">
-            <img src="@/assets/images/quote@3x.png" alt="">
-            <p v-html="value.content.value"></p>
-            <h1 v-html="value.title.value"></h1>
-            <img src="@/assets/images/quote@3x.png" alt="">
-          </div>
-          <div
-            class="imgarea bg-gray-200"
-            :class="{
-              'object-cover': !editable.switch,
-              'object-customized': editable.switch
-            }"
-          >
-            <img
-            :src="value.img"
-            :alt="value.title.value"
-            :style="`
-              transform:
-                scale(${1+(editable.scale/100)})
-                translateX(${editable.horizontal}px)
-                translateY(${editable.vertical}px)
-              ;
-            `">
-          </div>
-          <div class="swipe__cta" v-html="value.cta.value"></div>
-        </div>
-        <div
+        />
+        <IgSummary
+          :class="type.select"
+          :value="value"
+          :editable="editable"
+          id="preview"
+          v-if="type.select === 'ig-summary-post' || type.select === 'ig-summary-story'"
+        />
+        <IgFaq
+          :class="type.select"
+          :value="value"
+          :editable="editable"
+          id="preview"
+          v-if="type.select === 'ig-faq-word-story' || type.select === 'ig-faq-picture-story'"
+        />
+        <EdmPodcast
+          :class="type.select"
+          :value="value"
+          :editable="editable"
+          id="preview"
+          v-if="type.select === 'edm-economist-podcast'"
+        />
+        <YoutubeComponent
+          :class="type.select"
+          :value="value"
+          :type="type"
+          :editable="editable"
+          id="preview"
+          v-if="type.select.indexOf( 'youtube-') > -1"
+        />
+        <!-- <div
           class="preview__section"
           :class="type.select"
           id="preview"
@@ -407,12 +430,10 @@
             `">
           </div>
           <div class="content__block">
-            <img src="@/assets/images/quote@3x.png" alt="">
             <p v-html="value.content.value"></p>
-            <img src="@/assets/images/quote@3x.png" alt="">
           </div>
           <div class="swipe__cta" v-html="value.cta.value"></div>
-        </div>
+        </div> -->
         <div class="text-center mt40">
           <button
             type="button"
@@ -435,12 +456,21 @@ import Font from '@ckeditor/ckeditor5-font/src/font';
 
 import domtoimage from 'dom-to-image-more-v2';
 
+import IgPicture from '@/components/IgPicture.vue';
+import IgQuote from '@/components/IgQuote.vue';
+import IgSummary from '@/components/IgSummary.vue';
+import IgFaq from '@/components/IgFaq.vue';
+
+import EdmPodcast from '@/components/EdmPodcast.vue';
+import YoutubeComponent from '@/components/YoutubeComponent.vue';
+
 export default {
   data() {
     return {
       output: {
         width: 1080,
         height: 1920,
+        ratio: 2,
       },
       social: {
         select: 'instagram',
@@ -572,6 +602,7 @@ export default {
         },
         logo: {
           select: 'images/cw-logo-white-primary.svg',
+          disabled: false,
           white: {
             primary: 'images/cw-logo-white-primary.svg',
             black: 'images/cw-logo-white-black.svg',
@@ -579,6 +610,17 @@ export default {
           transparent: {
             primary: 'images/cw-logo-primary-transparent.svg',
             black: 'images/cw-logo-black-transparent.svg',
+          },
+          video: 'images/cw-video.png',
+          podcast: {
+            square: {
+              cw: 'images/podcast-cw.jpg',
+              channel: 'images/podcast-channel.jpg',
+            },
+            horizontal: {
+              cw: 'images/podcast-cw-horizontal.jpg',
+              channel: 'images/podcast-channel-horizontal.jpg',
+            },
           },
         },
       },
@@ -630,6 +672,14 @@ export default {
       },
     };
   },
+  components: {
+    IgPicture,
+    IgQuote,
+    IgSummary,
+    IgFaq,
+    EdmPodcast,
+    YoutubeComponent,
+  },
   methods: {
     /* eslint-disable */
     screenshot() {
@@ -639,7 +689,7 @@ export default {
         width: this.output.width,
         height: this.output.height,
         style: {
-          'transform': 'scale(2)',
+          'transform': `scale(${this.output.ratio})`,
           'transform-origin': 'top left',
         },
       })
@@ -695,6 +745,7 @@ export default {
           this.value.logo.select = this.value.logo.white.primary;
           this.output.width = 1080;
           this.output.height = 1920;
+          this.output.ratio = 2;
           break;
         case 'ig-cw-picture-post':
           this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202111/purchase-reauisition-619205a3e6711.jpg';
@@ -707,6 +758,7 @@ export default {
           this.value.logo.select = this.value.logo.white.primary;
           this.output.width = 1080;
           this.output.height = 1080;
+          this.output.ratio = 2;
           break;
         case 'ig-summary-post':
           this.value.title.limit = 25;
@@ -716,6 +768,7 @@ export default {
           this.value.logo.select = this.value.logo.white.black;
           this.output.width = 1080;
           this.output.height = 1080;
+          this.output.ratio = 2;
           break;
         case 'ig-summary-story':
           this.value.title.limit = 25;
@@ -724,6 +777,7 @@ export default {
           this.value.content.value = '做得多、會的多，並不值得驕傲，有自己最具競爭力的特長和優勢，才值得大聲說話。';
           this.output.width = 1080;
           this.output.height = 1920;
+          this.output.ratio = 2;
           break;
         case 'ig-quote-story':
           this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202112/article-61cd3acbb7c9a.jpg';
@@ -734,6 +788,7 @@ export default {
           this.value.logo.select = this.value.logo.white.primary;
           this.output.width = 1080;
           this.output.height = 1920;
+          this.output.ratio = 2;
           break;
         case 'ig-quote-post':
           this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202111/purchase-reauisition-617f92e81195c.jpg';
@@ -744,6 +799,7 @@ export default {
           this.value.content.value = '「有道德的生意，才會是好生意。」';
           this.output.width = 1080;
           this.output.height = 1080;
+          this.output.ratio = 2;
           break;
         case 'ig-faq-word-story':
           this.value.title.limit = 19;
@@ -754,6 +810,7 @@ export default {
           this.value.label.value = '猜一猜';
           this.output.width = 1080;
           this.output.height = 1920;
+          this.output.ratio = 2;
           break;
         case 'ig-faq-picture-story':
           this.value.img = 'http://m.niusnews.com/upload/posts/posts_image3_105708_1618825479.jpg';
@@ -763,6 +820,7 @@ export default {
           this.value.logo.select = this.value.logo.white.primary;
           this.output.width = 1080;
           this.output.height = 1920;
+          this.output.ratio = 2;
           break;
         case 'line-popular-articles':
           break;
@@ -778,7 +836,24 @@ export default {
           break;
         case 'line-specific-recommendation':
           break;
+        case 'edm-economist-podcast':
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202201/article-61d2f309ba56c.jpg';
+          this.value.logo.select = this.value.logo.podcast.square.cw;
+          this.value.label.value = '聽天下｜經濟學人';
+          this.value.title.value = '兩極分化下的美國政局；\n全球資本從氾濫到稀缺？';
+          this.value.cta.value = '點擊收聽';
+          this.output.width = 1600;
+          this.output.height = 1072;
+          this.output.ratio = 2.6666666667;
+          break;
         case 'youtube-enterprise':
+          this.value.logo.select = this.value.logo.video;
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202112/article-61b8060a2a536.jpg';
+          this.value.title.value = '<p>有望成為Omicron剋星？<br><strong>翁啟惠首創廣效疫苗</strong></p';
+          this.value.title.limit = 20;
+          this.output.width = 1920;
+          this.output.height = 1080;
+          this.output.ratio = 3;
           break;
         case 'youtube-investigation':
           break;
@@ -812,6 +887,7 @@ export default {
         case 'ig-quote-post':
         case 'ig-quote-story':
         case 'ig-faq-picture-story':
+        case 'edm-economist-podcast':
           return false;
           break;
         default:
@@ -848,6 +924,8 @@ export default {
         case 'ig-quote-post':
         case 'ig-quote-story':
         case 'ig-faq-picture-story':
+        case 'edm-economist-podcast':
+        case 'youtube-enterprise':
           return false;
           break;
         default:
@@ -858,6 +936,8 @@ export default {
     checkContent() {
       switch (this.type.select) {
         case 'ig-cw-picture-post':
+        case 'edm-economist-podcast':
+        case 'youtube-enterprise':
           return false
           break;
         default:
@@ -871,6 +951,7 @@ export default {
         case 'ig-quote-post':
         case 'ig-faq-word-story':
         case 'ig-faq-picture-story':
+        case 'youtube-enterprise':
         return false
           break;
         default:
@@ -887,6 +968,7 @@ export default {
         case 'ig-quote-story':
         case 'ig-faq-word-story':
         case 'ig-faq-picture-story':
+        case 'youtube-enterprise':
           return false;
           break;
         default:
@@ -1057,7 +1139,7 @@ body main p {
   margin-bottom: 0;
 }
 .ck.ck-content {
-  height: 60px;
+  height: auto;
 }
 </style>
 <style lang="scss" scoped>
@@ -1067,7 +1149,7 @@ body main p {
     z-index: 1;
   }
 }
-.edm-economist-podcast {
+.youtube-enterprise {
   background: top center/contain url('@/assets/images/test@2x.png');
 }
 </style>
