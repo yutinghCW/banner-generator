@@ -1559,6 +1559,7 @@ export default {
         case 'ig-faq-picture-story':
         case 'line-popular-articles':
         case 'line-podcast-cw':
+        case 'line-podcast-channel':
         case 'line-english':
         case 'line-weekly-popular':
         case 'line-specific-recommendation':
