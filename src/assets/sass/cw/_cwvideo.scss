@@ -1,0 +1,32 @@
+[class*='cwvideo-'] {
+  > .imgarea {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+    }
+    &.object-cover {
+      img {
+        height: 100%;
+        object-fit: cover;
+        transform: none !important;
+      }
+    }
+  }
+}
+
+.cwvideo-slider {
+  width: 611px;
+  height: 379.6px;
+}
+.cwvideo-list {
+  width: 600px;
+  height: 373px;
+}

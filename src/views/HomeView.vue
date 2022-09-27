@@ -26,94 +26,444 @@
         <h2 class="mt0">請填寫欄位</h2>
         <div class="mb20" v-if="checkImg()">
           <h3 class="mb-0">上傳檔案</h3>
-          <input
-          type="file" name="Filedata" ref="Filedata" id="file_upload"
-          accept="image/*" @change="onFileSelected"
-          />
-        </div>
-        <div class="form__editable mb20" v-if="checkImg()">
-          <label class="d-block">
-            <span class="label--check">
-              <input type="checkbox" v-model="editable.switch" name="啟動修改">
-              <span class="label__check__mark"></span>
-              <span class="label__check__txt">修改圖片縮放及位置</span>
-            </span>
-          </label>
-          <div class="bg-gray-100 mt10 p-4" v-if="editable.switch">
-            <div class="container">
-              <div class="row">
-                <div class="col-md-6 px-4">
-                  <h4 class="color-secondary-variant my0">圖片縮放</h4>
-                  <div class="row g-4 align-items-center pt-3">
-                    <div class="col-auto text-center">
-                      <button type="button" class="btn p-0">
-                        <i class="icon icon-minus"></i>
-                      </button>
+          <template v-if="type.select !== 'line-podcast-list'">
+            <input
+              type="file" name="Filedata" ref="Filedata" id="file_upload" accept="image/*"
+              @change="onFileSelected('file_upload', null, 'single')"
+            />
+            <div class="form__editable my20">
+              <label class="d-block">
+                <span class="label--check">
+                  <input type="checkbox" v-model="editable.switch" name="啟動修改">
+                  <span class="label__check__mark"></span>
+                  <span class="label__check__txt">修改圖片縮放及位置</span>
+                </span>
+              </label>
+              <div class="bg-gray-100 mt10 p-4" v-if="editable.switch">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-6 px-4">
+                      <h4 class="color-secondary-variant my0">圖片縮放</h4>
+                      <div class="row g-4 align-items-center pt-3">
+                        <div class="col-auto text-center">
+                          <button type="button" class="btn p-0">
+                            <i class="icon icon-minus"></i>
+                          </button>
+                        </div>
+                        <div class="col">
+                          <input
+                            type="range"
+                            class="form-range"
+                            v-model="editable.scale"
+                            min="-100"
+                            id="customRange1"
+                          >
+                        </div>
+                        <div class="col-auto text-center">
+                          <button type="button" class="btn p-0">
+                            <i class="icon icon-plus"></i>
+                          </button>
+                        </div>
+                      </div>
                     </div>
-                    <div class="col">
-                      <input
-                        type="range"
-                        class="form-range"
-                        v-model="editable.scale"
-                        min="-100"
-                        id="customRange1"
-                      >
-                    </div>
-                    <div class="col-auto text-center">
-                      <button type="button" class="btn p-0">
-                        <i class="icon icon-plus"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6 px-4">
-                  <h4 class="color-secondary-variant my0">圖片位移</h4>
-                  <div class="row g-4 align-items-center pt-3">
-                    <div class="col-auto text-center">
-                      <button type="button" class="btn p-0">
-                        左
-                      </button>
-                    </div>
-                    <div class="col">
-                      <input
-                        type="range"
-                        class="form-range"
-                        v-model="editable.horizontal"
-                        min="-100"
-                        id="customRange2"
-                      >
-                    </div>
-                    <div class="col-auto text-center">
-                      <button type="button" class="btn p-0">
-                        右
-                      </button>
-                    </div>
-                  </div>
-                  <div class="row g-4 align-items-center pt-3">
-                    <div class="col-auto text-center">
-                      <button type="button" class="btn p-0">
-                        上
-                      </button>
-                    </div>
-                    <div class="col">
-                      <input
-                        type="range"
-                        class="form-range"
-                        v-model="editable.vertical"
-                        min="-100"
-                        id="customRange3"
-                      >
-                    </div>
-                    <div class="col-auto text-center">
-                      <button type="button" class="btn p-0">
-                        下
-                      </button>
+                    <div class="col-md-6 px-4">
+                      <h4 class="color-secondary-variant my0">圖片位移</h4>
+                      <div class="row g-4 align-items-center pt-3">
+                        <div class="col-auto text-center">
+                          <button type="button" class="btn p-0">
+                            左
+                          </button>
+                        </div>
+                        <div class="col">
+                          <input
+                            type="range"
+                            class="form-range"
+                            v-model="editable.horizontal"
+                            min="-100"
+                            id="customRange2"
+                          >
+                        </div>
+                        <div class="col-auto text-center">
+                          <button type="button" class="btn p-0">
+                            右
+                          </button>
+                        </div>
+                      </div>
+                      <div class="row g-4 align-items-center pt-3">
+                        <div class="col-auto text-center">
+                          <button type="button" class="btn p-0">
+                            上
+                          </button>
+                        </div>
+                        <div class="col">
+                          <input
+                            type="range"
+                            class="form-range"
+                            v-model="editable.vertical"
+                            min="-100"
+                            id="customRange3"
+                          >
+                        </div>
+                        <div class="col-auto text-center">
+                          <button type="button" class="btn p-0">
+                            下
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </template>
+          <template v-if="type.select === 'line-podcast-list'">
+            <input
+              type="file" name="Filedata1" ref="Filedata1" id="file_upload1" accept="image/*"
+              @change="onFileSelected('file_upload1', 'first', 'group')"
+            />
+            <div class="form__editable my20">
+              <label class="d-block">
+                <span class="label--check">
+                  <input type="checkbox" v-model="editable.group.first.switch" name="啟動修改">
+                  <span class="label__check__mark"></span>
+                  <span class="label__check__txt">修改圖片縮放及位置</span>
+                </span>
+              </label>
+              <div class="bg-gray-100 mt10 p-4" v-if="editable.group.first.switch">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-6 px-4">
+                      <h4 class="color-secondary-variant my0">圖片縮放</h4>
+                      <div class="row g-4 align-items-center pt-3">
+                        <div class="col-auto text-center">
+                          <button type="button" class="btn p-0">
+                            <i class="icon icon-minus"></i>
+                          </button>
+                        </div>
+                        <div class="col">
+                          <input
+                            type="range"
+                            class="form-range"
+                            v-model="editable.group.first.scale"
+                            min="-100"
+                          >
+                        </div>
+                        <div class="col-auto text-center">
+                          <button type="button" class="btn p-0">
+                            <i class="icon icon-plus"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 px-4">
+                      <h4 class="color-secondary-variant my0">圖片位移</h4>
+                      <div class="row g-4 align-items-center pt-3">
+                        <div class="col-auto text-center">
+                          <button type="button" class="btn p-0">
+                            左
+                          </button>
+                        </div>
+                        <div class="col">
+                          <input
+                            type="range"
+                            class="form-range"
+                            v-model="editable.group.first.horizontal"
+                            min="-100"
+                          >
+                        </div>
+                        <div class="col-auto text-center">
+                          <button type="button" class="btn p-0">
+                            右
+                          </button>
+                        </div>
+                      </div>
+                      <div class="row g-4 align-items-center pt-3">
+                        <div class="col-auto text-center">
+                          <button type="button" class="btn p-0">
+                            上
+                          </button>
+                        </div>
+                        <div class="col">
+                          <input
+                            type="range"
+                            class="form-range"
+                            v-model="editable.group.first.vertical"
+                            min="-100"
+                          >
+                        </div>
+                        <div class="col-auto text-center">
+                          <button type="button" class="btn p-0">
+                            下
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </template>
+          <template v-if="type.select === 'line-podcast-list'">
+            <input
+              type="file" name="Filedata2" ref="Filedata2" id="file_upload2" accept="image/*"
+              @change="onFileSelected('file_upload2', 'second', 'group')"
+            />
+            <div class="form__editable my20">
+              <label class="d-block">
+                <span class="label--check">
+                  <input type="checkbox" v-model="editable.group.second.switch" name="啟動修改">
+                  <span class="label__check__mark"></span>
+                  <span class="label__check__txt">修改圖片縮放及位置</span>
+                </span>
+              </label>
+              <div class="bg-gray-100 mt10 p-4" v-if="editable.group.second.switch">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-6 px-4">
+                      <h4 class="color-secondary-variant my0">圖片縮放</h4>
+                      <div class="row g-4 align-items-center pt-3">
+                        <div class="col-auto text-center">
+                          <button type="button" class="btn p-0">
+                            <i class="icon icon-minus"></i>
+                          </button>
+                        </div>
+                        <div class="col">
+                          <input
+                            type="range"
+                            class="form-range"
+                            v-model="editable.group.second.scale"
+                            min="-100"
+                          >
+                        </div>
+                        <div class="col-auto text-center">
+                          <button type="button" class="btn p-0">
+                            <i class="icon icon-plus"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 px-4">
+                      <h4 class="color-secondary-variant my0">圖片位移</h4>
+                      <div class="row g-4 align-items-center pt-3">
+                        <div class="col-auto text-center">
+                          <button type="button" class="btn p-0">
+                            左
+                          </button>
+                        </div>
+                        <div class="col">
+                          <input
+                            type="range"
+                            class="form-range"
+                            v-model="editable.group.second.horizontal"
+                            min="-100"
+                          >
+                        </div>
+                        <div class="col-auto text-center">
+                          <button type="button" class="btn p-0">
+                            右
+                          </button>
+                        </div>
+                      </div>
+                      <div class="row g-4 align-items-center pt-3">
+                        <div class="col-auto text-center">
+                          <button type="button" class="btn p-0">
+                            上
+                          </button>
+                        </div>
+                        <div class="col">
+                          <input
+                            type="range"
+                            class="form-range"
+                            v-model="editable.group.second.vertical"
+                            min="-100"
+                          >
+                        </div>
+                        <div class="col-auto text-center">
+                          <button type="button" class="btn p-0">
+                            下
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </template>
+          <template v-if="type.select === 'line-podcast-list'">
+            <input
+              type="file" name="Filedata3" ref="Filedata3" id="file_upload3" accept="image/*"
+              @change="onFileSelected('file_upload3', 'third', 'group')"
+            />
+            <div class="form__editable my20">
+              <label class="d-block">
+                <span class="label--check">
+                  <input type="checkbox" v-model="editable.group.third.switch" name="啟動修改">
+                  <span class="label__check__mark"></span>
+                  <span class="label__check__txt">修改圖片縮放及位置</span>
+                </span>
+              </label>
+              <div class="bg-gray-100 mt10 p-4" v-if="editable.group.third.switch">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-6 px-4">
+                      <h4 class="color-secondary-variant my0">圖片縮放</h4>
+                      <div class="row g-4 align-items-center pt-3">
+                        <div class="col-auto text-center">
+                          <button type="button" class="btn p-0">
+                            <i class="icon icon-minus"></i>
+                          </button>
+                        </div>
+                        <div class="col">
+                          <input
+                            type="range"
+                            class="form-range"
+                            v-model="editable.group.third.scale"
+                            min="-100"
+                          >
+                        </div>
+                        <div class="col-auto text-center">
+                          <button type="button" class="btn p-0">
+                            <i class="icon icon-plus"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 px-4">
+                      <h4 class="color-secondary-variant my0">圖片位移</h4>
+                      <div class="row g-4 align-items-center pt-3">
+                        <div class="col-auto text-center">
+                          <button type="button" class="btn p-0">
+                            左
+                          </button>
+                        </div>
+                        <div class="col">
+                          <input
+                            type="range"
+                            class="form-range"
+                            v-model="editable.group.third.horizontal"
+                            min="-100"
+                          >
+                        </div>
+                        <div class="col-auto text-center">
+                          <button type="button" class="btn p-0">
+                            右
+                          </button>
+                        </div>
+                      </div>
+                      <div class="row g-4 align-items-center pt-3">
+                        <div class="col-auto text-center">
+                          <button type="button" class="btn p-0">
+                            上
+                          </button>
+                        </div>
+                        <div class="col">
+                          <input
+                            type="range"
+                            class="form-range"
+                            v-model="editable.group.third.vertical"
+                            min="-100"
+                          >
+                        </div>
+                        <div class="col-auto text-center">
+                          <button type="button" class="btn p-0">
+                            下
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </template>
+          <template v-if="type.select === 'line-podcast-list'">
+            <input
+              type="file" name="Filedata4" ref="Filedata4" id="file_upload4" accept="image/*"
+              @change="onFileSelected('file_upload4', 'forth', 'group')"
+            />
+            <div class="form__editable my20">
+              <label class="d-block">
+                <span class="label--check">
+                  <input type="checkbox" v-model="editable.group.forth.switch" name="啟動修改">
+                  <span class="label__check__mark"></span>
+                  <span class="label__check__txt">修改圖片縮放及位置</span>
+                </span>
+              </label>
+              <div class="bg-gray-100 mt10 p-4" v-if="editable.group.forth.switch">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-6 px-4">
+                      <h4 class="color-secondary-variant my0">圖片縮放</h4>
+                      <div class="row g-4 align-items-center pt-3">
+                        <div class="col-auto text-center">
+                          <button type="button" class="btn p-0">
+                            <i class="icon icon-minus"></i>
+                          </button>
+                        </div>
+                        <div class="col">
+                          <input
+                            type="range"
+                            class="form-range"
+                            v-model="editable.group.forth.scale"
+                            min="-100"
+                          >
+                        </div>
+                        <div class="col-auto text-center">
+                          <button type="button" class="btn p-0">
+                            <i class="icon icon-plus"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 px-4">
+                      <h4 class="color-secondary-variant my0">圖片位移</h4>
+                      <div class="row g-4 align-items-center pt-3">
+                        <div class="col-auto text-center">
+                          <button type="button" class="btn p-0">
+                            左
+                          </button>
+                        </div>
+                        <div class="col">
+                          <input
+                            type="range"
+                            class="form-range"
+                            v-model="editable.group.forth.horizontal"
+                            min="-100"
+                          >
+                        </div>
+                        <div class="col-auto text-center">
+                          <button type="button" class="btn p-0">
+                            右
+                          </button>
+                        </div>
+                      </div>
+                      <div class="row g-4 align-items-center pt-3">
+                        <div class="col-auto text-center">
+                          <button type="button" class="btn p-0">
+                            上
+                          </button>
+                        </div>
+                        <div class="col">
+                          <input
+                            type="range"
+                            class="form-range"
+                            v-model="editable.group.forth.vertical"
+                            min="-100"
+                          >
+                        </div>
+                        <div class="col-auto text-center">
+                          <button type="button" class="btn p-0">
+                            下
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </template>
         </div>
         <div
           class="form__group form__group--ckeditor w-100 mb20"
@@ -172,7 +522,7 @@
         </div>
         <div
           class="form__group form__group--ckeditor w-100 mb20"
-          v-if="checkSubtitle() && checkEditor()"
+          v-if="checkSubtitle() && checkEditor() && !checkSingleLine()"
         >
           <h3 class="mb-0">副標</h3>
           <div
@@ -201,6 +551,29 @@
               </template>
             </span>
           </div>
+        </div>
+        <div
+          class="form__group form__group--outlined w-100 mb20"
+          v-else-if="checkSubtitle() && checkSingleLine()"
+        >
+          <h3 class="mb-0">副標</h3>
+          <label class="label form__group--defalt">
+            <input type="text" v-model="value.subtitle.value" class="form__group__input d-block">
+            <span
+              class="form__group__help--strong"
+              :class="{
+                'form__group__help--highlight':
+                removeTags(value.subtitle.value).length > value.subtitle.limit
+              }"
+            >
+              <template v-if="!(removeTags(value.subtitle.value).length > value.subtitle.limit)">
+                建議字數{{ value.subtitle.limit }}字
+              </template>
+              <template v-if="removeTags(value.subtitle.value).length > value.subtitle.limit">
+                已超過建議字數，請透過預覽查看是否有跑版
+              </template>
+            </span>
+          </label>
         </div>
         <div
           class="form__group form__group--ckeditor w-100 mb20"
@@ -280,7 +653,10 @@
         </div>
         <div class="form__logos mb20" v-if="checkLogo()">
           <h3 class="mb-1">選擇 Logo 樣式</h3>
-          <div class="row mt-2">
+          <div
+            v-if="type.select !== 'line-podcast-list'"
+            class="row mt-2"
+          >
             <div class="col-md-3">
               <label class="label--radio d-flex align-items-center">
                 <input
@@ -338,11 +714,41 @@
               </label>
             </div>
           </div>
+          <div
+            v-if="type.select === 'line-podcast-list'"
+            class="row mt-2"
+          >
+            <div class="col-md-3">
+              <label class="label--radio d-flex align-items-center">
+                <input
+                  type="radio" id="logo-podcast-horizontal-cw"
+                  :value="value.logo.podcast.horizontal.cw"
+                  v-model="value.logo.select"
+                  :checked="value.logo.select === value.logo.podcast.horizontal.cw"
+                >
+                <span class="label__radio__mark"></span>
+                <span class="label__radio__txt">
+                  <img src="images/podcast-cw-horizontal.jpg" alt="">
+                </span>
+              </label>
+            </div>
+            <div class="col-md-3">
+              <label class="label--radio d-flex align-items-center">
+                <input
+                  type="radio" id="logo-podcast-horizontal-channel"
+                  :value="value.logo.podcast.horizontal.channel"
+                  v-model="value.logo.select"
+                  :checked="value.logo.select === value.logo.podcast.horizontal.channel"
+                >
+                <span class="label__radio__mark"></span>
+                <span class="label__radio__txt">
+                  <img src="images/podcast-channel-horizontal.jpg" alt="">
+                </span>
+              </label>
+            </div>
+          </div>
         </div>
-        <div
-          class="mb20"
-          v-if="type.select !== 'youtube-enterprise' || type.select !== 'youtube-investigation'"
-        >
+        <div class="mb20" v-if="checkAd()">
           <h3 class="mb-0">用途</h3>
           <label class="d-block">
             <span class="label--check">
@@ -382,6 +788,21 @@
           id="preview"
           v-if="type.select === 'ig-faq-word-story' || type.select === 'ig-faq-picture-story'"
         />
+        <LineComponent
+          :class="type.select"
+          :value="value"
+          :type="type"
+          :editable="editable"
+          id="preview"
+          v-if="type.select.indexOf('line-') > -1 && type.select !== 'line-podcast-list'"
+        />
+        <LinePodcastList
+          :class="type.select"
+          :value="value"
+          :editable="editable"
+          id="preview"
+          v-if="type.select === 'line-podcast-list'"
+        />
         <EdmPodcast
           :class="type.select"
           :value="value"
@@ -395,45 +816,24 @@
           :type="type"
           :editable="editable"
           id="preview"
-          v-if="type.select.indexOf( 'youtube-') > -1"
+          v-if="type.select.indexOf('youtube-') > -1"
         />
-        <!-- <div
-          class="preview__section"
+        <VideoComponent
           :class="type.select"
+          :value="value"
+          :type="type"
+          :editable="editable"
           id="preview"
-          v-else
-        >
-          <img :src="value.logo.select" alt="天下雜誌" class="logo">
-          <div class="label">
-            {{ value.label.value }}
-          </div>
-          <div class="title">
-            <h2 v-html="value.subtitle.value"></h2>
-            <h1 v-html="value.title.value"></h1>
-          </div>
-          <div
-            class="imgarea bg-gray-200"
-            :class="{
-              'object-cover': !editable.switch,
-              'object-customized': editable.switch
-            }"
-          >
-            <img
-            :src="value.img"
-            :alt="value.title.value"
-            :style="`
-              transform:
-                scale(${1+(editable.scale/100)})
-                translateX(${editable.horizontal}px)
-                translateY(${editable.vertical}px)
-              ;
-            `">
-          </div>
-          <div class="content__block">
-            <p v-html="value.content.value"></p>
-          </div>
-          <div class="swipe__cta" v-html="value.cta.value"></div>
-        </div> -->
+          v-if="type.select.indexOf('cwvideo-') > -1"
+        />
+        <CwComponent
+          :class="type.select"
+          :value="value"
+          :type="type"
+          :editable="editable"
+          id="preview"
+          v-if="type.select === 'cw-logo'"
+        />
         <div class="text-center mt40">
           <button
             type="button"
@@ -461,8 +861,13 @@ import IgQuote from '@/components/IgQuote.vue';
 import IgSummary from '@/components/IgSummary.vue';
 import IgFaq from '@/components/IgFaq.vue';
 
+import LineComponent from '@/components/LineComponent.vue';
+import LinePodcastList from '@/components/LinePodcastList.vue';
+
 import EdmPodcast from '@/components/EdmPodcast.vue';
 import YoutubeComponent from '@/components/YoutubeComponent.vue';
+import VideoComponent from '@/components/VideoComponent.vue';
+import CwComponent from '@/components/CwComponent.vue';
 
 export default {
   data() {
@@ -500,7 +905,7 @@ export default {
             display: 'Web Push',
           },
           {
-            value: 'cwvido',
+            value: 'cwvideo',
             display: '天下影音',
           },
           {
@@ -580,6 +985,12 @@ export default {
       ],
       value: {
         img: 'https://storage.googleapis.com/www-cw-com-tw/article/202206/article-62ba6d9c751c6.jpg',
+        group: {
+          first: '',
+          second: '',
+          third: '',
+          forth: '',
+        },
         title: {
           limit: 19,
           value: '<p>房租隨房價飆、政府統計卻躺平</p>',
@@ -629,6 +1040,32 @@ export default {
         vertical: 0,
         horizontal: 0,
         scale: 1,
+        group: {
+          first: {
+            switch: false,
+            vertical: 0,
+            horizontal: 0,
+            scale: 1,
+          },
+          second: {
+            switch: false,
+            vertical: 0,
+            horizontal: 0,
+            scale: 1,
+          },
+          third: {
+            switch: false,
+            vertical: 0,
+            horizontal: 0,
+            scale: 1,
+          },
+          forth: {
+            switch: false,
+            vertical: 0,
+            horizontal: 0,
+            scale: 1,
+          },
+        },
       },
       editor: ClassicEditor,
       editorData: '',
@@ -677,8 +1114,12 @@ export default {
     IgQuote,
     IgSummary,
     IgFaq,
+    LineComponent,
+    LinePodcastList,
     EdmPodcast,
     YoutubeComponent,
+    VideoComponent,
+    CwComponent,
   },
   methods: {
     /* eslint-disable */
@@ -708,13 +1149,17 @@ export default {
           console.error('oops, something went wrong!', error);
         });
     },
-    onFileSelected() {
-      const file = document.querySelector('#file_upload').files[0]
+    onFileSelected(id = 'file_upload', idx = null, type = 'single') {
+      const file = document.querySelector(`#${id}`).files[0];
       const reader = new FileReader();
       let rawImg;
       reader.onloadend = () => {
         rawImg = reader.result;
-        this.value.img = rawImg;
+        if ( type === 'single' ) {
+          this.value.img = rawImg;
+        } else if ( type === 'group' ) {
+          this.value.group[idx] = rawImg;
+        }
       }
       reader.readAsDataURL(file);
     },
@@ -823,18 +1268,63 @@ export default {
           this.output.ratio = 2;
           break;
         case 'line-popular-articles':
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202205/article-627cd47ec6cd4.jpg';
+          this.value.logo.select = this.value.logo.white.primary;
+          this.value.title.limit = 30;
+          this.value.title.value = '<p>景氣反轉成定局，</p><p>通膨會不會殺了全球經濟？</p>';
+          this.value.subtitle.limit = 6;
+          this.value.subtitle.value = '今日熱文';
+          this.output.width = 1040;
+          this.output.height = 1040;
+          this.output.ratio = 1.6507936508;
           break;
         case 'line-podcast-cw':
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202006/article-5ee5c6c8ed334.jpg';
+          this.value.logo.select = this.value.logo.podcast.square.cw;
+          this.value.title.value = '<p>輾轉難眠，換個方向就能入睡？為什麼中年之後總是睡不好？提升睡眠品質的訣竅！</p>';
+          this.value.subtitle.value = '聽天下｜聰明慢老';
+          this.value.cta.value = '點擊收聽';
+          this.output.width = 1040;
+          this.output.height = 1040;
+          this.output.ratio = 1.6507936508;
           break;
         case 'line-podcast-channel':
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202109/article-615421490e479.JPG';
+          this.value.logo.select = this.value.logo.podcast.square.channel;
+          this.value.title.value = '<p>網紅開團購一定有效？</p><p>不拚價格，找對KOL賣認同！</p>';
+          this.value.subtitle.value = '闖天下｜服務一點訣';
+          this.value.cta.value = '點擊收聽';
+          this.output.width = 1040;
+          this.output.height = 1040;
+          this.output.ratio = 1.6507936508;
           break;
         case 'line-english':
+          this.value.logo.select = this.value.logo.white.primary;
+          this.output.width = 1040;
+          this.output.height = 1040;
+          this.output.ratio = 1.6507936508;
           break;
         case 'line-podcast-list':
+          this.value.logo.select = this.value.logo.podcast.square.cw;
+          this.output.width = 1040;
+          this.output.height = 1040;
+          this.output.ratio = 1.6507936508;
           break;
         case 'line-weekly-popular':
+          this.value.logo.select = this.value.logo.white.primary;
+          this.value.title.limit = 26;
+          this.value.title.value = '<p>主標第一行最多只能放十五個字</p><p>第二行最多只放十一個字</p>';
+          this.value.subtitle.limit = 6;
+          this.value.subtitle.value = '本週最熱文章';
+          this.output.width = 1040;
+          this.output.height = 1040;
+          this.output.ratio = 1.6507936508;
           break;
         case 'line-specific-recommendation':
+          this.value.logo.select = this.value.logo.white.primary;
+          this.output.width = 1040;
+          this.output.height = 1040;
+          this.output.ratio = 1.6507936508;
           break;
         case 'edm-economist-podcast':
           this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202201/article-61d2f309ba56c.jpg';
@@ -849,31 +1339,81 @@ export default {
         case 'youtube-enterprise':
           this.value.logo.select = this.value.logo.video;
           this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202112/article-61b8060a2a536.jpg';
-          this.value.title.value = '<p>有望成為Omicron剋星？<br><strong>翁啟惠首創廣效疫苗</strong></p';
+          this.value.title.value = '<p>有望成為Omicron剋星？<br><strong>翁啟惠首創廣效疫苗</strong></p>';
           this.value.title.limit = 20;
           this.output.width = 1920;
           this.output.height = 1080;
           this.output.ratio = 3;
           break;
         case 'youtube-investigation':
+          this.value.logo.select = this.value.logo.video;
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/ckeditor/202112/ckeditor-61c1ac59096f2.jpg';
+          this.value.title.value = '<p>免費填土？<br><strong>老農遭詐騙，失智加重</strong></p>';
+          this.value.title.limit = 20;
+          this.output.width = 1920;
+          this.output.height = 1080;
+          this.output.ratio = 3;
           break;
         case 'youtube-interview':
+          this.value.logo.select = this.value.logo.video;
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/video/202112/video-61add88c2d23a.jpg';
+          this.value.title.value = '<p>上台前差點昏倒？<br><strong>薛仕凌：我是一個普通人</strong></p>';
+          this.value.title.limit = 20;
+          this.output.width = 1920;
+          this.output.height = 1080;
+          this.output.ratio = 3;
           break;
         case 'youtube-podcast':
+          this.value.logo.select = this.value.logo.video;
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/201904/article-5cac09448813e.JPG';
+          this.value.title.value = '<p>排華受害者走出悲憤<br><strong>成為移工支柱</strong></p>';
+          this.value.title.limit = 18;
+          this.output.width = 1920;
+          this.output.height = 1080;
+          this.output.ratio = 3;
           break;
         case 'youtube-sustainable':
+          this.value.logo.select = this.value.logo.video;
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/ckeditor/202112/ckeditor-61b80c7da710c.jpg';
+          this.value.title.value = '<p><strong>邀請每一份積極的力量</strong><br>發揮對未來的影響力</p>';
+          this.value.title.limit = 18;
+          this.output.width = 1920;
+          this.output.height = 1080;
+          this.output.ratio = 3;
           break;
         case 'youtube-forum':
+          this.value.logo.select = this.value.logo.video;
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/201911/article-5dd3dc713e8d6.jpg';
+          this.value.title.value = '<p><strong>邀請每一份積極的力量</strong><br>發揮對未來的影響力</p>';
+          this.value.title.limit = 22;
+          this.value.subtitle.value = 'SDGs國際論壇#14';
+          this.value.subtitle.limit = 20;
+          this.output.width = 1920;
+          this.output.height = 1080;
+          this.output.ratio = 3;
           break;
         case 'webpush-webaccess':
           break;
         case 'webpush-covid19':
           break;
-        case 'cwvido-slider':
+        case 'cwvideo-slider':
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/video/202209/video-633119ed8f0a7.jpg';
+          this.output.width = 940;
+          this.output.height = 584;
+          this.output.ratio = 2.6;
           break;
-        case 'cwvido-list':
+        case 'cwvideo-list':
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/video/202209/video-633119ed8f0a7.jpg';
+          this.output.width = 600;
+          this.output.height = 373;
+          this.output.ratio = 1;
           break;
         case 'cw-logo':
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202209/article-632dd2f8a4273.jpg';
+          this.value.logo.select = this.value.logo.white.primary;
+          this.output.width = 1600;
+          this.output.height = 1072;
+          this.output.ratio = 2.6666666667;
           break;
         default:
           break;
@@ -895,6 +1435,22 @@ export default {
           break;
       }
     },
+    checkSingleLine() {
+      switch (this.type.select) {
+        case 'line-popular-articles':
+        case 'line-podcast-cw':
+        case 'line-podcast-channel':
+        case 'line-english':
+        case 'line-weekly-popular':
+        case 'line-specific-recommendation':
+        case 'youtube-forum':
+          return true;
+          break;
+        default:
+          return false;
+          break;
+      }
+    },
     checkImg() {
       switch (this.type.select) {
         case 'ig-summary-post':
@@ -909,7 +1465,9 @@ export default {
     },
     checkTitle() {
       switch (this.type.select) {
-        case '':
+        case 'cwvideo-slider':
+        case 'cwvideo-list':
+        case 'cw-logo':
           return false;
           break;
         default:
@@ -926,6 +1484,13 @@ export default {
         case 'ig-faq-picture-story':
         case 'edm-economist-podcast':
         case 'youtube-enterprise':
+        case 'youtube-investigation':
+        case 'youtube-interview':
+        case 'youtube-podcast':
+        case 'youtube-sustainable':
+        case 'cwvideo-slider':
+        case 'cwvideo-list':
+        case 'cw-logo':
           return false;
           break;
         default:
@@ -936,8 +1501,22 @@ export default {
     checkContent() {
       switch (this.type.select) {
         case 'ig-cw-picture-post':
+        case 'line-popular-articles':
+        case 'line-podcast-cw':
+        case 'line-podcast-channel':
+        case 'line-podcast-list':
+        case 'line-weekly-popular':
+        case 'line-specific-recommendation':
         case 'edm-economist-podcast':
         case 'youtube-enterprise':
+        case 'youtube-investigation':
+        case 'youtube-interview':
+        case 'youtube-podcast':
+        case 'youtube-sustainable':
+        case 'youtube-forum':
+        case 'cwvideo-slider':
+        case 'cwvideo-list':
+        case 'cw-logo':
           return false
           break;
         default:
@@ -951,7 +1530,17 @@ export default {
         case 'ig-quote-post':
         case 'ig-faq-word-story':
         case 'ig-faq-picture-story':
+        case 'line-popular-articles':
+        case 'line-weekly-popular':
         case 'youtube-enterprise':
+        case 'youtube-investigation':
+        case 'youtube-interview':
+        case 'youtube-podcast':
+        case 'youtube-sustainable':
+        case 'youtube-forum':
+        case 'cwvideo-slider':
+        case 'cwvideo-list':
+        case 'cw-logo':
         return false
           break;
         default:
@@ -968,11 +1557,37 @@ export default {
         case 'ig-quote-story':
         case 'ig-faq-word-story':
         case 'ig-faq-picture-story':
+        case 'line-popular-articles':
+        case 'line-podcast-cw':
+        case 'line-english':
+        case 'line-weekly-popular':
+        case 'line-specific-recommendation':
+        case 'edm-economist-podcast':
         case 'youtube-enterprise':
+        case 'youtube-investigation':
+        case 'youtube-interview':
+        case 'youtube-podcast':
+        case 'youtube-sustainable':
+        case 'youtube-forum':
+        case 'cwvideo-slider':
+        case 'cwvideo-list':
           return false;
           break;
         default:
           return true;
+          break;
+      }
+    },
+    checkAd() {
+      switch (this.type.select) {
+        case 'youtube-interview':
+        case 'youtube-podcast':
+        case 'youtube-sustainable':
+        case 'youtube-forum':
+          return true;
+          break;
+        default:
+          return false;
           break;
       }
     },
@@ -1101,18 +1716,18 @@ export default {
           ];
           this.type.select = 'webpush-webaccess';
           break;
-        case 'cwvido':
+        case 'cwvideo':
           this.types = [
             {
-              value: 'cwvido-slider',
+              value: 'cwvideo-slider',
               display: 'Slider',
             },
             {
-              value: 'cwvido-list',
+              value: 'cwvideo-list',
               display: '列表圖',
             },
           ];
-          this.type.select = 'cwvido-slider';
+          this.type.select = 'cwvideo-slider';
           break;
         case 'cw':
           this.types = [
@@ -1149,7 +1764,7 @@ body main p {
     z-index: 1;
   }
 }
-.youtube-enterprise {
+.line-podcast-channel {
   background: top center/contain url('@/assets/images/test@2x.png');
 }
 </style>

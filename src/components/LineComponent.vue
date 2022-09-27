@@ -5,15 +5,19 @@
       v-if="!value.logo.disabled"
       alt="天下雜誌" class="logo"
     >
-    <img
-      :src="`images/mask-${type.select}.png`"
-      alt="版型遮罩" class="mask"
-    >
-    <div class="label" v-if="value.subtitle.value">
-      <span v-html="value.subtitle.value"></span>
-    </div>
     <div class="title">
+      <div class="label">
+        <span v-html="value.subtitle.value"></span>
+      </div>
       <h1 v-html="value.title.value"></h1>
+      <div class="swipe__cta">
+        <img
+          src="images/headphone.svg"
+          v-if="type.select === 'line-podcast-cw' || type.select === 'line-podcast-channel'"
+          alt="headphone"
+        >
+        {{ value.cta.value }}
+      </div>
     </div>
     <div
       class="imgarea bg-gray-200"

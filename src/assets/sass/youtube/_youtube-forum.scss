@@ -1,0 +1,34 @@
+.youtube-forum {
+  .label {
+    display: block;
+    left: 37.5px;
+    right: 35px;
+    bottom: 137.2px;
+    color: $white;
+    font-family: "華康儷黑 Std W5";
+    font-size: 1rem;
+    line-height: 1.52;
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 5.5px;
+      background-color: $primary;
+    }
+    span {
+      position: relative;
+      display: table;
+      padding: 0 14.5px;
+      background-color: $primary;
+    }
+  }
+  .title {
+    h1 {
+      padding: 0 36px 26px;
+      font-size: 47.5px;
+    }
+  }
+}

@@ -1,0 +1,36 @@
+[class*='line-'] {
+  width: 630px;
+  height: 630px;
+
+  .logo {
+    position: absolute;
+    z-index: 2;
+  }
+  .title {
+    position: absolute;
+    z-index: 2;
+  }
+  > .imgarea {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .imgarea {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+    }
+    &.object-cover {
+      img {
+        height: 100%;
+        object-fit: cover;
+        transform: none !important;
+      }
+    }
+  }
+}

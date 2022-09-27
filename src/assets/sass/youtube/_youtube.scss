@@ -17,6 +17,38 @@
     height: 100%;
     z-index: 1;
   }
+  .label {
+    display: none;
+    position: absolute;
+    z-index: 2;
+  }
+  .title {
+    position: absolute;
+    bottom: 0;
+    left: 0.5px;
+    width: 100%;
+    z-index: 2;
+    h1 {
+      margin-top: 0;
+      margin-bottom: 0;
+      padding: 36px;
+      color: $white;
+      font-family: '華康儷黑 Std W5';
+      font-size: 50.7px;
+      line-height: 1;
+      text-shadow: 4px 4px 8px rgba($black, 0.5);
+      p {
+        margin-top: 0;
+        margin-bottom: 0;
+        color: $white;
+        line-height: 1.15;
+        white-space: break-spaces;
+      }
+      strong, b {
+        font-family: '華康儷黑 Std W7';
+      }
+    }
+  }
   > .imgarea {
     position: absolute;
     top: 0;
