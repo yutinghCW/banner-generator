@@ -624,6 +624,19 @@
             </span>
           </div>
         </div>
+        <div
+          class="form__group form__group--outlined w-100 mb20"
+          v-if="type.select === 'line-english'"
+        >
+          <h3 class="mb-1">中英對照</h3>
+          <label class="d-block">
+            <span class="label--check">
+              <input type="checkbox" v-model="value.translate" name="中英對照啟用">
+              <span class="label__check__mark"></span>
+              <span class="label__check__txt">啟用</span>
+            </span>
+          </label>
+        </div>
         <div class="form__group form__group--outlined w-100 mb20" v-if="checkCta()">
           <h3 class="mb-1">CTA 文字</h3>
           <div
@@ -1034,6 +1047,7 @@ export default {
             },
           },
         },
+        translate: true,
       },
       editable: {
         switch: false,
@@ -1299,7 +1313,14 @@ export default {
           this.output.ratio = 1.6507936508;
           break;
         case 'line-english':
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202109/article-614abedfcbbf0.jpg';
           this.value.logo.select = this.value.logo.white.primary;
+          this.value.title.limit = 90;
+          this.value.title.value = '<p>The ‘Prosperous 100’ leading Taiwan’s</p><p><strong>semiconductor  industry into a decade of success</strong></p>';
+          this.value.subtitle.limit = 35;
+          this.value.subtitle.value = '半導體100強：和高科技不搭嘎的黑手產業，為何正跟著台積飛？';
+          this.value.cta.limit = 11;
+          this.value.cta.value = 'Read More >';
           this.output.width = 1040;
           this.output.height = 1040;
           this.output.ratio = 1.6507936508;
@@ -1504,6 +1525,7 @@ export default {
         case 'line-popular-articles':
         case 'line-podcast-cw':
         case 'line-podcast-channel':
+        case 'line-english':
         case 'line-podcast-list':
         case 'line-weekly-popular':
         case 'line-specific-recommendation':
@@ -1765,7 +1787,7 @@ body main p {
     z-index: 1;
   }
 }
-.line-podcast-channel {
+.line-english {
   background: top center/contain url('@/assets/images/test@2x.png');
 }
 </style>

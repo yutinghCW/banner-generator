@@ -10,13 +10,19 @@
         <span v-html="value.subtitle.value"></span>
       </div>
       <h1 v-html="value.title.value"></h1>
-      <div class="swipe__cta">
-        <img
-          src="images/headphone.svg"
-          v-if="type.select === 'line-podcast-cw' || type.select === 'line-podcast-channel'"
-          alt="headphone"
-        >
-        {{ value.cta.value }}
+      <div class="action">
+        <div class="translate" v-if="value.translate">
+          一鍵點選 中英對照
+          <span class="btn">EN ↔ CH</span>
+        </div>
+        <div class="swipe__cta">
+          <img
+            src="images/headphone.svg"
+            v-if="type.select === 'line-podcast-cw' || type.select === 'line-podcast-channel'"
+            alt="headphone"
+          >
+          {{ value.cta.value }}
+        </div>
       </div>
     </div>
     <div
