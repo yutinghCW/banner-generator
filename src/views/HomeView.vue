@@ -24,9 +24,9 @@
           </div>
         </div>
         <h2 class="mt0">請填寫欄位</h2>
-        <div class="mb20" v-if="checkImg()">
-          <h3 class="mb-0">上傳檔案</h3>
-          <template v-if="type.select !== 'line-podcast-list'">
+        <template v-if="type.select !== 'line-podcast-list'">
+          <div class="mb20" v-if="checkImg()">
+            <h3 class="mb-0">上傳檔案</h3>
             <input
               type="file" name="Filedata" ref="Filedata" id="file_upload" accept="image/*"
               @change="onFileSelected('file_upload', null, 'single')"
@@ -115,8 +115,212 @@
                 </div>
               </div>
             </div>
-          </template>
-          <template v-if="type.select === 'line-podcast-list'">
+          </div>
+          <div
+            class="form__group form__group--ckeditor w-100 mb20"
+            v-if="checkTitle() && checkEditor()"
+          >
+            <h3 class="mb-0">標題</h3>
+            <div
+              class="label form__group--defalt"
+              :class="{
+                'form__group--error': removeTags(value.title.value).length > value.title.limit,
+              }"
+            >
+              <ckeditor
+                :editor="editor"
+                v-model="value.title.value"
+                :config="editorConfig"
+              ></ckeditor>
+              <span
+                class="form__group__help--strong"
+                :class="{
+                  'form__group__help--highlight':
+                  removeTags(value.title.value).length > value.title.limit
+                }"
+              >
+                <template v-if="!(removeTags(value.title.value).length > value.title.limit)">
+                  建議字數{{ value.title.limit }}字
+                </template>
+                <template v-if="removeTags(value.title.value).length > value.title.limit">
+                  已超過建議字數，請透過預覽查看是否有跑版
+                </template>
+              </span>
+            </div>
+          </div>
+          <div
+            class="form__group form__group--ckeditor w-100 mb20"
+            v-else-if="checkTitle()"
+          >
+            <h3 class="mb-0">標題</h3>
+            <div class="label form__group--defalt">
+              <textarea v-model="value.title.value" class="form__group__input d-block"></textarea>
+              <span
+                class="form__group__help--strong"
+                :class="{
+                  'form__group__help--highlight':
+                  removeTags(value.title.value).length > value.title.limit
+                }"
+              >
+                <template v-if="!(removeTags(value.title.value).length > value.title.limit)">
+                  建議字數{{ value.title.limit }}字
+                </template>
+                <template v-if="removeTags(value.title.value).length > value.title.limit">
+                  已超過建議字數，請透過預覽查看是否有跑版
+                </template>
+              </span>
+            </div>
+          </div>
+          <div
+            class="form__group form__group--ckeditor w-100 mb20"
+            v-if="checkSubtitle() && checkEditor() && !checkSingleLine()"
+          >
+            <h3 class="mb-0">副標</h3>
+            <div
+              class="label form__group--defalt"
+              :class="{
+                'form__group--error': removeTags(value.subtitle.value).length>value.subtitle.limit,
+              }"
+            >
+              <ckeditor
+                :editor="editor"
+                v-model="value.subtitle.value"
+                :config="editorConfig"
+              ></ckeditor>
+              <span
+                class="form__group__help--strong"
+                :class="{
+                  'form__group__help--highlight':
+                  removeTags(value.subtitle.value).length > value.subtitle.limit
+                }"
+              >
+                <template v-if="!(removeTags(value.subtitle.value).length > value.subtitle.limit)">
+                  建議字數{{ value.subtitle.limit }}字
+                </template>
+                <template v-if="removeTags(value.subtitle.value).length > value.subtitle.limit">
+                  已超過建議字數，請透過預覽查看是否有跑版
+                </template>
+              </span>
+            </div>
+          </div>
+          <div
+            class="form__group form__group--outlined w-100 mb20"
+            v-else-if="checkSubtitle() && checkSingleLine()"
+          >
+            <h3 class="mb-0">副標</h3>
+            <label class="label form__group--defalt">
+              <input type="text" v-model="value.subtitle.value" class="form__group__input d-block">
+              <span
+                class="form__group__help--strong"
+                :class="{
+                  'form__group__help--highlight':
+                  removeTags(value.subtitle.value).length > value.subtitle.limit
+                }"
+              >
+                <template v-if="!(removeTags(value.subtitle.value).length > value.subtitle.limit)">
+                  建議字數{{ value.subtitle.limit }}字
+                </template>
+                <template v-if="removeTags(value.subtitle.value).length > value.subtitle.limit">
+                  已超過建議字數，請透過預覽查看是否有跑版
+                </template>
+              </span>
+            </label>
+          </div>
+          <div
+            class="form__group form__group--ckeditor w-100 mb20"
+            v-else-if="checkSubtitle()"
+          >
+            <h3 class="mb-0">副標</h3>
+            <div class="label form__group--defalt">
+              <textarea
+                v-model="value.subtitle.value"
+                class="form__group__input d-block"
+              ></textarea>
+              <span
+                class="form__group__help--strong"
+                :class="{
+                  'form__group__help--highlight':
+                  removeTags(value.subtitle.value).length > value.subtitle.limit
+                }"
+              >
+                <template v-if="!(removeTags(value.subtitle.value).length > value.subtitle.limit)">
+                  建議字數{{ value.subtitle.limit }}字
+                </template>
+                <template v-if="removeTags(value.subtitle.value).length > value.subtitle.limit">
+                  已超過建議字數，請透過預覽查看是否有跑版
+                </template>
+              </span>
+            </div>
+          </div>
+          <div class="form__group form__group--outlined w-100 mb20" v-if="checkContent()">
+            <h3 class="mb-1">內文</h3>
+            <div
+              class="label form__group--defalt"
+              :class="{
+                'hasValue': value.content.value !== '',
+                'form__group--error': countLines(value.content.value) > value.content.limit,
+              }"
+            >
+              <textarea v-model="value.content.value" class="form__group__input d-block"></textarea>
+              <span
+                class="form__group__help--strong d-block"
+                :class="{
+                  'form__group__help--highlight':
+                  countLines(value.content.value) > value.content.limit
+                }"
+              >
+                <template v-if="!(countLines(value.content.value) > value.content.limit)">
+                  建議行數{{ value.content.limit }}行
+                </template>
+                <template v-if="countLines(value.content.value) > value.content.limit">
+                  已超過建議行數，請透過預覽查看是否有跑版
+                </template>
+              </span>
+            </div>
+          </div>
+          <div
+            class="form__group form__group--outlined w-100 mb20"
+            v-if="type.select === 'line-english'"
+          >
+            <h3 class="mb-1">中英對照</h3>
+            <label class="d-block">
+              <span class="label--check">
+                <input type="checkbox" v-model="value.translate" name="中英對照啟用">
+                <span class="label__check__mark"></span>
+                <span class="label__check__txt">啟用</span>
+              </span>
+            </label>
+          </div>
+          <div class="form__group form__group--outlined w-100 mb20" v-if="checkCta()">
+            <h3 class="mb-1">CTA 文字</h3>
+            <div
+              class="label form__group--defalt"
+              :class="{
+                'hasValue': value.cta.value !== '',
+                'form__group--error': value.cta.value.length > value.cta.limit,
+              }"
+            >
+              <textarea
+                v-model="value.cta.value"
+                class="form__group__input d-block"
+                style="min-height: 80px;"
+              ></textarea>
+              <span
+                class="form__group__help--strong d-block"
+                :class="{'form__group__help--highlight': value.cta.value.length > value.cta.limit}"
+              >
+                <template v-if="!(value.cta.value.length > value.cta.limit)">
+                  建議字數{{ value.cta.limit }}字
+                </template>
+                <template v-if="value.cta.value.length > value.cta.limit">
+                  已超過建議字數，請透過預覽查看是否有跑版
+                </template>
+              </span>
+            </div>
+          </div>
+        </template>
+        <template v-if="type.select === 'line-podcast-list'">
+          <div class="mb20">
             <input
               type="file" name="Filedata1" ref="Filedata1" id="file_upload1" accept="image/*"
               @change="onFileSelected('file_upload1', 'first', 'group')"
@@ -202,8 +406,6 @@
                 </div>
               </div>
             </div>
-          </template>
-          <template v-if="type.select === 'line-podcast-list'">
             <input
               type="file" name="Filedata2" ref="Filedata2" id="file_upload2" accept="image/*"
               @change="onFileSelected('file_upload2', 'second', 'group')"
@@ -289,8 +491,8 @@
                 </div>
               </div>
             </div>
-          </template>
-          <template v-if="type.select === 'line-podcast-list'">
+          </div>
+          <div class="mb20">
             <input
               type="file" name="Filedata3" ref="Filedata3" id="file_upload3" accept="image/*"
               @change="onFileSelected('file_upload3', 'third', 'group')"
@@ -376,8 +578,8 @@
                 </div>
               </div>
             </div>
-          </template>
-          <template v-if="type.select === 'line-podcast-list'">
+          </div>
+          <div class="mb20">
             <input
               type="file" name="Filedata4" ref="Filedata4" id="file_upload4" accept="image/*"
               @change="onFileSelected('file_upload4', 'forth', 'group')"
@@ -463,207 +665,8 @@
                 </div>
               </div>
             </div>
-          </template>
-        </div>
-        <div
-          class="form__group form__group--ckeditor w-100 mb20"
-          v-if="checkTitle() && checkEditor()"
-        >
-          <h3 class="mb-0">標題</h3>
-          <div
-            class="label form__group--defalt"
-            :class="{
-              'form__group--error': removeTags(value.title.value).length > value.title.limit,
-            }"
-          >
-            <ckeditor
-              :editor="editor"
-              v-model="value.title.value"
-              :config="editorConfig"
-            ></ckeditor>
-            <span
-              class="form__group__help--strong"
-              :class="{
-                'form__group__help--highlight':
-                removeTags(value.title.value).length > value.title.limit
-              }"
-            >
-              <template v-if="!(removeTags(value.title.value).length > value.title.limit)">
-                建議字數{{ value.title.limit }}字
-              </template>
-              <template v-if="removeTags(value.title.value).length > value.title.limit">
-                已超過建議字數，請透過預覽查看是否有跑版
-              </template>
-            </span>
           </div>
-        </div>
-        <div
-          class="form__group form__group--ckeditor w-100 mb20"
-          v-else-if="checkTitle()"
-        >
-          <h3 class="mb-0">標題</h3>
-          <div class="label form__group--defalt">
-            <textarea v-model="value.title.value" class="form__group__input d-block"></textarea>
-            <span
-              class="form__group__help--strong"
-              :class="{
-                'form__group__help--highlight':
-                removeTags(value.title.value).length > value.title.limit
-              }"
-            >
-              <template v-if="!(removeTags(value.title.value).length > value.title.limit)">
-                建議字數{{ value.title.limit }}字
-              </template>
-              <template v-if="removeTags(value.title.value).length > value.title.limit">
-                已超過建議字數，請透過預覽查看是否有跑版
-              </template>
-            </span>
-          </div>
-        </div>
-        <div
-          class="form__group form__group--ckeditor w-100 mb20"
-          v-if="checkSubtitle() && checkEditor() && !checkSingleLine()"
-        >
-          <h3 class="mb-0">副標</h3>
-          <div
-            class="label form__group--defalt"
-            :class="{
-              'form__group--error': removeTags(value.subtitle.value).length > value.subtitle.limit,
-            }"
-          >
-            <ckeditor
-              :editor="editor"
-              v-model="value.subtitle.value"
-              :config="editorConfig"
-            ></ckeditor>
-            <span
-              class="form__group__help--strong"
-              :class="{
-                'form__group__help--highlight':
-                removeTags(value.subtitle.value).length > value.subtitle.limit
-              }"
-            >
-              <template v-if="!(removeTags(value.subtitle.value).length > value.subtitle.limit)">
-                建議字數{{ value.subtitle.limit }}字
-              </template>
-              <template v-if="removeTags(value.subtitle.value).length > value.subtitle.limit">
-                已超過建議字數，請透過預覽查看是否有跑版
-              </template>
-            </span>
-          </div>
-        </div>
-        <div
-          class="form__group form__group--outlined w-100 mb20"
-          v-else-if="checkSubtitle() && checkSingleLine()"
-        >
-          <h3 class="mb-0">副標</h3>
-          <label class="label form__group--defalt">
-            <input type="text" v-model="value.subtitle.value" class="form__group__input d-block">
-            <span
-              class="form__group__help--strong"
-              :class="{
-                'form__group__help--highlight':
-                removeTags(value.subtitle.value).length > value.subtitle.limit
-              }"
-            >
-              <template v-if="!(removeTags(value.subtitle.value).length > value.subtitle.limit)">
-                建議字數{{ value.subtitle.limit }}字
-              </template>
-              <template v-if="removeTags(value.subtitle.value).length > value.subtitle.limit">
-                已超過建議字數，請透過預覽查看是否有跑版
-              </template>
-            </span>
-          </label>
-        </div>
-        <div
-          class="form__group form__group--ckeditor w-100 mb20"
-          v-else-if="checkSubtitle()"
-        >
-          <h3 class="mb-0">副標</h3>
-          <div class="label form__group--defalt">
-            <textarea v-model="value.subtitle.value" class="form__group__input d-block"></textarea>
-            <span
-              class="form__group__help--strong"
-              :class="{
-                'form__group__help--highlight':
-                removeTags(value.subtitle.value).length > value.subtitle.limit
-              }"
-            >
-              <template v-if="!(removeTags(value.subtitle.value).length > value.subtitle.limit)">
-                建議字數{{ value.subtitle.limit }}字
-              </template>
-              <template v-if="removeTags(value.subtitle.value).length > value.subtitle.limit">
-                已超過建議字數，請透過預覽查看是否有跑版
-              </template>
-            </span>
-          </div>
-        </div>
-        <div class="form__group form__group--outlined w-100 mb20" v-if="checkContent()">
-          <h3 class="mb-1">內文</h3>
-          <div
-            class="label form__group--defalt"
-            :class="{
-              'hasValue': value.content.value !== '',
-              'form__group--error': countLines(value.content.value) > value.content.limit,
-            }"
-          >
-            <textarea v-model="value.content.value" class="form__group__input d-block"></textarea>
-            <span
-              class="form__group__help--strong d-block"
-              :class="{
-                'form__group__help--highlight':
-                countLines(value.content.value) > value.content.limit
-              }"
-            >
-              <template v-if="!(countLines(value.content.value) > value.content.limit)">
-                建議行數{{ value.content.limit }}行
-              </template>
-              <template v-if="countLines(value.content.value) > value.content.limit">
-                已超過建議行數，請透過預覽查看是否有跑版
-              </template>
-            </span>
-          </div>
-        </div>
-        <div
-          class="form__group form__group--outlined w-100 mb20"
-          v-if="type.select === 'line-english'"
-        >
-          <h3 class="mb-1">中英對照</h3>
-          <label class="d-block">
-            <span class="label--check">
-              <input type="checkbox" v-model="value.translate" name="中英對照啟用">
-              <span class="label__check__mark"></span>
-              <span class="label__check__txt">啟用</span>
-            </span>
-          </label>
-        </div>
-        <div class="form__group form__group--outlined w-100 mb20" v-if="checkCta()">
-          <h3 class="mb-1">CTA 文字</h3>
-          <div
-            class="label form__group--defalt"
-            :class="{
-              'hasValue': value.cta.value !== '',
-              'form__group--error': value.cta.value.length > value.cta.limit,
-            }"
-          >
-            <textarea
-              v-model="value.cta.value"
-              class="form__group__input d-block"
-              style="min-height: 80px;"
-            ></textarea>
-            <span
-              class="form__group__help--strong d-block"
-              :class="{'form__group__help--highlight': value.cta.value.length > value.cta.limit}"
-            >
-              <template v-if="!(value.cta.value.length > value.cta.limit)">
-                建議字數{{ value.cta.limit }}字
-              </template>
-              <template v-if="value.cta.value.length > value.cta.limit">
-                已超過建議字數，請透過預覽查看是否有跑版
-              </template>
-            </span>
-          </div>
-        </div>
+        </template>
         <div class="form__logos mb20" v-if="checkLogo()">
           <h3 class="mb-1">選擇 Logo 樣式</h3>
           <div
