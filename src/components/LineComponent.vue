@@ -21,7 +21,7 @@
             v-if="type.select === 'line-podcast-cw' || type.select === 'line-podcast-channel'"
             alt="headphone"
           >
-          {{ value.cta.value }}
+          <span>{{ value.cta.value }}</span>
         </div>
       </div>
     </div>

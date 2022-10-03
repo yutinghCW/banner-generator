@@ -14,8 +14,8 @@
         }"
       >
         <img
-        :src="value.group.first"
-        :alt="value.title.value"
+        :src="value.group.first.img"
+        :alt="value.group.first.title"
         :style="`
           transform:
             scale(${1+(editable.group.first.scale/100)})
@@ -23,6 +23,7 @@
             translateY(${editable.group.first.vertical}px)
           ;
         `">
+        <div class="title">{{ value.group.first.title }}</div>
       </div>
       <div
         class="imgarea imgarea-2 bg-gray-200"
@@ -32,8 +33,8 @@
         }"
       >
         <img
-        :src="value.group.second"
-        :alt="value.title.value"
+        :src="value.group.second.img"
+        :alt="value.group.second.title"
         :style="`
           transform:
             scale(${1+(editable.group.second.scale/100)})
@@ -41,6 +42,7 @@
             translateY(${editable.group.second.vertical}px)
           ;
         `">
+        <div class="title">{{ value.group.second.title }}</div>
       </div>
       <div
         class="imgarea imgarea-3 bg-gray-200"
@@ -50,8 +52,8 @@
         }"
       >
         <img
-        :src="value.group.third"
-        :alt="value.title.value"
+        :src="value.group.third.img"
+        :alt="value.group.third.title"
         :style="`
           transform:
             scale(${1+(editable.group.third.scale/100)})
@@ -59,6 +61,7 @@
             translateY(${editable.group.third.vertical}px)
           ;
         `">
+        <div class="title">{{ value.group.third.title }}</div>
       </div>
       <div
         class="imgarea imgarea-4 bg-gray-200"
@@ -68,8 +71,8 @@
         }"
       >
         <img
-        :src="value.group.forth"
-        :alt="value.title.value"
+        :src="value.group.forth.img"
+        :alt="value.group.forth.title"
         :style="`
           transform:
             scale(${1+(editable.group.forth.scale/100)})
@@ -77,6 +80,7 @@
             translateY(${editable.group.forth.vertical}px)
           ;
         `">
+        <div class="title">{{ value.group.forth.title }}</div>
       </div>
     </div>
   </div>

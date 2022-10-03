@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="row">
+    <div class="row align-items-start">
       <div class="col-md-6">
         <h2 class="mt0">請選擇社群及類型</h2>
         <div class="d-flex mb40">
@@ -406,6 +406,36 @@
                 </div>
               </div>
             </div>
+            <div class="form__group form__group--outlined w-100 mb20">
+              <label class="label form__group--defalt">
+                <textarea
+                v-model="value.group.first.title"
+                  class="form__group__input d-block"
+                  style="min-height: 80px;"
+                ></textarea>
+                <span
+                  class="form__group__help--strong"
+                  :class="{
+                    'form__group__help--highlight':
+                    removeTags(value.group.first.title).length > value.group.first.limit
+                  }"
+                >
+                  <template
+                    v-if="!(removeTags(value.group.first.title).length > value.group.first.limit)"
+                  >
+                    建議字數{{ value.group.first.limit }}字
+                  </template>
+                  <template
+                    v-if="removeTags(value.group.first.title).length > value.group.first.limit"
+                  >
+                    已超過建議字數，請透過預覽查看是否有跑版
+                  </template>
+                </span>
+              </label>
+            </div>
+          </div>
+          <hr class="mb20">
+          <div class="mb20">
             <input
               type="file" name="Filedata2" ref="Filedata2" id="file_upload2" accept="image/*"
               @change="onFileSelected('file_upload2', 'second', 'group')"
@@ -491,7 +521,35 @@
                 </div>
               </div>
             </div>
+            <div class="form__group form__group--outlined w-100 mb20">
+              <label class="label form__group--defalt">
+                <textarea
+                v-model="value.group.second.title"
+                  class="form__group__input d-block"
+                  style="min-height: 80px;"
+                ></textarea>
+                <span
+                  class="form__group__help--strong"
+                  :class="{
+                    'form__group__help--highlight':
+                    removeTags(value.group.second.title).length > value.group.second.limit
+                  }"
+                >
+                  <template
+                    v-if="!(removeTags(value.group.second.title).length > value.group.second.limit)"
+                  >
+                    建議字數{{ value.group.second.limit }}字
+                  </template>
+                  <template
+                    v-if="removeTags(value.group.second.title).length > value.group.second.limit"
+                  >
+                    已超過建議字數，請透過預覽查看是否有跑版
+                  </template>
+                </span>
+              </label>
+            </div>
           </div>
+          <hr class="mb20">
           <div class="mb20">
             <input
               type="file" name="Filedata3" ref="Filedata3" id="file_upload3" accept="image/*"
@@ -578,7 +636,35 @@
                 </div>
               </div>
             </div>
+            <div class="form__group form__group--outlined w-100 mb20">
+              <label class="label form__group--defalt">
+                <textarea
+                v-model="value.group.third.title"
+                  class="form__group__input d-block"
+                  style="min-height: 80px;"
+                ></textarea>
+                <span
+                  class="form__group__help--strong"
+                  :class="{
+                    'form__group__help--highlight':
+                    removeTags(value.group.third.title).length > value.group.third.limit
+                  }"
+                >
+                  <template
+                    v-if="!(removeTags(value.group.third.title).length > value.group.third.limit)"
+                  >
+                    建議字數{{ value.group.third.limit }}字
+                  </template>
+                  <template
+                    v-if="removeTags(value.group.third.title).length > value.group.third.limit"
+                  >
+                    已超過建議字數，請透過預覽查看是否有跑版
+                  </template>
+                </span>
+              </label>
+            </div>
           </div>
+          <hr class="mb20">
           <div class="mb20">
             <input
               type="file" name="Filedata4" ref="Filedata4" id="file_upload4" accept="image/*"
@@ -665,7 +751,35 @@
                 </div>
               </div>
             </div>
+            <div class="form__group form__group--outlined w-100 mb20">
+              <label class="label form__group--defalt">
+                <textarea
+                v-model="value.group.forth.title"
+                  class="form__group__input d-block"
+                  style="min-height: 80px;"
+                ></textarea>
+                <span
+                  class="form__group__help--strong"
+                  :class="{
+                    'form__group__help--highlight':
+                    removeTags(value.group.forth.title).length > value.group.forth.limit
+                  }"
+                >
+                  <template
+                    v-if="!(removeTags(value.group.forth.title).length > value.group.forth.limit)"
+                  >
+                    建議字數{{ value.group.forth.limit }}字
+                  </template>
+                  <template
+                    v-if="removeTags(value.group.forth.title).length > value.group.forth.limit"
+                  >
+                    已超過建議字數，請透過預覽查看是否有跑版
+                  </template>
+                </span>
+              </label>
+            </div>
           </div>
+          <hr class="mb20">
         </template>
         <div class="form__logos mb20" v-if="checkLogo()">
           <h3 class="mb-1">選擇 Logo 樣式</h3>
@@ -775,7 +889,9 @@
           </label>
         </div>
       </div>
-      <div class="col-md-6 d-flex flex-column align-items-center">
+      <div
+        class="col-md-6 d-flex flex-column align-items-center position-sticky top-0 start-0"
+      >
         <IgPicture
           :class="type.select"
           :value="value"
@@ -1002,10 +1118,26 @@ export default {
       value: {
         img: 'https://storage.googleapis.com/www-cw-com-tw/article/202206/article-62ba6d9c751c6.jpg',
         group: {
-          first: '',
-          second: '',
-          third: '',
-          forth: '',
+          first: {
+            img: '',
+            title: '',
+            limit: 16,
+          },
+          second: {
+            img: '',
+            title: '',
+            limit: 16,
+          },
+          third: {
+            img: '',
+            title: '',
+            limit: 16,
+          },
+          forth: {
+            img: '',
+            title: '',
+            limit: 16,
+          },
         },
         title: {
           limit: 19,
@@ -1151,20 +1283,20 @@ export default {
           'transform-origin': 'top left',
         },
       })
-        .then((dataUrl) => {
-          let today = new Date();
-          const dd = String(today.getDate()).padStart(2, '0');
-          const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-          const yyyy = today.getFullYear();
-          today = `${yyyy}${mm}${dd}`;
-          const a = document.createElement('a');
-          a.href = dataUrl;
-          a.download = `${this.type.select}-${today}.png`;
-          a.click();
-        })
-        .catch((error) => {
-          console.error('oops, something went wrong!', error);
-        });
+      .then((dataUrl) => {
+        let today = new Date();
+        const dd = String(today.getDate()).padStart(2, '0');
+        const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        const yyyy = today.getFullYear();
+        today = `${yyyy}${mm}${dd}`;
+        const a = document.createElement('a');
+        a.href = dataUrl;
+        a.download = `${this.type.select}-${today}.png`;
+        a.click();
+      })
+      .catch((error) => {
+        console.error('oops, something went wrong!', error);
+      });
     },
     onFileSelected(id = 'file_upload', idx = null, type = 'single') {
       const file = document.querySelector(`#${id}`).files[0];
@@ -1175,7 +1307,7 @@ export default {
         if ( type === 'single' ) {
           this.value.img = rawImg;
         } else if ( type === 'group' ) {
-          this.value.group[idx] = rawImg;
+          this.value.group[idx].img = rawImg;
         }
       }
       reader.readAsDataURL(file);
@@ -1329,13 +1461,30 @@ export default {
           this.output.ratio = 1.6507936508;
           break;
         case 'line-podcast-list':
-          this.value.logo.select = this.value.logo.podcast.square.cw;
+          this.value.logo.select = this.value.logo.podcast.horizontal.cw;
+
+          this.value.group.first.img = 'https://scontent.ftpe7-1.fna.fbcdn.net/v/t39.30808-6/301123735_479619044171942_635858916333797199_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=v2X-bsdI5V4AX-YSrBa&_nc_ht=scontent.ftpe7-1.fna&oh=00_AT9-xhMwXtblIS--_1_N6G5pzEFHpOcL7fNHXytDwsTrJg&oe=633D5DF5';
+          this.value.group.first.title = '她移民葡萄牙、任職四大律所\n中世紀古城私房景點推薦！';
+          this.value.group.first.limit = 28;
+
+          this.value.group.second.img = 'https://storage.googleapis.com/www-cw-com-tw/video/202209/video-632c03565a04c.jpg';
+          this.value.group.second.title = '百年紙糊店站上國際！\n他如何用動畫「復活」紙紮？';
+          this.value.group.second.limit = 28;
+
+          this.value.group.third.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202208/article-630f056b52af7.jpg';
+          this.value.group.third.title = '稻盛和夫享耆壽 90 歲：\n這才是真正有價值的人生';
+          this.value.group.third.limit = 28;
+
+          this.value.group.forth.img = 'https://storage.googleapis.com/www-cheers-com-tw/ckeditor/202207/ckeditor-62c2c716b594b.jpg';
+          this.value.group.forth.title = '耗費十年接任宏碁人資長\n他如何成為管理百人的主管？';
+          this.value.group.forth.limit = 28;
           this.output.width = 1040;
           this.output.height = 1040;
           this.output.ratio = 1.6507936508;
           break;
         case 'line-weekly-popular':
           this.value.logo.select = this.value.logo.white.primary;
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202205/article-627cd47ec6cd4.jpg';
           this.value.title.limit = 26;
           this.value.title.value = '<p>主標第一行最多只能放十五個字</p><p>第二行最多只放十一個字</p>';
           this.value.subtitle.limit = 6;
@@ -1346,6 +1495,13 @@ export default {
           break;
         case 'line-specific-recommendation':
           this.value.logo.select = this.value.logo.white.primary;
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202106/article-60bee58a41619.jpg';
+          this.value.title.value = '主標第一行最多只能放十五個字，\n第二行最多只放十個字';
+          this.value.title.limit = 25;
+          this.value.subtitle.value = '專屬文章推薦';
+          this.value.subtitle.limit = 6;
+          this.value.cta.value = '24hr限時解鎖';
+          this.value.cta.limit = 6;
           this.output.width = 1040;
           this.output.height = 1040;
           this.output.ratio = 1.6507936508;
@@ -1451,6 +1607,7 @@ export default {
         case 'ig-quote-post':
         case 'ig-quote-story':
         case 'ig-faq-picture-story':
+        case 'line-specific-recommendation':
         case 'edm-economist-podcast':
           return false;
           break;
@@ -1789,8 +1946,5 @@ body main p {
     top: 3rem;
     z-index: 1;
   }
-}
-.line-english {
-  background: top center/contain url('@/assets/images/test@2x.png');
 }
 </style>
