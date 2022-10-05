@@ -787,7 +787,7 @@
             v-if="type.select !== 'line-podcast-list'"
             class="row mt-2"
           >
-            <div class="col-md-3">
+            <div class="col-md-3 mb-3">
               <label class="label--radio d-flex align-items-center">
                 <input
                   type="radio" id="logo-white-primary"
@@ -801,7 +801,7 @@
                 </span>
               </label>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 mb-3">
               <label class="label--radio d-flex align-items-center">
                 <input
                   type="radio" id="logo-white-primary"
@@ -815,7 +815,7 @@
                 </span>
               </label>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 mb-3">
               <label class="label--radio d-flex align-items-center">
                 <input
                   type="radio" id="logo-white-primary"
@@ -829,7 +829,7 @@
                 </span>
               </label>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 mb-3">
               <label class="label--radio d-flex align-items-center">
                 <input
                   type="radio" id="logo-white-primary"
@@ -840,6 +840,20 @@
                 <span class="label__radio__mark"></span>
                 <span class="label__radio__txt">
                   <img src="images/cw-logo-black-transparent.svg" alt="">
+                </span>
+              </label>
+            </div>
+            <div class="col-md-3 mb-3">
+              <label class="label--radio d-flex align-items-center">
+                <input
+                  type="radio" id="logo-white-primary"
+                  :value="value.logo.transparent.white"
+                  v-model="value.logo.select"
+                  :checked="value.logo.select === value.logo.transparent.white"
+                >
+                <span class="label__radio__mark"></span>
+                <span class="label__radio__txt">
+                  <img src="images/cw-logo-white-transparent.svg" class="bg-gray-300" alt="">
                 </span>
               </label>
             </div>
@@ -949,6 +963,14 @@
           :editable="editable"
           id="preview"
           v-if="type.select.indexOf('youtube-') > -1"
+          />
+        <WebPushComponent
+          :class="type.select"
+          :value="value"
+          :type="type"
+          :editable="editable"
+          v-if="type.select.indexOf('webpush-') > -1"
+          id="preview"
         />
         <VideoComponent
           :class="type.select"
@@ -998,6 +1020,7 @@ import LinePodcastList from '@/components/LinePodcastList.vue';
 
 import EdmPodcast from '@/components/EdmPodcast.vue';
 import YoutubeComponent from '@/components/YoutubeComponent.vue';
+import WebPushComponent from '@/components/WebPushComponent.vue';
 import VideoComponent from '@/components/VideoComponent.vue';
 import CwComponent from '@/components/CwComponent.vue';
 
@@ -1116,7 +1139,7 @@ export default {
         },
       ],
       value: {
-        img: 'https://storage.googleapis.com/www-cw-com-tw/article/202206/article-62ba6d9c751c6.jpg',
+        img: 'https://storage.googleapis.com/www-cw-com-tw/article/202210/article-633ce45a09679.jpg',
         group: {
           first: {
             img: '',
@@ -1140,16 +1163,16 @@ export default {
           },
         },
         title: {
-          limit: 19,
-          value: '<p>房租隨房價飆、政府統計卻躺平</p>',
+          limit: 18,
+          value: '<p>大標最多十八個全形字，可少於不可多於</p>',
         },
         subtitle: {
-          limit: 19,
-          value: '<p>溫和通膨陷阱1》<span style="color:#d60c18;">30到45歲</span>最慘</p>',
+          limit: 23,
+          value: '<p>副標最多放二十三個全形字，可少不可多於二十三字</p>',
         },
         content: {
-          limit: 10,
-          value: '疫情與戰爭，讓全球通膨怪獸已經失控，\n台灣雖號稱處於溫和通膨，\n但這其實是個假象，\n將造成台灣貧富差距擴大、\n窮人更難翻身。\n\n房租漲幅失真、政府不再撒幣，\n通膨實況到底如何',
+          limit: 6,
+          value: '內文一行最多放二十三個全形字，可少於不可多於。\n內文最多只能放六行，可少於不可多於，\n內文最多只能放六行，\n內文最多只能放六行，可少於不可多於，\n內文最多只能放六行，\n內文最多只能放六行，到這一行結束。',
         },
         cta: {
           limit: 10,
@@ -1169,6 +1192,7 @@ export default {
           transparent: {
             primary: 'images/cw-logo-primary-transparent.svg',
             black: 'images/cw-logo-black-transparent.svg',
+            white: 'images/cw-logo-white-transparent.svg',
           },
           video: 'images/cw-video.png',
           podcast: {
@@ -1268,6 +1292,7 @@ export default {
     EdmPodcast,
     YoutubeComponent,
     VideoComponent,
+    WebPushComponent,
     CwComponent,
   },
   methods: {
@@ -1328,12 +1353,13 @@ export default {
     detectType() {
       switch (this.type.select) {
         case 'ig-cw-picture-story':
-          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202206/article-62ba6d9c751c6.jpg';
-          this.value.title.limit = 19;
-          this.value.title.value = '<p>房租隨房價飆、政府統計卻躺平</p>';
-          this.value.subtitle.limit = 19;
-          this.value.subtitle.value = '<p>溫和通膨陷阱1》<span style="color:#d60c18;">30到45歲</span>最慘</p>';
-          this.value.content.value = '疫情與戰爭，讓全球通膨怪獸已經失控，\n台灣雖號稱處於溫和通膨，\n但這其實是個假象，\n將造成台灣貧富差距擴大、\n窮人更難翻身。\n\n房租漲幅失真、政府不再撒幣，\n通膨實況到底如何';
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202210/article-633ce45a09679.jpg';
+          this.value.title.limit = 18;
+          this.value.title.value = '<p>大標最多十八個全形字，可少於不可多於</p>';
+          this.value.subtitle.limit = 23;
+          this.value.subtitle.value = '<p>副標最多放二十三個全形字，可少不可多於二十三字</p>';
+          this.value.content.limit = 6;
+          this.value.content.value = '內文一行最多放二十三個全形字，可少於不可多於。\n內文最多只能放六行，可少於不可多於，\n內文最多只能放六行，\n內文最多只能放六行，可少於不可多於，\n內文最多只能放六行，\n內文最多只能放六行，到這一行結束。';
           this.value.cta.value = '上滑\n看完整文章';
           this.value.label.value = '天下圖擊';
           this.value.logo.select = this.value.logo.white.primary;
@@ -1342,11 +1368,11 @@ export default {
           this.output.ratio = 2;
           break;
         case 'ig-cw-picture-post':
-          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202111/purchase-reauisition-619205a3e6711.jpg';
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202210/article-633ce45a09679.jpg';
           this.value.title.limit = 19;
-          this.value.title.value = '<p>中國<span style="color:#d60c18;">米兔</span>VS.西方<span style="color:#d60c18;">#MeToo</span> 為何命運大不同？</p>';
+          this.value.title.value = '<p>大標最多十八個全形字，可少於不可多於</p>';
           this.value.subtitle.limit = 19;
-          this.value.subtitle.value = '<p>彭帥指控中國前副總理性侵後人間蒸發</p>';
+          this.value.subtitle.value = '<p>副標最多放二十三個全形字，可少不可多於二十三字</p>';
           this.value.cta.value = '到限時動態查看';
           this.value.label.value = '天下圖擊';
           this.value.logo.select = this.value.logo.white.primary;
@@ -1356,9 +1382,9 @@ export default {
           break;
         case 'ig-summary-post':
           this.value.title.limit = 25;
-          this.value.title.value = '《懂權力，在每個角色上發光》';
-          this.value.content.limit = 19;
-          this.value.content.value = '提防那些對你很特別，同時卻對其他人表現出不尊重或幾近鄙視的人。當你無法滿足他們的需求時，他們就不再重視你，還會貶低你。';
+          this.value.title.value = '《書名請在這裡改，書名在這裡改》';
+          this.value.content.limit = 4;
+          this.value.content.value = '書摘金句一行最多可放到十七個全形字\n包含標點。可少於、不可多於十七字。\n最多可放到四行，\n可少於不可多於四行。不可多於四行。';
           this.value.logo.select = this.value.logo.white.black;
           this.output.width = 1080;
           this.output.height = 1080;
@@ -1366,19 +1392,19 @@ export default {
           break;
         case 'ig-summary-story':
           this.value.title.limit = 25;
-          this.value.title.value = '《懂權力，在每個角色上發光》';
-          this.value.content.limit = 13;
-          this.value.content.value = '做得多、會的多，並不值得驕傲，有自己最具競爭力的特長和優勢，才值得大聲說話。';
+          this.value.title.value = '《書名請在這裡改，書名在這裡改》';
+          this.value.content.limit = 4;
+          this.value.content.value = '書摘金句一行最多可放到十七個全形字\n包含標點。可少於、不可多於十七字。\n最多可放到四行，\n可少於不可多於四行。不可多於四行。';
           this.output.width = 1080;
           this.output.height = 1920;
           this.output.ratio = 2;
           break;
         case 'ig-quote-story':
           this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202112/article-61cd3acbb7c9a.jpg';
-          this.value.title.limit = 25;
-          this.value.title.value = '–AIA國際設計獎得主/建築師 張淑征';
-          this.value.content.limit = 13;
-          this.value.content.value = '我希望每天都學一樣新的東西，很廢的也沒關係，要永遠保持好奇心。';
+          this.value.title.limit = 24;
+          this.value.title.value = '——職銜與人名放這一行';
+          this.value.content.limit = 48;
+          this.value.content.value = '金句限動一行最多可放十六個全形字包含標點。可少於、不可多於十七字最多可放到三行，不可多於三行。';
           this.value.logo.select = this.value.logo.white.primary;
           this.output.width = 1080;
           this.output.height = 1920;
@@ -1387,10 +1413,10 @@ export default {
         case 'ig-quote-post':
           this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202111/purchase-reauisition-617f92e81195c.jpg';
           this.value.logo.select = this.value.logo.white.primary;
-          this.value.title.limit = 26;
-          this.value.title.value = '—台泥董事長 張安平';
+          this.value.title.limit = 24;
+          this.value.title.value = '——職銜與人名放這一行';
           this.value.content.limit = 36;
-          this.value.content.value = '「有道德的生意，才會是好生意。」';
+          this.value.content.value = '「金句一行最多十八個全形字（含標點）最多兩行字，可少於、不可多於。」';
           this.output.width = 1080;
           this.output.height = 1080;
           this.output.ratio = 2;
@@ -1573,8 +1599,24 @@ export default {
           this.output.ratio = 3;
           break;
         case 'webpush-webaccess':
+          this.value.logo.select = this.value.logo.transparent.black;
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202210/article-633a9f717a94b.jpeg';
+          this.value.title.value = '訂戶\n獨享內容';
+          this.value.title.limit = 8;
+          this.output.width = 1024;
+          this.output.height = 512;
+          this.output.ratio = 1.7066666667;
           break;
         case 'webpush-covid19':
+          this.value.logo.select = this.value.logo.transparent.white;
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202105/article-60aa185bacddd.jpg';
+          this.value.title.value = '台灣疫情\n最新動態';
+          this.value.title.limit = 8;
+          this.value.subtitle.value = '不斷更新';
+          this.value.subtitle.limit = 4;
+          this.output.width = 1024;
+          this.output.height = 512;
+          this.output.ratio = 1.7066666667;
           break;
         case 'cwvideo-slider':
           this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/video/202209/video-633119ed8f0a7.jpg';
@@ -1609,6 +1651,8 @@ export default {
         case 'ig-faq-picture-story':
         case 'line-specific-recommendation':
         case 'edm-economist-podcast':
+        case 'webpush-webaccess':
+        case 'webpush-covid19':
           return false;
           break;
         default:
@@ -1625,6 +1669,7 @@ export default {
         case 'line-weekly-popular':
         case 'line-specific-recommendation':
         case 'youtube-forum':
+        case 'webpush-covid19':
           return true;
           break;
         default:
@@ -1669,6 +1714,7 @@ export default {
         case 'youtube-interview':
         case 'youtube-podcast':
         case 'youtube-sustainable':
+        case 'webpush-webaccess':
         case 'cwvideo-slider':
         case 'cwvideo-list':
         case 'cw-logo':
@@ -1696,6 +1742,8 @@ export default {
         case 'youtube-podcast':
         case 'youtube-sustainable':
         case 'youtube-forum':
+        case 'webpush-webaccess':
+        case 'webpush-covid19':
         case 'cwvideo-slider':
         case 'cwvideo-list':
         case 'cw-logo':
@@ -1720,6 +1768,8 @@ export default {
         case 'youtube-podcast':
         case 'youtube-sustainable':
         case 'youtube-forum':
+        case 'webpush-webaccess':
+        case 'webpush-covid19':
         case 'cwvideo-slider':
         case 'cwvideo-list':
         case 'cw-logo':

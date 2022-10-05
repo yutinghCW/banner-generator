@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500&display=swap');
 @import "./bootstrap";
 
-$gray-100: #F6F6F6;
-$gray-200: #EFEFEF;
-$primary:  #D60C18;
+$gray-100:        #F6F6F6;
+$gray-200:        #EFEFEF;
+$primary:         #D60C18;
+$primary-variant: #9D0505;
 
 @import "./form";
 @import "./preview";
@@ -38,3 +39,5 @@ $primary:  #D60C18;
 @import "./line/podcast-list";
 @import "./line/weekly-popular";
 @import "./line/specific-recommendation";
+
+@import "./webpush/webpush";

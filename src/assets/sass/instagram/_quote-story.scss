@@ -8,54 +8,55 @@
 
   img.logo {
     position: absolute;
-    top: 20px;
-    right: 30px;
-    width: 90px;
+    top: 26.25px;
+    right: 40px;
+    width: 75.5px;
     z-index: 1;
   }
 
   .title {
     position: relative;
-    padding: 24px 59px 4px 59px;
+    padding: 20px 65px 22px 70px;
     > img {
       position: absolute;
-      width: 55px;
-      height: 45px;
-      object-fit: contain;
+      width: 48px;
+      height: 40px;
       &:first-child {
         bottom: 100%;
-        left: 28px;
+        left: 40px;
       }
       &:last-child {
         top : 100%;
-        right: 30px;
+        right: 40px;
         transform: rotate(180deg);
       }
     }
     > h1 {
-      margin: 25px 0 0;
-      padding: 0 4px;
+      margin: 21px 0 0;
+      padding: 0 3px;
+      color: #48545d;
       font-size: 18px;
-      font-weight: 300;
-      letter-spacing: 0.0475em;
+      font-weight: normal;
+      text-align: right;
+      letter-spacing: .0275em;
     }
     > p {
-      color: #46535c;
+      color: #48545d;
       font-size: 24px;
-      line-height: 1.2;
-      letter-spacing: .02em;
+      line-height: 1.35;
+      letter-spacing: .045em;
     }
   }
 
   > .imgarea {
     position: absolute;
-    top: 460px;
+    top: 461px;
     width: 100%;
     overflow: hidden;
     &::before {
       content: '';
       display: block;
-      padding-top: calc(766 / 1080 * 100%);
+      padding-top: calc(722 / 1080 * 100%);
     }
     img {
       position: absolute;
