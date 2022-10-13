@@ -31,7 +31,11 @@
       <p v-html="value.content.value"></p>
       <img src="@/assets/images/quote@3x.png" alt="">
     </div>
-    <div class="swipe__cta" v-html="value.cta.value"></div>
+    <div
+      class="swipe__cta"
+      v-if="value.cta.value"
+      v-html="value.cta.value"
+    ></div>
   </div>
 </template>
 

@@ -15,7 +15,10 @@
           一鍵點選 中英對照
           <span class="btn">EN ↔ CH</span>
         </div>
-        <div class="swipe__cta">
+        <div
+          class="swipe__cta"
+          v-if="value.cta.value"
+        >
           <img
             src="images/headphone.svg"
             v-if="type.select === 'line-podcast-cw' || type.select === 'line-podcast-channel'"

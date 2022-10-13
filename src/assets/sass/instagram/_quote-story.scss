@@ -19,7 +19,7 @@
     padding: 20px 65px 22px 70px;
     > img {
       position: absolute;
-      width: 48px;
+      width: 47.5px;
       height: 40px;
       &:first-child {
         bottom: 100%;
@@ -73,7 +73,37 @@
     }
   }
 
-  .label, > .swipe__cta {
+  > .swipe__cta {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 10.2em;
+    height: 4.975em;
+    padding: 1.175em 0.5em;
+    color: $primary;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: .05rem;
+    text-align: center;
+    white-space: break-spaces;
+    transform: translateX(-50%);
+    overflow: hidden;
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding-top: 100%;
+      background-color: $white;
+      border-radius: 50%;
+      z-index: -1;
+    }
+  }
+
+  .label {
     display: none;
   }
 }

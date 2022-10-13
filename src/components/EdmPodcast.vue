@@ -6,7 +6,11 @@
         <span>{{ value.label.value }}</span>
       </div>
       <h1 v-html="value.title.value"></h1>
-      <div class="swipe__cta" v-html="value.cta.value"></div>
+      <div
+        class="swipe__cta"
+        v-if="value.cta.value"
+        v-html="value.cta.value"
+      ></div>
     </div>
     <div
       class="imgarea bg-gray-200"

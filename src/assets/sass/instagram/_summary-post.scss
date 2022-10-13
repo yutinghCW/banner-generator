@@ -28,7 +28,7 @@
   .content__block {
     position: relative;
     margin: 53px 0;
-    padding: 27px 49px 29px 59px;
+    padding: 27px 50px 29px 60px;
     > img {
       position: absolute;
       width: 47.5px;
@@ -36,10 +36,12 @@
       &:first-child {
         bottom: 100%;
         left: 40px;
+        margin-bottom: -0.5px;
       }
       &:last-child {
         top : 100%;
         right: 40px;
+        margin-top: 0.5px;
         transform: rotate(180deg);
       }
     }
@@ -52,7 +54,7 @@
     }
   }
 
-  img.logo, .label, .imgarea, h2, .swipe__cta {
+  img.logo, .label, .imgarea, h2, > .swipe__cta {
     display: none;
   }
 

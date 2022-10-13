@@ -120,7 +120,7 @@
             class="form__group form__group--ckeditor w-100 mb20"
             v-if="checkTitle() && checkEditor()"
           >
-            <h3 class="mb-0">標題</h3>
+            <h3 class="mb-0">{{ headers.title }}</h3>
             <div
               class="label form__group--defalt"
               :class="{
@@ -149,10 +149,41 @@
             </div>
           </div>
           <div
+            class="form__group form__group--outlined w-100 mb20"
+            v-else-if="checkTitle() && checkSingleLine()"
+          >
+            <h3 class="mb-0">{{ headers.title }}</h3>
+            <div
+              class="form__group--defalt"
+              :class="{
+                'hasValue': value.content.value !== '',
+                'form__group--error': countLines(value.content.value) > value.content.limit,
+              }"
+            >
+              <label class="label form__group--defalt">
+                <input type="text" v-model="value.title.value" class="form__group__input d-block">
+                <span
+                  class="form__group__help--strong"
+                  :class="{
+                    'form__group__help--highlight':
+                    removeTags(value.title.value).length > value.title.limit
+                  }"
+                >
+                  <template v-if="!(removeTags(value.title.value).length > value.title.limit)">
+                    建議字數{{ value.title.limit }}字
+                  </template>
+                  <template v-if="removeTags(value.title.value).length > value.title.limit">
+                    已超過建議字數，請透過預覽查看是否有跑版
+                  </template>
+                </span>
+              </label>
+            </div>
+          </div>
+          <div
             class="form__group form__group--ckeditor w-100 mb20"
             v-else-if="checkTitle()"
           >
-            <h3 class="mb-0">標題</h3>
+            <h3 class="mb-0">{{ headers.title }}</h3>
             <div class="label form__group--defalt">
               <textarea v-model="value.title.value" class="form__group__input d-block"></textarea>
               <span
@@ -175,7 +206,7 @@
             class="form__group form__group--ckeditor w-100 mb20"
             v-if="checkSubtitle() && checkEditor() && !checkSingleLine()"
           >
-            <h3 class="mb-0">副標</h3>
+            <h3 class="mb-0">{{ headers.subtitle }}</h3>
             <div
               class="label form__group--defalt"
               :class="{
@@ -207,7 +238,7 @@
             class="form__group form__group--outlined w-100 mb20"
             v-else-if="checkSubtitle() && checkSingleLine()"
           >
-            <h3 class="mb-0">副標</h3>
+            <h3 class="mb-0">{{ headers.subtitle }}</h3>
             <label class="label form__group--defalt">
               <input type="text" v-model="value.subtitle.value" class="form__group__input d-block">
               <span
@@ -230,7 +261,7 @@
             class="form__group form__group--ckeditor w-100 mb20"
             v-else-if="checkSubtitle()"
           >
-            <h3 class="mb-0">副標</h3>
+            <h3 class="mb-0">{{ headers.subtitle }}</h3>
             <div class="label form__group--defalt">
               <textarea
                 v-model="value.subtitle.value"
@@ -252,8 +283,39 @@
               </span>
             </div>
           </div>
-          <div class="form__group form__group--outlined w-100 mb20" v-if="checkContent()">
-            <h3 class="mb-1">內文</h3>
+          <div
+            class="form__group form__group--outlined w-100 mb20"
+            v-if="checkContent() && checkMultiLine()"
+          >
+            <h3 class="mb-1">{{ headers.content }}</h3>
+            <div
+              class="form__group--defalt"
+              :class="{
+                'hasValue': value.content.value !== '',
+                'form__group--error': countLines(value.content.value) > value.content.limit,
+              }"
+            >
+              <label class="label form__group--defalt">
+                <input type="text" v-model="value.content.value" class="form__group__input d-block">
+                <span
+                  class="form__group__help--strong"
+                  :class="{
+                    'form__group__help--highlight':
+                    removeTags(value.content.value).length > value.content.limit
+                  }"
+                >
+                  <template v-if="!(removeTags(value.content.value).length > value.content.limit)">
+                    建議字數{{ value.content.limit }}字
+                  </template>
+                  <template v-if="removeTags(value.content.value).length > value.content.limit">
+                    已超過建議字數，請透過預覽查看是否有跑版
+                  </template>
+                </span>
+              </label>
+            </div>
+          </div>
+          <div class="form__group form__group--outlined w-100 mb20" v-else-if="checkContent()">
+            <h3 class="mb-1">{{ headers.content }}</h3>
             <div
               class="label form__group--defalt"
               :class="{
@@ -292,7 +354,7 @@
             </label>
           </div>
           <div class="form__group form__group--outlined w-100 mb20" v-if="checkCta()">
-            <h3 class="mb-1">CTA 文字</h3>
+            <h3 class="mb-1">{{ headers.cta }}</h3>
             <div
               class="label form__group--defalt"
               :class="{
@@ -1138,6 +1200,12 @@ export default {
           },
         },
       ],
+      headers: {
+        title: '標題',
+        subtitle: '副標',
+        content: '內文',
+        cta: 'CTA 文字',
+      },
       value: {
         img: 'https://storage.googleapis.com/www-cw-com-tw/article/202210/article-633ce45a09679.jpg',
         group: {
@@ -1351,6 +1419,11 @@ export default {
       return str.replace(/(<([^>]+)>)/ig, '');
     },
     detectType() {
+      this.headers.title = '標題';
+      this.headers.subtitle = '副標';
+      this.headers.content = '內文';
+      this.headers.cta = 'CTA 文字';
+
       switch (this.type.select) {
         case 'ig-cw-picture-story':
           this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202210/article-633ce45a09679.jpg';
@@ -1369,9 +1442,9 @@ export default {
           break;
         case 'ig-cw-picture-post':
           this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202210/article-633ce45a09679.jpg';
-          this.value.title.limit = 19;
+          this.value.title.limit = 18;
           this.value.title.value = '<p>大標最多十八個全形字，可少於不可多於</p>';
-          this.value.subtitle.limit = 19;
+          this.value.subtitle.limit = 23;
           this.value.subtitle.value = '<p>副標最多放二十三個全形字，可少不可多於二十三字</p>';
           this.value.cta.value = '到限時動態查看';
           this.value.label.value = '天下圖擊';
@@ -1389,6 +1462,7 @@ export default {
           this.output.width = 1080;
           this.output.height = 1080;
           this.output.ratio = 2;
+          this.headers.title = '書名';
           break;
         case 'ig-summary-story':
           this.value.title.limit = 25;
@@ -1398,44 +1472,50 @@ export default {
           this.output.width = 1080;
           this.output.height = 1920;
           this.output.ratio = 2;
+          this.headers.title = '書名';
           break;
         case 'ig-quote-story':
-          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202112/article-61cd3acbb7c9a.jpg';
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202210/article-633ce45a09679.jpg';
           this.value.title.limit = 24;
           this.value.title.value = '——職銜與人名放這一行';
-          this.value.content.limit = 48;
-          this.value.content.value = '金句限動一行最多可放十六個全形字包含標點。可少於、不可多於十七字最多可放到三行，不可多於三行。';
+          this.value.content.limit = 3;
+          this.value.content.value = '金句限動一行最多可放十六個全形字\n包含標點。可少於、不可多於十七字\n最多可放到三行，不可多於三行。';
           this.value.logo.select = this.value.logo.white.primary;
           this.output.width = 1080;
           this.output.height = 1920;
           this.output.ratio = 2;
+          this.headers.title = '職銜與人名';
           break;
         case 'ig-quote-post':
-          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202111/purchase-reauisition-617f92e81195c.jpg';
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202210/article-633ce45a09679.jpg';
           this.value.logo.select = this.value.logo.white.primary;
           this.value.title.limit = 24;
           this.value.title.value = '——職銜與人名放這一行';
           this.value.content.limit = 36;
-          this.value.content.value = '「金句一行最多十八個全形字（含標點）最多兩行字，可少於、不可多於。」';
+          this.value.content.value = '「金句一行最多十八個全形字（含標點符號）最多兩行字，可少於、不可多於。」';
           this.output.width = 1080;
           this.output.height = 1080;
           this.output.ratio = 2;
+          this.headers.title = '職銜與人名';
           break;
         case 'ig-faq-word-story':
-          this.value.title.limit = 19;
-          this.value.title.value = '<p><span style="color:#d60c18;">軍事支出</span>佔GDP比重，比台灣還要高？</p>';
-          this.value.subtitle.limit = 19;
-          this.value.subtitle.value = '<p>下列哪一個國家</p>';
-          this.value.content.value = '小編七點半準時公佈解答喔！';
+          this.value.title.limit = 18;
+          this.value.title.value = '<p>大標最多十八個全形字，可少於不可多於</p>';
+          this.value.subtitle.limit = 23;
+          this.value.subtitle.value = '<p>副標最多放二十三個全形字，可少不可多於二十三字</p>';
+          this.value.content.limit = 23;
+          this.value.content.value = '內文最多放二十二個全形字，可少不可多於二二字';
           this.value.label.value = '猜一猜';
           this.output.width = 1080;
           this.output.height = 1920;
           this.output.ratio = 2;
           break;
         case 'ig-faq-picture-story':
-          this.value.img = 'http://m.niusnews.com/upload/posts/posts_image3_105708_1618825479.jpg';
-          this.value.title.value = '哥吉拉公仔別亂送！\n日本影史最經典怪獸知多少？';
-          this.value.content.value = 'Ｑ１：哥吉拉的名稱是哪兩種動物組合而成？';
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202210/article-633ce45a09679.jpg';
+          this.value.title.limit = 30;
+          this.value.title.value = '問題大標一行可放十五個全形字，\n包含標點。而且需要兩行。';
+          this.value.content.limit = 22;
+          this.value.content.value = '題目這一行最多可放二十二個全形字，只可以一行';
           this.value.label.value = '猜一猜';
           this.value.logo.select = this.value.logo.white.primary;
           this.output.width = 1080;
@@ -1662,6 +1742,10 @@ export default {
     },
     checkSingleLine() {
       switch (this.type.select) {
+        case 'ig-summary-post':
+        case 'ig-summary-story':
+        case 'ig-quote-post':
+        case 'ig-quote-story':
         case 'line-popular-articles':
         case 'line-podcast-cw':
         case 'line-podcast-channel':
@@ -1670,6 +1754,18 @@ export default {
         case 'line-specific-recommendation':
         case 'youtube-forum':
         case 'webpush-covid19':
+          return true;
+          break;
+        default:
+          return false;
+          break;
+      }
+    },
+    checkMultiLine() {
+      switch (this.type.select) {
+        case 'ig-quote-post':
+        case 'ig-faq-word-story':
+        case 'ig-faq-picture-story':
           return true;
           break;
         default:
