@@ -1367,8 +1367,17 @@ export default {
     /* eslint-disable */
     screenshot() {
       const el = document.querySelector('#preview');
-      domtoimage.toPng(el, {
-        quality: 1,
+      let qlty = 1;
+      switch (this.type.select) {
+        case 'cwvideo-slider':
+        case 'cwvideo-list':
+          qlty = 0.8;
+          break;
+        default:
+          break;
+      }
+      domtoimage.toJpeg(el, {
+        quality: qlty,
         width: this.output.width,
         height: this.output.height,
         style: {
@@ -1384,7 +1393,7 @@ export default {
         today = `${yyyy}${mm}${dd}`;
         const a = document.createElement('a');
         a.href = dataUrl;
-        a.download = `${this.type.select}-${today}.png`;
+        a.download = `${this.type.select}-${today}.jpg`;
         a.click();
       })
       .catch((error) => {
@@ -1702,7 +1711,7 @@ export default {
           this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/video/202209/video-633119ed8f0a7.jpg';
           this.output.width = 940;
           this.output.height = 584;
-          this.output.ratio = 2.6;
+          this.output.ratio = 1.5384615385;
           break;
         case 'cwvideo-list':
           this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/video/202209/video-633119ed8f0a7.jpg';
