@@ -42,6 +42,14 @@
           class="btn btn--contained"
         >產生圖卡</button>
       </div>
+      <div class="col-md-12 my20 text-center">
+        <button
+          @click="downloadAll()"
+          v-if="sheet.data.length > 0"
+          type="button"
+          class="btn btn--contained"
+        >下載全部</button>
+      </div>
       <div class="col-md-12 my20">
         <div class="row justify-content-around">
           <div
@@ -51,10 +59,10 @@
           >
             <div
               :id="`preview${index}`"
-              class="preview__section"
+              class="preview__section cw-weekly"
             >
               <div class="content">
-                <img src="/images/cw-logo-white-primary.svg" alt="天下雜誌" class="logo">
+                <img src="images/cw-logo-white-primary.svg" alt="天下雜誌" class="logo">
                 <h1>
                   {{ item['主標（單行最多7字，可拆2行）'] }}
                 </h1>
@@ -70,7 +78,7 @@
               <button
                 @click="screenshot(`#preview${index}`)"
                 type="button"
-                class="btn btn--outlined"
+                class="btn btn--small btn--outlined"
               >下載單張</button>
             </div>
           </div>
@@ -155,86 +163,13 @@ export default {
         console.error('oops, something went wrong!', error);
       });
     },
+    downloadAll() {
+      const length = this.sheet.data.length;
+      for (let index = 0; index < length; index++) {
+        this.screenshot(`#preview${index}`)
+      }
+    },
     /* eslint-disable */
   },
 };
 </script>
-
-<style lang="scss" scoped>
-  .preview__section {
-    position: relative;
-    width: 520px;
-    height: 520px;
-    padding: 24.5px;
-    background-color: white;
-
-    .content {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      width: 100%;
-      height: 100%;
-      padding: 80px 25px 27px 25px;
-      white-space: break-spaces;
-      border: 1.4px solid #d60c18;
-      &::before {
-        content: '';
-        display: block;
-        position: absolute;
-        bottom: -.5px;
-        left: -.5px;
-        width: 81px;
-        height: 9px;
-        background-color: #d60c18;
-      }
-    }
-    img.logo {
-      position: absolute;
-      top: -.5px;
-      right: -.5px;
-      height: 30px;
-    }
-    h1 {
-      margin: 0;
-      color: #000000;
-      font-size: 51.3px;
-      font-weight: 300;
-      line-height: 1.2;
-    }
-    h2 {
-      margin-top: 33px;
-      margin-left: 5px;
-      margin-bottom: 0;
-      color: #d60c18;
-      font-size: 22px;
-      font-weight: 600;
-    }
-    p {
-      height: 6em * 1.475;
-      margin-top: 13px;
-      margin-left: 5px;
-      margin-right: 5px;
-      color: #595757;
-      font-size: 18px;
-      letter-spacing: 0.0475rem;
-      line-height: 1.475;
-    }
-  }
-
-  
-  .fade-enter-active,
-  .fade-leave-active {
-    transition: opacity .3s;
-  }
-
-  .fade-enter-from,
-  .fade-leave-to {
-    opacity: 0;
-  }
-
-  .fade-enter-to,
-  .fade-leave-from {
-    opacity: 1;
-  }
-</style>
