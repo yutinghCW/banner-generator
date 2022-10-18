@@ -10,7 +10,7 @@
             <label class="label form__group--defalt">
               <input
                 v-model="sheet.url"
-                type="email"
+                type="url"
                 class="form__group__input"
               >
               <div class="form__group__placeholder">請輸入 Google Spreadsheet Link</div>
@@ -35,13 +35,14 @@
           </div>
         </div>
       </div>
-      <div class="col-md-auto mb20">
+      <div class="col-md-auto mb20 text-center">
         <button
           @click="generator()"
           type="button"
           class="btn btn--contained"
         >產生圖卡</button>
       </div>
+      <hr v-if="sheet.data.length > 0" class="my20">
       <div class="col-md-12 my20 text-center">
         <button
           @click="downloadAll()"
