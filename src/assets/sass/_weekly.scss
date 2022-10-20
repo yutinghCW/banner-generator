@@ -12,7 +12,7 @@
     justify-content: flex-end;
     width: 100%;
     height: 100%;
-    padding: 80px 25px 27px 25px;
+    padding: 27px 25px;
     white-space: break-spaces;
     border: 1.4px solid #d60c18;
     &::before {
@@ -48,14 +48,16 @@
     font-weight: 600;
   }
   p {
-    height: 6em * 1.475;
+    height: 1em * 1.475 * 5;
     margin-top: 13px;
+    margin-bottom: 1em;
     margin-left: 5px;
     margin-right: 5px;
     color: #595757;
-    font-size: 18px;
+    font-size: 1.125rem;
     letter-spacing: 0.0475rem;
     line-height: 1.475;
+    overflow: hidden;
   }
 }
 
