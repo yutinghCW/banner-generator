@@ -6,14 +6,14 @@
       alt="天下雜誌" class="logo"
     >
     <div class="title">
-      <div class="label">
+      <div class="label" v-if="value.subtitle.value">
         <span v-html="value.subtitle.value"></span>
       </div>
       <h1 v-html="value.title.value"></h1>
       <div class="action">
         <div class="translate" v-if="value.translate">
           一鍵點選 中英對照
-          <span class="btn">EN ↔ CH</span>
+          <span class="btn">EN↔CH</span>
         </div>
         <div
           class="swipe__cta"

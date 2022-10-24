@@ -31,3 +31,11 @@
 textarea.form__group__input:focus-visible {
   outline: 0;
 }
+
+.select__group {
+  select {
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    line-height: 1.5;
+  }
+}

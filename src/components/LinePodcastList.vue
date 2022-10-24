@@ -7,7 +7,7 @@
     >
     <div class="imgarea-group">
       <div
-        class="imgarea imgarea-1 bg-gray-200"
+        class="imgarea imgarea-1"
         :class="{
           'object-cover': !editable.group.first.switch,
           'object-customized': editable.group.first.switch
@@ -26,7 +26,7 @@
         <div class="title">{{ value.group.first.title }}</div>
       </div>
       <div
-        class="imgarea imgarea-2 bg-gray-200"
+        class="imgarea imgarea-2"
         :class="{
           'object-cover': !editable.group.second.switch,
           'object-customized': editable.group.second.switch
@@ -45,7 +45,7 @@
         <div class="title">{{ value.group.second.title }}</div>
       </div>
       <div
-        class="imgarea imgarea-3 bg-gray-200"
+        class="imgarea imgarea-3"
         :class="{
           'object-cover': !editable.group.third.switch,
           'object-customized': editable.group.third.switch
@@ -64,7 +64,7 @@
         <div class="title">{{ value.group.third.title }}</div>
       </div>
       <div
-        class="imgarea imgarea-4 bg-gray-200"
+        class="imgarea imgarea-4"
         :class="{
           'object-cover': !editable.group.forth.switch,
           'object-customized': editable.group.forth.switch

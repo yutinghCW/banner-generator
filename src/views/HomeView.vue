@@ -927,28 +927,28 @@
             <div class="col-md-3">
               <label class="label--radio d-flex align-items-center">
                 <input
-                  type="radio" id="logo-podcast-horizontal-cw"
-                  :value="value.logo.podcast.horizontal.cw"
+                  type="radio" id="logo-podcast-square-cw"
+                  :value="value.logo.podcast.square.cw"
                   v-model="value.logo.select"
-                  :checked="value.logo.select === value.logo.podcast.horizontal.cw"
+                  :checked="value.logo.select === value.logo.podcast.square.cw"
                 >
                 <span class="label__radio__mark"></span>
                 <span class="label__radio__txt">
-                  <img src="images/podcast-cw-horizontal.jpg" alt="">
+                  <img src="images/podcast-cw.jpg" alt="">
                 </span>
               </label>
             </div>
             <div class="col-md-3">
               <label class="label--radio d-flex align-items-center">
                 <input
-                  type="radio" id="logo-podcast-horizontal-channel"
-                  :value="value.logo.podcast.horizontal.channel"
+                  type="radio" id="logo-podcast-square-channel"
+                  :value="value.logo.podcast.square.channel"
                   v-model="value.logo.select"
-                  :checked="value.logo.select === value.logo.podcast.horizontal.channel"
+                  :checked="value.logo.select === value.logo.podcast.square.channel"
                 >
                 <span class="label__radio__mark"></span>
                 <span class="label__radio__txt">
-                  <img src="images/podcast-channel-horizontal.jpg" alt="">
+                  <img src="images/podcast-channel.jpg" alt="">
                 </span>
               </label>
             </div>
@@ -1532,10 +1532,10 @@ export default {
           this.output.ratio = 2;
           break;
         case 'line-popular-articles':
-          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202205/article-627cd47ec6cd4.jpg';
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202210/article-633ce45a09679.jpg';
           this.value.logo.select = this.value.logo.white.primary;
           this.value.title.limit = 30;
-          this.value.title.value = '<p>景氣反轉成定局，</p><p>通膨會不會殺了全球經濟？</p>';
+          this.value.title.value = '<p>標題一行最多十五個字，需放兩行</p><p>標題一行最多十五個字，需放兩行</p>';
           this.value.subtitle.limit = 6;
           this.value.subtitle.value = '今日熱文';
           this.output.width = 1040;
@@ -1543,65 +1543,71 @@ export default {
           this.output.ratio = 1.6507936508;
           break;
         case 'line-podcast-cw':
-          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202006/article-5ee5c6c8ed334.jpg';
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202210/article-633ce45a09679.jpg';
           this.value.logo.select = this.value.logo.podcast.square.cw;
-          this.value.title.value = '<p>輾轉難眠，換個方向就能入睡？為什麼中年之後總是睡不好？提升睡眠品質的訣竅！</p>';
+          this.value.title.limit = 26;
+          this.value.title.value = '<p>這行標題最多十五個字，需有兩行這行標題最多十一個字。</p>';
+          this.value.subtitle.limit = 10;
           this.value.subtitle.value = '聽天下｜聰明慢老';
+          this.value.cta.limit = 4;
           this.value.cta.value = '點擊收聽';
           this.output.width = 1040;
           this.output.height = 1040;
           this.output.ratio = 1.6507936508;
           break;
         case 'line-podcast-channel':
-          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202109/article-615421490e479.JPG';
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202210/article-633ce45a09679.jpg';
           this.value.logo.select = this.value.logo.podcast.square.channel;
-          this.value.title.value = '<p>網紅開團購一定有效？</p><p>不拚價格，找對KOL賣認同！</p>';
+          this.value.title.limit = 26;
+          this.value.title.value = '<p>這行標題最多十五個字，需有兩行這行標題最多十一個字。</p>';
+          this.value.subtitle.limit = 10;
           this.value.subtitle.value = '闖天下｜服務一點訣';
+          this.value.cta.limit = 4;
           this.value.cta.value = '點擊收聽';
           this.output.width = 1040;
           this.output.height = 1040;
           this.output.ratio = 1.6507936508;
           break;
         case 'line-english':
-          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202109/article-614abedfcbbf0.jpg';
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202210/article-633ce45a09679.jpg';
           this.value.logo.select = this.value.logo.white.primary;
           this.value.title.limit = 90;
-          this.value.title.value = '<p>The ‘Prosperous 100’ leading Taiwan’s</p><p><strong>semiconductor  industry into a decade of success</strong></p>';
-          this.value.subtitle.limit = 35;
-          this.value.subtitle.value = '半導體100強：和高科技不搭嘎的黑手產業，為何正跟著台積飛？';
-          this.value.cta.limit = 11;
-          this.value.cta.value = 'Read More >';
+          this.value.title.value = '<p>The \'Prosperous 100\' leading Taiwan\'s, semiconductor industry into.</p>';
+          this.value.subtitle.limit = 27;
+          this.value.subtitle.value = '此處輸入中文標題，一行最多可放到二十七字，只可以放一行';
+          this.value.cta.limit = 9;
+          this.value.cta.value = 'Read More';
           this.output.width = 1040;
           this.output.height = 1040;
           this.output.ratio = 1.6507936508;
           break;
         case 'line-podcast-list':
-          this.value.logo.select = this.value.logo.podcast.horizontal.cw;
+          this.value.logo.select = this.value.logo.podcast.square.cw;
 
-          this.value.group.first.img = 'https://scontent.ftpe7-1.fna.fbcdn.net/v/t39.30808-6/301123735_479619044171942_635858916333797199_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=v2X-bsdI5V4AX-YSrBa&_nc_ht=scontent.ftpe7-1.fna&oh=00_AT9-xhMwXtblIS--_1_N6G5pzEFHpOcL7fNHXytDwsTrJg&oe=633D5DF5';
-          this.value.group.first.title = '她移民葡萄牙、任職四大律所\n中世紀古城私房景點推薦！';
-          this.value.group.first.limit = 28;
+          this.value.group.first.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202102/article-603370ada2849.jpg';
+          this.value.group.first.title = '一行標題最多可放十二個字\n一行標題最多可放十二個字';
+          this.value.group.first.limit = 24;
 
-          this.value.group.second.img = 'https://storage.googleapis.com/www-cw-com-tw/video/202209/video-632c03565a04c.jpg';
-          this.value.group.second.title = '百年紙糊店站上國際！\n他如何用動畫「復活」紙紮？';
-          this.value.group.second.limit = 28;
+          this.value.group.second.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202210/article-63513f3a131b8.jpg';
+          this.value.group.second.title = '一行標題最多可放十二個字\n一行標題最多可放十二個字';
+          this.value.group.second.limit = 24;
 
-          this.value.group.third.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202208/article-630f056b52af7.jpg';
-          this.value.group.third.title = '稻盛和夫享耆壽 90 歲：\n這才是真正有價值的人生';
-          this.value.group.third.limit = 28;
+          this.value.group.third.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202209/article-63195fc1a5e82.jpg';
+          this.value.group.third.title = '一行標題最多可放十二個字\n一行標題最多可放十二個字';
+          this.value.group.third.limit = 24;
 
-          this.value.group.forth.img = 'https://storage.googleapis.com/www-cheers-com-tw/ckeditor/202207/ckeditor-62c2c716b594b.jpg';
-          this.value.group.forth.title = '耗費十年接任宏碁人資長\n他如何成為管理百人的主管？';
-          this.value.group.forth.limit = 28;
+          this.value.group.forth.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202206/article-62b45f8ee4206.jpg';
+          this.value.group.forth.title = '一行標題最多可放十二個字\n一行標題最多可放十二個字';
+          this.value.group.forth.limit = 24;
           this.output.width = 1040;
           this.output.height = 1040;
           this.output.ratio = 1.6507936508;
           break;
         case 'line-weekly-popular':
           this.value.logo.select = this.value.logo.white.primary;
-          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202205/article-627cd47ec6cd4.jpg';
-          this.value.title.limit = 26;
-          this.value.title.value = '<p>主標第一行最多只能放十五個字</p><p>第二行最多只放十一個字</p>';
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202210/article-633ce45a09679.jpg';
+          this.value.title.limit = 30;
+          this.value.title.value = '<p>標題一行最多十五個字，需放兩行</p><p>標題一行最多十五個字，需放兩行</p>';
           this.value.subtitle.limit = 6;
           this.value.subtitle.value = '本週最熱文章';
           this.output.width = 1040;
@@ -1610,8 +1616,8 @@ export default {
           break;
         case 'line-specific-recommendation':
           this.value.logo.select = this.value.logo.white.primary;
-          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202106/article-60bee58a41619.jpg';
-          this.value.title.value = '主標第一行最多只能放十五個字，\n第二行最多只放十個字';
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202210/article-633ce45a09679.jpg';
+          this.value.title.value = '此行標題最多放十五個字，需兩行\n此行標題最多放十個字';
           this.value.title.limit = 25;
           this.value.subtitle.value = '專屬文章推薦';
           this.value.subtitle.limit = 6;
@@ -2101,5 +2107,8 @@ body main p {
     top: 3rem;
     z-index: 1;
   }
+}
+.line-specific-recommendation {
+  background: top center/contain url('@/assets/images/demo.jpg');
 }
 </style>
