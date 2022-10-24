@@ -1367,16 +1367,25 @@ export default {
     /* eslint-disable */
     screenshot() {
       const el = document.querySelector('#preview');
+      let method = 'toPng';
+      let extension = 'png';
       let qlty = 1;
       switch (this.type.select) {
         case 'cwvideo-slider':
         case 'cwvideo-list':
-          qlty = 0.8;
+          method = 'toJpeg';
+          extension = 'jpg';
+          qlty = .95;
+          break;
+        case 'cw-logo':
+          method = 'toJpeg';
+          extension = 'jpg';
+          qlty = .6;
           break;
         default:
           break;
       }
-      domtoimage.toJpeg(el, {
+      domtoimage[method](el, {
         quality: qlty,
         width: this.output.width,
         height: this.output.height,
@@ -1393,7 +1402,7 @@ export default {
         today = `${yyyy}${mm}${dd}`;
         const a = document.createElement('a');
         a.href = dataUrl;
-        a.download = `${this.type.select}-${today}.jpg`;
+        a.download = `${this.type.select}-${today}.${extension}`;
         a.click();
       })
       .catch((error) => {
@@ -1714,19 +1723,17 @@ export default {
           this.output.ratio = 1.7066666667;
           break;
         case 'cwvideo-slider':
-          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/video/202209/video-633119ed8f0a7.jpg';
           this.output.width = 940;
           this.output.height = 584;
           this.output.ratio = 1.5384615385;
           break;
         case 'cwvideo-list':
-          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/video/202209/video-633119ed8f0a7.jpg';
           this.output.width = 600;
           this.output.height = 373;
           this.output.ratio = 1;
           break;
         case 'cw-logo':
-          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202209/article-632dd2f8a4273.jpg';
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202210/article-633ce45a09679.jpg';
           this.value.logo.select = this.value.logo.white.primary;
           this.output.width = 1600;
           this.output.height = 1072;
