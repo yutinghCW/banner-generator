@@ -1,20 +1,8 @@
 <template>
   <div class="preview__section">
-    <img
-      :src="value.logo.select"
-      v-if="!value.logo.disabled"
-      alt="天下雜誌" class="logo"
-    >
-    <img
-      :src="`images/mask-${type.select}.png`"
-      alt="版型遮罩" class="mask"
-    >
-    <div class="label" v-if="value.subtitle.value">
-      <span v-html="value.subtitle.value"></span>
-    </div>
     <div class="title">
-      <h1 v-html="value.title.value" class="back"></h1>
-      <h1 v-html="value.title.value" class="front"></h1>
+      <h1 v-html="value.title.value"></h1>
+      <h2 v-html="value.subtitle.value"></h2>
     </div>
     <div
       class="imgarea bg-gray-200"

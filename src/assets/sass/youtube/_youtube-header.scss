@@ -1,0 +1,55 @@
+.youtube-header {
+  position: relative;
+  width: 640px;
+  height: 360px;
+
+  .mask {
+    mix-blend-mode: multiply;
+  }
+
+  .title {
+    display: flex;
+    flex-direction: column;
+    top: 50%;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    width: auto;
+    transform: translateY(-50%);
+    z-index: 2;
+
+    h1 {
+      padding: 0;
+      font-size: 16.7px;
+      p {
+        line-height: 1.25;
+      }
+    }
+    img {
+      width: 29px;
+      margin-top: 14px;
+    }
+  }
+  &.text-left {
+    .title {
+      align-items: flex-start;
+      left: 139px;
+      text-align: left;
+    }
+  }
+  &.text-right {
+    .title {
+      align-items: flex-end;
+      right: 139px;
+      text-align: right;
+    }
+  }
+  &.text-center {
+    .title {
+      align-items: center;
+      left: 50%;
+      text-align: center;
+      transform: translate(-50%, -50%);
+    }
+  }
+}

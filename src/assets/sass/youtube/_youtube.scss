@@ -31,15 +31,25 @@
     h1 {
       margin-top: 0;
       margin-bottom: 0;
-      padding: 36px;
-      color: $white;
+      padding: 36px 30px 40px 36px;
       font-size: 50.7px;
       line-height: 1;
-      text-shadow: 4px 4px 8px rgba($black, 0.5);
+      &.front {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        color: $white;
+      }
+      &.back {
+        color: transparent;
+        text-shadow: 4px 5px 8px rgba($black, 0.5);
+        mix-blend-mode: multiply;
+      }
       p {
         margin-top: 0;
         margin-bottom: 0;
-        color: $white;
+        color: currentColor;
         line-height: 1.15;
         white-space: break-spaces;
       }

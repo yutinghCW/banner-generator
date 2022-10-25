@@ -1,0 +1,46 @@
+.youtube-policy {
+  position: relative;
+  .title {
+    left: 0;
+    height: 100%;
+    padding: 0;
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      bottom: 74px;
+      left: 36px;
+      right: 36px;
+      height: 14px;
+      background-color: $primary;
+      z-index: 1;
+    }
+    h1 {
+      position: absolute;
+      bottom: 88px;
+      left: 36px;
+      padding: 3px 14px 10px;
+      font-size: 42px;
+      letter-spacing: -.01em;
+      background-color: $white;
+      p {
+        line-height: 1;
+      }
+    }
+    h2 {
+      position: absolute;
+      bottom: 19px;
+      right: 36px;
+      margin: 0;
+      padding: 4px 11px 9px;
+      color: $white;
+      font-size: 42px;
+      letter-spacing: -.01em;
+      background-color: #707070;
+      p {
+        color: currentColor;
+        line-height: 1;
+      }
+    }
+  }
+}
