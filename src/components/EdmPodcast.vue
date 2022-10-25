@@ -9,8 +9,10 @@
       <div
         class="swipe__cta"
         v-if="value.cta.value"
-        v-html="value.cta.value"
-      ></div>
+      >
+        <img src="images/headphone.svg" alt="headphone">
+        <span v-html="value.cta.value"></span>
+      </div>
     </div>
     <div
       class="imgarea bg-gray-200"

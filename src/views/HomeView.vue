@@ -1639,8 +1639,11 @@ export default {
         case 'edm-economist-podcast':
           this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202201/article-61d2f309ba56c.jpg';
           this.value.logo.select = this.value.logo.podcast.square.cw;
+          this.value.label.limit = 8;
           this.value.label.value = '聽天下｜經濟學人';
-          this.value.title.value = '兩極分化下的美國政局；\n全球資本從氾濫到稀缺？';
+          this.value.title.limit = 30;
+          this.value.title.value = '這行標題最多十五個字，需有兩行\n這行標題最多十五個字，需有兩行';
+          this.value.cta.limit = 4;
           this.value.cta.value = '點擊收聽';
           this.output.width = 1600;
           this.output.height = 1072;
