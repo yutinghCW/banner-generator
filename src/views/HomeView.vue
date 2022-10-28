@@ -1716,7 +1716,22 @@ export default {
           extension = 'jpg';
           qlty = .6;
           break;
+        case 'youtube-enterprise':
+        case 'youtube-investigation':
+        case 'youtube-interview':
+        case 'youtube-podcast':
+        case 'youtube-sustainable':
+        case 'youtube-forum':
+        case 'youtube-policy':
+        case 'youtube-media':
+          method = 'toJpeg';
+          extension = 'jpg';
+          qlty = .95;
+          break;
         case 'youtube-header':
+          method = 'toJpeg';
+          extension = 'jpg';
+          qlty = .95;
           document.querySelector('.mask').style.display = 'none';
           break;
         default:
@@ -2078,17 +2093,17 @@ export default {
           this.output.ratio = 4;
           break;
         case 'webpush-webaccess':
-          this.value.logo.select = this.value.logo.transparent.black;
-          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202210/article-633a9f717a94b.jpeg';
-          this.value.title.value = '訂戶\n獨享內容';
+          this.value.logo.select = this.value.logo.white.primary;
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202207/purchase-reauisition-62de4445582be.jpg';
+          this.value.title.value = '一行四字\n限定兩行';
           this.value.title.limit = 8;
           this.output.width = 1024;
           this.output.height = 512;
           this.output.ratio = 1.7066666667;
           break;
         case 'webpush-covid19':
-          this.value.logo.select = this.value.logo.transparent.white;
-          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202105/article-60aa185bacddd.jpg';
+          this.value.logo.select = this.value.logo.white.primary;
+          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202210/article-635a8191bfa48.jpg';
           this.value.title.value = '台灣疫情\n最新動態';
           this.value.title.limit = 8;
           this.value.subtitle.value = '不斷更新';
@@ -2303,6 +2318,8 @@ export default {
         case 'youtube-policy':
         case 'youtube-media':
         case 'youtube-header':
+        case 'webpush-webaccess':
+        case 'webpush-covid19':
         case 'cwvideo-slider':
         case 'cwvideo-list':
           return false;

@@ -8,10 +8,19 @@
     flex-direction: column;
     align-items: center;
     vertical-align: middle;
+    width: 195px;
+
+    .logo {
+      position: absolute;
+      top: 0;
+      left: 67px;
+      width: 71px;
+    }
 
     h1 {
       margin-top: 0;
-      font-weight: 600;
+      font-weight: 700;
+      line-height: 1.25;
       text-align: center;
       white-space: break-spaces;
     }
@@ -20,6 +29,7 @@
     display: inline-block;
     vertical-align: middle;
     position: relative;
+    width: 405px;
     height: 100%;
     overflow: hidden;
     img {
@@ -39,58 +49,39 @@
 }
 
 .webpush-webaccess {
-  background-color: #e1dcd8;
+  background-color: $gray-200;
   > .title {
-    width: 195px;
 
-    .logo {
-      width: 115px;
-      margin-bottom: 10px;
-    }
     h1 {
-      margin-bottom: 25px;
-      padding: 8px 0px 10px;
-      font-size: 44px;
+      margin: 0 0 0 9px;
+      padding: 10px 17px 12px;
+      font-size: 33px;
       letter-spacing: -.05em;
-      line-height: 1.15;
       text-align: center;
       white-space: break-spaces;
-      border: solid $primary-variant;
-      border-width: 1px 0;
+      border: solid $primary;
+      border-width: 1.5px 0;
     }
-  }
-  > .imgarea {
-    width: 405px;
   }
 }
 
 .webpush-covid19 {
-  background: linear-gradient(0deg, #D67496 0%, #ae3260 50%);
+  background-color: #b55679;
   > .title {
-    width: 132px;
+    padding-left: 10px;
+    padding-bottom: 35px;
     color: $white;
 
-    .logo {
-      position: absolute;
-      top: 9.5px;
-      left: 7.5px;
-      width: 67px;
-    }
     h1 {
       margin-bottom: 0;
-      font-size: 27px;
-      line-height: 1.2;
+      font-size: 33px;
     }
     h2 {
-      margin: 0 0 6px;
-      font-size: 12px;
-      transform: scale(.93);
+      margin: 0 0 13px;
+      font-size: 13px;
       svg {
-        width: 14px;
+        width: 15px;
       }
     }
-  }
-  > .imgarea {
-    width: 468px;
   }
 }
