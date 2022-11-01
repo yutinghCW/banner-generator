@@ -1420,12 +1420,12 @@ export default {
   data() {
     return {
       output: {
-        width: 1080,
-        height: 1920,
-        ratio: 2,
+        width: 1040,
+        height: 1040,
+        ratio: 1.6507936508,
       },
       social: {
-        select: 'instagram',
+        select: 'line',
         items: [
           {
             value: 'line',
@@ -1462,72 +1462,36 @@ export default {
         ],
       },
       type: {
-        select: 'ig-cw-picture-story',
+        select: 'line-popular-articles',
       },
       types: [
         {
-          value: 'ig-cw-picture-post',
-          display: '天下圖擊圖卡',
-          size: {
-            w: 1080,
-            h: 1080,
-          },
+          value: 'line-popular-articles',
+          display: '熱文',
         },
         {
-          value: 'ig-cw-picture-story',
-          display: '天下圖擊限動',
-          size: {
-            w: 1080,
-            h: 1920,
-          },
+          value: 'line-podcast-cw',
+          display: '聽天下',
         },
         {
-          value: 'ig-summary-post',
-          display: '書摘圖卡（金句類）',
-          size: {
-            w: 1080,
-            h: 1080,
-          },
+          value: 'line-podcast-channel',
+          display: '闖天下',
         },
         {
-          value: 'ig-summary-story',
-          display: '書摘限時動態',
-          size: {
-            w: 1080,
-            h: 1920,
-          },
+          value: 'line-english',
+          display: '英網',
         },
         {
-          value: 'ig-quote-post',
-          display: '金句圖卡',
-          size: {
-            w: 1080,
-            h: 1080,
-          },
+          value: 'line-podcast-list',
+          display: '聽天下選單',
         },
         {
-          value: 'ig-quote-story',
-          display: '金句限動',
-          size: {
-            w: 1080,
-            h: 1920,
-          },
+          value: 'line-weekly-popular',
+          display: '本週最熱文章',
         },
         {
-          value: 'ig-faq-word-story',
-          display: '問答限動（文字版）',
-          size: {
-            w: 1080,
-            h: 1920,
-          },
-        },
-        {
-          value: 'ig-faq-picture-story',
-          display: '問答限動（有圖版）',
-          size: {
-            w: 1080,
-            h: 1920,
-          },
+          value: 'line-specific-recommendation',
+          display: '專屬文章推薦',
         },
       ],
       headers: {
@@ -1561,12 +1525,12 @@ export default {
           },
         },
         title: {
-          limit: 18,
-          value: '<p>大標最多十八個全形字，可少於不可多於</p>',
+          limit: 30,
+          value: '<p>標題一行最多十五個字，需放兩行</p><p>標題一行最多十五個字，需放兩行</p>',
         },
         subtitle: {
-          limit: 23,
-          value: '<p>副標最多放二十三個全形字，可少不可多於二十三字</p>',
+          limit: 6,
+          value: '今日熱文',
         },
         content: {
           limit: 6,
@@ -1716,6 +1680,17 @@ export default {
           extension = 'jpg';
           qlty = .6;
           break;
+        case 'line-popular-articles':
+        case 'line-podcast-cw':
+        case 'line-podcast-channel':
+        case 'line-english':
+        case 'line-podcast-list':
+        case 'line-weekly-popular':
+        case 'line-specific-recommendation':
+          method = 'toJpeg';
+          extension = 'jpg';
+          qlty = 1;
+          break;
         case 'youtube-enterprise':
         case 'youtube-investigation':
         case 'youtube-interview':
@@ -1756,7 +1731,9 @@ export default {
         a.href = dataUrl;
         a.download = `${this.type.select}-${today}.${extension}`;
         a.click();
-        document.querySelector('.mask').style.display = 'block';
+        if ( this.type.select === 'youtube-header' ) {
+          document.querySelector('.mask').style.display = 'block';
+        }
       })
       .catch((error) => {
         console.error('oops, something went wrong!', error);
