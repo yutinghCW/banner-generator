@@ -1723,6 +1723,11 @@ export default {
           qlty = .95;
           document.querySelector('.mask').style.display = 'none';
           break;
+        case 'webpush':
+          method = 'toJpeg';
+          extension = 'jpg';
+          qlty = .85;
+          break;
         default:
           break;
       }
