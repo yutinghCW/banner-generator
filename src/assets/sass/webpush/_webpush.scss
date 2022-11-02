@@ -1,14 +1,16 @@
-[class*='webpush-'] {
+.webpush {
   width: 600px;
   height: 300px;
   font-size: 0;
+  background-color: $gray-200;
 
   > .title {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    vertical-align: middle;
+    display: inline-block;
+    position: relative;
     width: 195px;
+    height: 100%;
+    text-align: center;
+    vertical-align: middle;
 
     .logo {
       position: absolute;
@@ -18,19 +20,41 @@
     }
 
     h1 {
-      margin-top: 0;
+      position: absolute;
+      top: 100px;
+      left: 23px;
+      width: (4 * 33px) + 34px - (1.65px * 4);
+      margin: 0;
+      padding: 10px 17px 12px;
+      font-size: 33px;
       font-weight: 700;
       line-height: 1.25;
-      text-align: center;
+      letter-spacing: -.05em;
       white-space: break-spaces;
+      border: solid $primary;
+      border-width: 1.5px 0;
+    }
+
+    h2 {
+      position: absolute;
+      top: 72px;
+      left: 23px;
+      width: (4 * 33px) + 34px - (1.65px * 4);
+      margin: 0;
+      color: $primary;
+      font-size: 14px;
+
+      svg {
+        width: 15px;
+      }
     }
   }
   > .imgarea {
     display: inline-block;
-    vertical-align: middle;
     position: relative;
     width: 405px;
     height: 100%;
+    vertical-align: middle;
     overflow: hidden;
     img {
       position: absolute;
@@ -43,44 +67,6 @@
         height: 100%;
         object-fit: cover;
         transform: none !important;
-      }
-    }
-  }
-}
-
-.webpush-webaccess {
-  background-color: $gray-200;
-  > .title {
-
-    h1 {
-      margin: 0 0 0 9px;
-      padding: 10px 17px 12px;
-      font-size: 33px;
-      letter-spacing: -.05em;
-      text-align: center;
-      white-space: break-spaces;
-      border: solid $primary;
-      border-width: 1.5px 0;
-    }
-  }
-}
-
-.webpush-covid19 {
-  background-color: #b55679;
-  > .title {
-    padding-left: 10px;
-    padding-bottom: 35px;
-    color: $white;
-
-    h1 {
-      margin-bottom: 0;
-      font-size: 33px;
-    }
-    h2 {
-      margin: 0 0 13px;
-      font-size: 13px;
-      svg {
-        width: 15px;
       }
     }
   }

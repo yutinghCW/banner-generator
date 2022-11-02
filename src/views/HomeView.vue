@@ -1070,6 +1070,19 @@
           </div>
           <div
             class="form__group form__group--outlined w-100 mb20"
+            v-if="type.select === 'webpush'"
+          >
+            <h3 class="mb-1">即時更新</h3>
+            <label class="d-block">
+              <span class="label--check">
+                <input type="checkbox" v-model="value.live" name="即時更新">
+                <span class="label__check__mark"></span>
+                <span class="label__check__txt">啟用</span>
+              </span>
+            </label>
+          </div>
+          <div
+            class="form__group form__group--outlined w-100 mb20"
             v-if="type.select === 'youtube-header'"
           >
             <h3 class="mb-1">對齊方式</h3>
@@ -1357,7 +1370,7 @@
           :value="value"
           :type="type"
           :editable="editable"
-          v-if="type.select.indexOf('webpush-') > -1"
+          v-if="type.select === 'webpush'"
           id="preview"
         />
         <VideoComponent
@@ -1569,6 +1582,7 @@ export default {
           },
         },
         translate: true,
+        live: false,
         align: '靠右對齊',
       },
       editable: {
@@ -2069,22 +2083,13 @@ export default {
           this.output.height = 1440;
           this.output.ratio = 4;
           break;
-        case 'webpush-webaccess':
+        case 'webpush':
           this.value.logo.select = this.value.logo.white.primary;
           this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202207/purchase-reauisition-62de4445582be.jpg';
           this.value.title.value = '一行四字\n限定兩行';
           this.value.title.limit = 8;
-          this.output.width = 1024;
-          this.output.height = 512;
-          this.output.ratio = 1.7066666667;
-          break;
-        case 'webpush-covid19':
-          this.value.logo.select = this.value.logo.white.primary;
-          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202210/article-635a8191bfa48.jpg';
-          this.value.title.value = '台灣疫情\n最新動態';
-          this.value.title.limit = 8;
-          this.value.subtitle.value = '不斷更新';
-          this.value.subtitle.limit = 4;
+          this.value.subtitle.value = '副標可有可無九字內';
+          this.value.subtitle.limit = 9;
           this.output.width = 1024;
           this.output.height = 512;
           this.output.ratio = 1.7066666667;
@@ -2120,8 +2125,7 @@ export default {
         case 'ig-faq-picture-story':
         case 'line-specific-recommendation':
         case 'edm-economist-podcast':
-        case 'webpush-webaccess':
-        case 'webpush-covid19':
+        case 'webpush':
           return false;
           break;
         default:
@@ -2142,7 +2146,6 @@ export default {
         case 'line-weekly-popular':
         case 'line-specific-recommendation':
         case 'youtube-forum':
-        case 'webpush-covid19':
           return true;
           break;
         default:
@@ -2200,7 +2203,6 @@ export default {
         case 'youtube-podcast':
         case 'youtube-sustainable':
         case 'youtube-header':
-        case 'webpush-webaccess':
         case 'cwvideo-slider':
         case 'cwvideo-list':
         case 'cw-logo':
@@ -2230,8 +2232,7 @@ export default {
         case 'youtube-forum':
         case 'youtube-policy':
         case 'youtube-header':
-        case 'webpush-webaccess':
-        case 'webpush-covid19':
+        case 'webpush':
         case 'cwvideo-slider':
         case 'cwvideo-list':
         case 'cw-logo':
@@ -2258,8 +2259,7 @@ export default {
         case 'youtube-forum':
         case 'youtube-policy':
         case 'youtube-header':
-        case 'webpush-webaccess':
-        case 'webpush-covid19':
+        case 'webpush':
         case 'cwvideo-slider':
         case 'cwvideo-list':
         case 'cw-logo':
@@ -2295,8 +2295,7 @@ export default {
         case 'youtube-policy':
         case 'youtube-media':
         case 'youtube-header':
-        case 'webpush-webaccess':
-        case 'webpush-covid19':
+        case 'webpush':
         case 'cwvideo-slider':
         case 'cwvideo-list':
           return false;
@@ -2446,15 +2445,11 @@ export default {
         case 'webpush':
           this.types = [
             {
-              value: 'webpush-webaccess',
-              display: '訂戶專屬',
-            },
-            {
-              value: 'webpush-covid19',
-              display: '疫情更新',
+              value: 'webpush',
+              display: '推播版型',
             },
           ];
-          this.type.select = 'webpush-webaccess';
+          this.type.select = 'webpush';
           break;
         case 'cwvideo':
           this.types = [
