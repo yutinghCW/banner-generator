@@ -5,7 +5,7 @@
         <img src="https://www.cw.com.tw/images/common/logo.svg" alt="天下雜誌 logo">
       </a>
       <a class="logo logo--sub">
-        Banner 產生器
+        <slot></slot>
       </a>
     </div>
   </header>

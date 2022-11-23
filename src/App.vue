@@ -1,20 +1,13 @@
 <template>
-  <HeaderComponent />
-  <main class="py40">
-    <router-view/>
-  </main>
+  <router-view/>
 </template>
 
 <script>
-import HeaderComponent from '@/components/HeaderComponent.vue';
-
 export default {
-  components: {
-    HeaderComponent,
-  },
   watch: {
-    $route() {
-      document.title = '天下雜誌圖卡產生器';
+    $route(to) {
+      const currentTitle = to.meta.title || '';
+      document.title = `${currentTitle}｜天下雜誌`;
     },
   },
 };
