@@ -2482,6 +2482,7 @@ export default {
           this.types = [];
           break;
       }
+      this.detectType();
     },
   },
 };
