@@ -19,14 +19,14 @@ const routes = [
           title: '一週大事圖卡產生器',
         },
       },
+      {
+        path: 'cwef',
+        component: () => import('../views/CwefView.vue'),
+        meta: {
+          title: 'CWEF 裁圖工具',
+        },
+      },
     ],
-  },
-  {
-    path: '/cwef',
-    component: () => import('../views/CwefView.vue'),
-    meta: {
-      title: 'CWFE 裁圖工具',
-    },
   },
   {
     path: '/:pathMatch(.*)*',

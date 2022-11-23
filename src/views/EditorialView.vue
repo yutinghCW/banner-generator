@@ -1,8 +1,6 @@
 <template>
   <div>
-    <HeaderComponent>
-      <template #default>{{ title }}</template>
-    </HeaderComponent>
+    <HeaderComponent :emit-type="title" />
     <main class="py40">
       <router-view/>
     </main>
