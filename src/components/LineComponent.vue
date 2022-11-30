@@ -7,7 +7,10 @@
     >
     <div class="title">
       <div class="label" v-if="value.subtitle.value">
-        <span v-html="value.subtitle.value"></span>
+        <span>
+          <span v-html="value.subtitle.value"></span>
+          <i></i>
+        </span>
       </div>
       <h1 v-html="value.title.value"></h1>
       <div class="action">

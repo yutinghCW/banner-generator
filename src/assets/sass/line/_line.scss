@@ -9,6 +9,9 @@
   .title {
     position: absolute;
     z-index: 2;
+    i {
+      display: none;
+    }
   }
   > .imgarea {
     position: absolute;

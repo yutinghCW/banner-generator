@@ -2128,7 +2128,6 @@ export default {
         case 'ig-quote-post':
         case 'ig-quote-story':
         case 'ig-faq-picture-story':
-        case 'line-specific-recommendation':
         case 'edm-economist-podcast':
         case 'webpush':
           return false;
