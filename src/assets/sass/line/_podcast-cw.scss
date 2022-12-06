@@ -21,7 +21,7 @@
         position: absolute;
         top: 50%;
         left: 10.5px;
-        padding: .5px 6px .5px calc(6px + 0.14em);
+        padding: 1.5px 6px 0px calc(6px + 0.14em);
         margin-top: .5px;
         color: $primary;
         font-size: 16px;
@@ -34,7 +34,7 @@
       }
     }
     h1 {
-      margin: 34px 20px 37px 22px;
+      margin: 37px 20px 34px 22px;
       p {
         color: $white;
         font-size: 38.5px;
@@ -55,11 +55,15 @@
       font-weight: 500;
       line-height: 1;
       letter-spacing: .05em;
+      white-space: nowrap;
       background-color: #a30f17;
       border-radius: 30px;
       img {
         width: 30px;
         margin-right: 7px;
+      }
+      span {
+        margin-top: 2px;
       }
     }
   }

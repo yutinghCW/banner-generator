@@ -16,7 +16,7 @@
 
   .title {
     position: relative;
-    padding: 20px 65px 22px 70px;
+    padding: 22px 65px 22px 70px;
     > img {
       position: absolute;
       width: 47.5px;
@@ -32,9 +32,10 @@
       }
     }
     > h1 {
-      margin: 21px 0 0;
+      margin: 19px 0 0;
       padding: 0 3px;
       color: #48545d;
+      font-family: "Noto Sans TC", sans-serif;
       font-size: 18px;
       font-weight: normal;
       text-align: right;
@@ -79,7 +80,7 @@
     bottom: 0;
     width: 10.2em;
     height: 4.975em;
-    padding: 1.175em 0.5em;
+    padding: 1.275em 0.5em;
     color: $primary;
     font-size: 18px;
     font-weight: 500;
