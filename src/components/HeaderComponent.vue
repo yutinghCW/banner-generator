@@ -5,6 +5,7 @@
         <img src="https://www.cw.com.tw/images/common/logo.svg" alt="天下雜誌 logo">
       </a>
       <select
+        v-if="selected !== '登入'"
         v-model="selected"
         @change="changeType"
         name="type"
@@ -29,8 +30,12 @@ export default {
       selected: '',
       pagination: [
         {
-          title: '天下社群圖卡產生器',
+          title: '登入',
           link: '/',
+        },
+        {
+          title: '天下社群圖卡產生器',
+          link: 'cw',
         },
         {
           title: '一週大事圖卡產生器',

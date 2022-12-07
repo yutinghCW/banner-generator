@@ -7,7 +7,7 @@ export default {
   watch: {
     $route(to) {
       const currentTitle = to.meta.title || '';
-      document.title = `${currentTitle}｜天下雜誌`;
+      document.title = `${currentTitle}｜天下雜誌圖卡產生器`;
     },
   },
 };

@@ -27,6 +27,7 @@
     "jquery": "^3.6.1",
     "vue": "^3.2.13",
     "vue-axios": "^3.5.0",
+    "vue-cookies": "^1.8.2",
     "vue-router": "^4.0.3",
     "vue3-summernote-editor": "^1.0.2"
   },

@@ -6,7 +6,14 @@ const routes = [
     component: () => import('../views/EditorialView.vue'),
     children: [
       {
-        path: '',
+        path: '/',
+        component: () => import('../views/LoginView.vue'),
+        meta: {
+          title: '登入',
+        },
+      },
+      {
+        path: 'cw',
         component: () => import('../views/HomeView.vue'),
         meta: {
           title: '天下社群圖卡產生器',
