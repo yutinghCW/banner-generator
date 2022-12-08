@@ -17,18 +17,11 @@ export default {
   data() {
     return {
       title: '',
-      group: 'editorial',
+      group: false,
     };
   },
   components: {
     HeaderComponent,
-  },
-  created() {
-    if (!this.$cookies.get('cw-banner-generator-editorial-logged')) {
-      this.$router.push({
-        path: '/',
-      });
-    }
   },
   mounted() {
     this.title = this.$route.meta.title;

@@ -24,469 +24,7 @@
           </div>
         </div>
         <h2 class="mt0">請填寫欄位</h2>
-        <template v-if="type.select === 'line-podcast-list'">
-          <div class="mb20">
-            <input
-              type="file" name="Filedata1" ref="Filedata1" id="file_upload1" accept="image/*"
-              @change="onFileSelected('file_upload1', 'first', 'group')"
-            />
-            <div class="form__editable my20">
-              <label class="d-block">
-                <span class="label--check">
-                  <input type="checkbox" v-model="editable.group.first.switch" name="啟動修改">
-                  <span class="label__check__mark"></span>
-                  <span class="label__check__txt">修改圖片縮放及位置</span>
-                </span>
-              </label>
-              <div class="bg-gray-100 mt10 p-4" v-if="editable.group.first.switch">
-                <div class="container">
-                  <div class="row">
-                    <div class="col-md-6 px-4">
-                      <h4 class="color-secondary-variant my0">圖片縮放</h4>
-                      <div class="row g-4 align-items-center pt-3">
-                        <div class="col-auto text-center">
-                          <button type="button" class="btn p-0">
-                            <i class="icon icon-minus"></i>
-                          </button>
-                        </div>
-                        <div class="col">
-                          <input
-                            type="range"
-                            class="form-range"
-                            v-model="editable.group.first.scale"
-                            min="-100"
-                          >
-                        </div>
-                        <div class="col-auto text-center">
-                          <button type="button" class="btn p-0">
-                            <i class="icon icon-plus"></i>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6 px-4">
-                      <h4 class="color-secondary-variant my0">圖片位移</h4>
-                      <div class="row g-4 align-items-center pt-3">
-                        <div class="col-auto text-center">
-                          <button type="button" class="btn p-0">
-                            左
-                          </button>
-                        </div>
-                        <div class="col">
-                          <input
-                            type="range"
-                            class="form-range"
-                            v-model="editable.group.first.horizontal"
-                            min="-100"
-                          >
-                        </div>
-                        <div class="col-auto text-center">
-                          <button type="button" class="btn p-0">
-                            右
-                          </button>
-                        </div>
-                      </div>
-                      <div class="row g-4 align-items-center pt-3">
-                        <div class="col-auto text-center">
-                          <button type="button" class="btn p-0">
-                            上
-                          </button>
-                        </div>
-                        <div class="col">
-                          <input
-                            type="range"
-                            class="form-range"
-                            v-model="editable.group.first.vertical"
-                            min="-100"
-                          >
-                        </div>
-                        <div class="col-auto text-center">
-                          <button type="button" class="btn p-0">
-                            下
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="form__group form__group--outlined w-100 mb20">
-              <label class="label form__group--defalt">
-                <textarea
-                v-model="value.group.first.title"
-                  class="form__group__input d-block"
-                  style="min-height: 80px;"
-                ></textarea>
-                <span
-                  class="form__group__help--strong"
-                  :class="{
-                    'form__group__help--highlight':
-                    removeTags(value.group.first.title).length > value.group.first.limit
-                  }"
-                >
-                  <template
-                    v-if="!(removeTags(value.group.first.title).length > value.group.first.limit)"
-                  >
-                    建議字數{{ value.group.first.limit }}字
-                  </template>
-                  <template
-                    v-if="removeTags(value.group.first.title).length > value.group.first.limit"
-                  >
-                    已超過建議字數，請透過預覽查看是否有跑版
-                  </template>
-                </span>
-              </label>
-            </div>
-          </div>
-          <hr class="mb20">
-          <div class="mb20">
-            <input
-              type="file" name="Filedata2" ref="Filedata2" id="file_upload2" accept="image/*"
-              @change="onFileSelected('file_upload2', 'second', 'group')"
-            />
-            <div class="form__editable my20">
-              <label class="d-block">
-                <span class="label--check">
-                  <input type="checkbox" v-model="editable.group.second.switch" name="啟動修改">
-                  <span class="label__check__mark"></span>
-                  <span class="label__check__txt">修改圖片縮放及位置</span>
-                </span>
-              </label>
-              <div class="bg-gray-100 mt10 p-4" v-if="editable.group.second.switch">
-                <div class="container">
-                  <div class="row">
-                    <div class="col-md-6 px-4">
-                      <h4 class="color-secondary-variant my0">圖片縮放</h4>
-                      <div class="row g-4 align-items-center pt-3">
-                        <div class="col-auto text-center">
-                          <button type="button" class="btn p-0">
-                            <i class="icon icon-minus"></i>
-                          </button>
-                        </div>
-                        <div class="col">
-                          <input
-                            type="range"
-                            class="form-range"
-                            v-model="editable.group.second.scale"
-                            min="-100"
-                          >
-                        </div>
-                        <div class="col-auto text-center">
-                          <button type="button" class="btn p-0">
-                            <i class="icon icon-plus"></i>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6 px-4">
-                      <h4 class="color-secondary-variant my0">圖片位移</h4>
-                      <div class="row g-4 align-items-center pt-3">
-                        <div class="col-auto text-center">
-                          <button type="button" class="btn p-0">
-                            左
-                          </button>
-                        </div>
-                        <div class="col">
-                          <input
-                            type="range"
-                            class="form-range"
-                            v-model="editable.group.second.horizontal"
-                            min="-100"
-                          >
-                        </div>
-                        <div class="col-auto text-center">
-                          <button type="button" class="btn p-0">
-                            右
-                          </button>
-                        </div>
-                      </div>
-                      <div class="row g-4 align-items-center pt-3">
-                        <div class="col-auto text-center">
-                          <button type="button" class="btn p-0">
-                            上
-                          </button>
-                        </div>
-                        <div class="col">
-                          <input
-                            type="range"
-                            class="form-range"
-                            v-model="editable.group.second.vertical"
-                            min="-100"
-                          >
-                        </div>
-                        <div class="col-auto text-center">
-                          <button type="button" class="btn p-0">
-                            下
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="form__group form__group--outlined w-100 mb20">
-              <label class="label form__group--defalt">
-                <textarea
-                v-model="value.group.second.title"
-                  class="form__group__input d-block"
-                  style="min-height: 80px;"
-                ></textarea>
-                <span
-                  class="form__group__help--strong"
-                  :class="{
-                    'form__group__help--highlight':
-                    removeTags(value.group.second.title).length > value.group.second.limit
-                  }"
-                >
-                  <template
-                    v-if="!(removeTags(value.group.second.title).length > value.group.second.limit)"
-                  >
-                    建議字數{{ value.group.second.limit }}字
-                  </template>
-                  <template
-                    v-if="removeTags(value.group.second.title).length > value.group.second.limit"
-                  >
-                    已超過建議字數，請透過預覽查看是否有跑版
-                  </template>
-                </span>
-              </label>
-            </div>
-          </div>
-          <hr class="mb20">
-          <div class="mb20">
-            <input
-              type="file" name="Filedata3" ref="Filedata3" id="file_upload3" accept="image/*"
-              @change="onFileSelected('file_upload3', 'third', 'group')"
-            />
-            <div class="form__editable my20">
-              <label class="d-block">
-                <span class="label--check">
-                  <input type="checkbox" v-model="editable.group.third.switch" name="啟動修改">
-                  <span class="label__check__mark"></span>
-                  <span class="label__check__txt">修改圖片縮放及位置</span>
-                </span>
-              </label>
-              <div class="bg-gray-100 mt10 p-4" v-if="editable.group.third.switch">
-                <div class="container">
-                  <div class="row">
-                    <div class="col-md-6 px-4">
-                      <h4 class="color-secondary-variant my0">圖片縮放</h4>
-                      <div class="row g-4 align-items-center pt-3">
-                        <div class="col-auto text-center">
-                          <button type="button" class="btn p-0">
-                            <i class="icon icon-minus"></i>
-                          </button>
-                        </div>
-                        <div class="col">
-                          <input
-                            type="range"
-                            class="form-range"
-                            v-model="editable.group.third.scale"
-                            min="-100"
-                          >
-                        </div>
-                        <div class="col-auto text-center">
-                          <button type="button" class="btn p-0">
-                            <i class="icon icon-plus"></i>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6 px-4">
-                      <h4 class="color-secondary-variant my0">圖片位移</h4>
-                      <div class="row g-4 align-items-center pt-3">
-                        <div class="col-auto text-center">
-                          <button type="button" class="btn p-0">
-                            左
-                          </button>
-                        </div>
-                        <div class="col">
-                          <input
-                            type="range"
-                            class="form-range"
-                            v-model="editable.group.third.horizontal"
-                            min="-100"
-                          >
-                        </div>
-                        <div class="col-auto text-center">
-                          <button type="button" class="btn p-0">
-                            右
-                          </button>
-                        </div>
-                      </div>
-                      <div class="row g-4 align-items-center pt-3">
-                        <div class="col-auto text-center">
-                          <button type="button" class="btn p-0">
-                            上
-                          </button>
-                        </div>
-                        <div class="col">
-                          <input
-                            type="range"
-                            class="form-range"
-                            v-model="editable.group.third.vertical"
-                            min="-100"
-                          >
-                        </div>
-                        <div class="col-auto text-center">
-                          <button type="button" class="btn p-0">
-                            下
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="form__group form__group--outlined w-100 mb20">
-              <label class="label form__group--defalt">
-                <textarea
-                v-model="value.group.third.title"
-                  class="form__group__input d-block"
-                  style="min-height: 80px;"
-                ></textarea>
-                <span
-                  class="form__group__help--strong"
-                  :class="{
-                    'form__group__help--highlight':
-                    removeTags(value.group.third.title).length > value.group.third.limit
-                  }"
-                >
-                  <template
-                    v-if="!(removeTags(value.group.third.title).length > value.group.third.limit)"
-                  >
-                    建議字數{{ value.group.third.limit }}字
-                  </template>
-                  <template
-                    v-if="removeTags(value.group.third.title).length > value.group.third.limit"
-                  >
-                    已超過建議字數，請透過預覽查看是否有跑版
-                  </template>
-                </span>
-              </label>
-            </div>
-          </div>
-          <hr class="mb20">
-          <div class="mb20">
-            <input
-              type="file" name="Filedata4" ref="Filedata4" id="file_upload4" accept="image/*"
-              @change="onFileSelected('file_upload4', 'forth', 'group')"
-            />
-            <div class="form__editable my20">
-              <label class="d-block">
-                <span class="label--check">
-                  <input type="checkbox" v-model="editable.group.forth.switch" name="啟動修改">
-                  <span class="label__check__mark"></span>
-                  <span class="label__check__txt">修改圖片縮放及位置</span>
-                </span>
-              </label>
-              <div class="bg-gray-100 mt10 p-4" v-if="editable.group.forth.switch">
-                <div class="container">
-                  <div class="row">
-                    <div class="col-md-6 px-4">
-                      <h4 class="color-secondary-variant my0">圖片縮放</h4>
-                      <div class="row g-4 align-items-center pt-3">
-                        <div class="col-auto text-center">
-                          <button type="button" class="btn p-0">
-                            <i class="icon icon-minus"></i>
-                          </button>
-                        </div>
-                        <div class="col">
-                          <input
-                            type="range"
-                            class="form-range"
-                            v-model="editable.group.forth.scale"
-                            min="-100"
-                          >
-                        </div>
-                        <div class="col-auto text-center">
-                          <button type="button" class="btn p-0">
-                            <i class="icon icon-plus"></i>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6 px-4">
-                      <h4 class="color-secondary-variant my0">圖片位移</h4>
-                      <div class="row g-4 align-items-center pt-3">
-                        <div class="col-auto text-center">
-                          <button type="button" class="btn p-0">
-                            左
-                          </button>
-                        </div>
-                        <div class="col">
-                          <input
-                            type="range"
-                            class="form-range"
-                            v-model="editable.group.forth.horizontal"
-                            min="-100"
-                          >
-                        </div>
-                        <div class="col-auto text-center">
-                          <button type="button" class="btn p-0">
-                            右
-                          </button>
-                        </div>
-                      </div>
-                      <div class="row g-4 align-items-center pt-3">
-                        <div class="col-auto text-center">
-                          <button type="button" class="btn p-0">
-                            上
-                          </button>
-                        </div>
-                        <div class="col">
-                          <input
-                            type="range"
-                            class="form-range"
-                            v-model="editable.group.forth.vertical"
-                            min="-100"
-                          >
-                        </div>
-                        <div class="col-auto text-center">
-                          <button type="button" class="btn p-0">
-                            下
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="form__group form__group--outlined w-100 mb20">
-              <label class="label form__group--defalt">
-                <textarea
-                v-model="value.group.forth.title"
-                  class="form__group__input d-block"
-                  style="min-height: 80px;"
-                ></textarea>
-                <span
-                  class="form__group__help--strong"
-                  :class="{
-                    'form__group__help--highlight':
-                    removeTags(value.group.forth.title).length > value.group.forth.limit
-                  }"
-                >
-                  <template
-                    v-if="!(removeTags(value.group.forth.title).length > value.group.forth.limit)"
-                  >
-                    建議字數{{ value.group.forth.limit }}字
-                  </template>
-                  <template
-                    v-if="removeTags(value.group.forth.title).length > value.group.forth.limit"
-                  >
-                    已超過建議字數，請透過預覽查看是否有跑版
-                  </template>
-                </span>
-              </label>
-            </div>
-          </div>
-          <hr class="mb20">
-        </template>
-        <template v-else-if="type.select === 'youtube-media'">
+        <template v-if="type.select === 'youtube-media'">
           <div class="mb20">
             <h3 class="mt0">背景圖片</h3>
             <input
@@ -1268,56 +806,6 @@
       <div
         class="col-md-6 d-flex flex-column align-items-center position-sticky top-0 start-0"
       >
-        <IgPicture
-          :class="type.select"
-          :value="value"
-          :editable="editable"
-          id="preview"
-          v-if="type.select === 'ig-cw-picture-post' || type.select === 'ig-cw-picture-story'"
-        />
-        <IgQuote
-          :class="type.select"
-          :value="value"
-          :editable="editable"
-          id="preview"
-          v-if="type.select === 'ig-quote-post' || type.select === 'ig-quote-story'"
-        />
-        <IgSummary
-          :class="type.select"
-          :value="value"
-          :editable="editable"
-          id="preview"
-          v-if="type.select === 'ig-summary-post' || type.select === 'ig-summary-story'"
-        />
-        <IgFaq
-          :class="type.select"
-          :value="value"
-          :editable="editable"
-          id="preview"
-          v-if="type.select === 'ig-faq-word-story' || type.select === 'ig-faq-picture-story'"
-        />
-        <LineComponent
-          :class="type.select"
-          :value="value"
-          :type="type"
-          :editable="editable"
-          id="preview"
-          v-if="type.select.indexOf('line-') > -1 && type.select !== 'line-podcast-list'"
-        />
-        <LinePodcastList
-          :class="type.select"
-          :value="value"
-          :editable="editable"
-          id="preview"
-          v-if="type.select === 'line-podcast-list'"
-        />
-        <EdmPodcast
-          :class="type.select"
-          :value="value"
-          :editable="editable"
-          id="preview"
-          v-if="type.select === 'edm-economist-podcast'"
-        />
         <YoutubeComponent
           :class="type.select"
           :value="value"
@@ -1355,30 +843,6 @@
           id="preview"
           v-if="type.select.indexOf('youtube-') > -1 && type.select === 'youtube-header'"
         />
-        <WebPushComponent
-          :class="type.select"
-          :value="value"
-          :type="type"
-          :editable="editable"
-          v-if="type.select === 'webpush'"
-          id="preview"
-        />
-        <VideoComponent
-          :class="type.select"
-          :value="value"
-          :type="type"
-          :editable="editable"
-          id="preview"
-          v-if="type.select.indexOf('cwvideo-') > -1"
-        />
-        <CwComponent
-          :class="type.select"
-          :value="value"
-          :type="type"
-          :editable="editable"
-          id="preview"
-          v-if="type.select === 'cw-logo'"
-        />
         <div class="text-center mt40">
           <button
             type="button"
@@ -1401,100 +865,55 @@ import Font from '@ckeditor/ckeditor5-font/src/font';
 
 import domtoimage from 'dom-to-image-more-v2';
 
-import IgPicture from '@/components/IgPicture.vue';
-import IgQuote from '@/components/IgQuote.vue';
-import IgSummary from '@/components/IgSummary.vue';
-import IgFaq from '@/components/IgFaq.vue';
-
-import LineComponent from '@/components/LineComponent.vue';
-import LinePodcastList from '@/components/LinePodcastList.vue';
-
 import YoutubeComponent from '@/components/YoutubeComponent.vue';
 import YoutubePolicy from '@/components/YoutubePolicy.vue';
 import YoutubeMedia from '@/components/YoutubeMedia.vue';
 import YoutubeHeader from '@/components/YoutubeHeader.vue';
 
-import EdmPodcast from '@/components/EdmPodcast.vue';
-import WebPushComponent from '@/components/WebPushComponent.vue';
-import VideoComponent from '@/components/VideoComponent.vue';
-import CwComponent from '@/components/CwComponent.vue';
-
 export default {
   data() {
     return {
       output: {
-        width: 1040,
-        height: 1040,
-        ratio: 1.6507936508,
+        width: 1920,
+        height: 1080,
+        ratio: 3,
       },
       social: {
-        select: 'line',
+        select: 'youtube',
         items: [
-          {
-            value: 'line',
-            display: 'LINE',
-          },
-          // {
-          //   value: 'facebook',
-          //   display: 'Facebook',
-          // },
-          {
-            value: 'instagram',
-            display: 'Instagram',
-          },
-          {
-            value: 'edm',
-            display: '電子報',
-          },
           {
             value: 'youtube',
             display: 'YouTube',
           },
-          {
-            value: 'webpush',
-            display: 'Web Push',
-          },
-          {
-            value: 'cwvideo',
-            display: '天下影音',
-          },
-          {
-            value: 'cw',
-            display: '天下官網',
-          },
         ],
       },
       type: {
-        select: 'line-popular-articles',
+        select: 'youtube-enterprise',
       },
       types: [
         {
-          value: 'line-popular-articles',
-          display: '熱文',
+          value: 'youtube-enterprise',
+          display: '企業類型',
         },
         {
-          value: 'line-podcast-cw',
-          display: '聽天下',
+          value: 'youtube-interview',
+          display: '人物專訪',
         },
         {
-          value: 'line-podcast-channel',
-          display: '闖天下',
+          value: 'youtube-podcast',
+          display: 'Podcast',
         },
         {
-          value: 'line-english',
-          display: '英網',
+          value: 'youtube-sustainable',
+          display: '永續報導',
         },
         {
-          value: 'line-podcast-list',
-          display: '聽天下選單',
+          value: 'youtube-forum',
+          display: '論壇精華',
         },
         {
-          value: 'line-weekly-popular',
-          display: '本週最熱文章',
-        },
-        {
-          value: 'line-specific-recommendation',
-          display: '專屬文章推薦',
+          value: 'youtube-policy',
+          display: '政令宣導',
         },
       ],
       headers: {
@@ -1504,7 +923,7 @@ export default {
         cta: 'CTA 文字',
       },
       value: {
-        img: 'https://storage.googleapis.com/www-cw-com-tw/article/202210/article-633ce45a09679.jpg',
+        img: 'https://storage.googleapis.com/www-cw-com-tw/article/202112/article-61b8060a2a536.jpg',
         group: {
           first: {
             img: '',
@@ -1528,8 +947,8 @@ export default {
           },
         },
         title: {
-          limit: 30,
-          value: '<p>標題一行最多十五個字，需放兩行</p><p>標題一行最多十五個字，需放兩行</p>',
+          limit: 22,
+          value: '<p>此行細標最多放十一個字<br><strong>此行粗標最多放十一個字</strong></p>',
         },
         subtitle: {
           limit: 6,
@@ -1549,7 +968,7 @@ export default {
         },
         logo: {
           select: 'images/cw-logo-white-primary.svg',
-          disabled: false,
+          disabled: true,
           white: {
             primary: 'images/cw-logo-white-primary.svg',
             black: 'images/cw-logo-white-black.svg',
@@ -1650,20 +1069,10 @@ export default {
     };
   },
   components: {
-    IgPicture,
-    IgQuote,
-    IgSummary,
-    IgFaq,
-    LineComponent,
-    LinePodcastList,
-    EdmPodcast,
     YoutubeComponent,
     YoutubePolicy,
     YoutubeMedia,
     YoutubeHeader,
-    VideoComponent,
-    WebPushComponent,
-    CwComponent,
   },
   created() {
     if (!this.$cookies.get('cw-banner-generator-editorial-logged')) {
@@ -1789,212 +1198,6 @@ export default {
       this.headers.cta = 'CTA 文字';
 
       switch (this.type.select) {
-        case 'ig-cw-picture-story':
-          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202210/article-633ce45a09679.jpg';
-          this.value.title.limit = 18;
-          this.value.title.value = '<p>大標最多十八個全形字，可少於不可多於</p>';
-          this.value.subtitle.limit = 23;
-          this.value.subtitle.value = '<p>副標最多放二十三個全形字，可少不可多於二十三字</p>';
-          this.value.content.limit = 6;
-          this.value.content.value = '內文一行最多放二十三個全形字，可少於不可多於。\n內文最多只能放六行，可少於不可多於，\n內文最多只能放六行，\n內文最多只能放六行，可少於不可多於，\n內文最多只能放六行，\n內文最多只能放六行，到這一行結束。';
-          this.value.cta.value = '上滑\n看完整文章';
-          this.value.label.value = '天下圖擊';
-          this.value.logo.select = this.value.logo.white.primary;
-          this.output.width = 1080;
-          this.output.height = 1920;
-          this.output.ratio = 2;
-          break;
-        case 'ig-cw-picture-post':
-          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202210/article-633ce45a09679.jpg';
-          this.value.title.limit = 18;
-          this.value.title.value = '<p>大標最多十八個全形字，可少於不可多於</p>';
-          this.value.subtitle.limit = 23;
-          this.value.subtitle.value = '<p>副標最多放二十三個全形字，可少不可多於二十三字</p>';
-          this.value.cta.value = '到限時動態查看';
-          this.value.label.value = '天下圖擊';
-          this.value.logo.select = this.value.logo.white.primary;
-          this.output.width = 1080;
-          this.output.height = 1080;
-          this.output.ratio = 2;
-          break;
-        case 'ig-summary-post':
-          this.value.title.limit = 25;
-          this.value.title.value = '《書名請在這裡改，書名在這裡改》';
-          this.value.content.limit = 4;
-          this.value.content.value = '書摘金句一行最多可放到十七個全形字\n包含標點。可少於、不可多於十七字。\n最多可放到四行，\n可少於不可多於四行。不可多於四行。';
-          this.value.logo.select = this.value.logo.white.black;
-          this.output.width = 1080;
-          this.output.height = 1080;
-          this.output.ratio = 2;
-          this.headers.title = '書名';
-          break;
-        case 'ig-summary-story':
-          this.value.title.limit = 25;
-          this.value.title.value = '《書名請在這裡改，書名在這裡改》';
-          this.value.content.limit = 4;
-          this.value.content.value = '書摘金句一行最多可放到十七個全形字\n包含標點。可少於、不可多於十七字。\n最多可放到四行，\n可少於不可多於四行。不可多於四行。';
-          this.output.width = 1080;
-          this.output.height = 1920;
-          this.output.ratio = 2;
-          this.headers.title = '書名';
-          break;
-        case 'ig-quote-story':
-          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202210/article-633ce45a09679.jpg';
-          this.value.title.limit = 24;
-          this.value.title.value = '——職銜與人名放這一行';
-          this.value.content.limit = 3;
-          this.value.content.value = '金句限動一行最多可放十六個全形字\n包含標點。可少於、不可多於十七字\n最多可放到三行，不可多於三行。';
-          this.value.logo.select = this.value.logo.white.primary;
-          this.output.width = 1080;
-          this.output.height = 1920;
-          this.output.ratio = 2;
-          this.headers.title = '職銜與人名';
-          break;
-        case 'ig-quote-post':
-          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202210/article-633ce45a09679.jpg';
-          this.value.logo.select = this.value.logo.white.primary;
-          this.value.title.limit = 24;
-          this.value.title.value = '——職銜與人名放這一行';
-          this.value.content.limit = 36;
-          this.value.content.value = '「金句一行最多十八個全形字（含標點符號）最多兩行字，可少於、不可多於。」';
-          this.output.width = 1080;
-          this.output.height = 1080;
-          this.output.ratio = 2;
-          this.headers.title = '職銜與人名';
-          break;
-        case 'ig-faq-word-story':
-          this.value.title.limit = 18;
-          this.value.title.value = '<p>大標最多十八個全形字，可少於不可多於</p>';
-          this.value.subtitle.limit = 23;
-          this.value.subtitle.value = '<p>副標最多放二十三個全形字，可少不可多於二十三字</p>';
-          this.value.content.limit = 23;
-          this.value.content.value = '內文最多放二十二個全形字，可少不可多於二二字';
-          this.value.label.value = '猜一猜';
-          this.output.width = 1080;
-          this.output.height = 1920;
-          this.output.ratio = 2;
-          break;
-        case 'ig-faq-picture-story':
-          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202210/article-633ce45a09679.jpg';
-          this.value.title.limit = 30;
-          this.value.title.value = '問題大標一行可放十五個全形字，\n包含標點。而且需要兩行。';
-          this.value.content.limit = 22;
-          this.value.content.value = '題目這一行最多可放二十二個全形字，只可以一行';
-          this.value.label.value = '猜一猜';
-          this.value.logo.select = this.value.logo.white.primary;
-          this.output.width = 1080;
-          this.output.height = 1920;
-          this.output.ratio = 2;
-          break;
-        case 'line-popular-articles':
-          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202210/article-633ce45a09679.jpg';
-          this.value.logo.select = this.value.logo.white.primary;
-          this.value.title.limit = 30;
-          this.value.title.value = '<p>標題一行最多十五個字，需放兩行</p><p>標題一行最多十五個字，需放兩行</p>';
-          this.value.subtitle.limit = 6;
-          this.value.subtitle.value = '今日熱文';
-          this.output.width = 1040;
-          this.output.height = 1040;
-          this.output.ratio = 1.6507936508;
-          break;
-        case 'line-podcast-cw':
-          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202210/article-633ce45a09679.jpg';
-          this.value.logo.select = this.value.logo.podcast.square.cw;
-          this.value.title.limit = 26;
-          this.value.title.value = '<p>這行標題最多十五個字，需有兩行這行標題最多十一個字。</p>';
-          this.value.subtitle.limit = 10;
-          this.value.subtitle.value = '聽天下｜聰明慢老';
-          this.value.cta.limit = 4;
-          this.value.cta.value = '點擊收聽';
-          this.output.width = 1040;
-          this.output.height = 1040;
-          this.output.ratio = 1.6507936508;
-          break;
-        case 'line-podcast-channel':
-          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202210/article-633ce45a09679.jpg';
-          this.value.logo.select = this.value.logo.podcast.square.channel;
-          this.value.title.limit = 26;
-          this.value.title.value = '<p>這行標題最多十五個字，需有兩行這行標題最多十一個字。</p>';
-          this.value.subtitle.limit = 10;
-          this.value.subtitle.value = '闖天下｜服務一點訣';
-          this.value.cta.limit = 4;
-          this.value.cta.value = '點擊收聽';
-          this.output.width = 1040;
-          this.output.height = 1040;
-          this.output.ratio = 1.6507936508;
-          break;
-        case 'line-english':
-          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202210/article-633ce45a09679.jpg';
-          this.value.logo.select = this.value.logo.white.primary;
-          this.value.title.limit = 90;
-          this.value.title.value = '<p>The \'Prosperous 100\' leading Taiwan\'s, semiconductor industry into.</p>';
-          this.value.subtitle.limit = 27;
-          this.value.subtitle.value = '此處輸入中文標題，一行最多可放到二十七字，只可以放一行';
-          this.value.cta.limit = 9;
-          this.value.cta.value = 'Read More';
-          this.output.width = 1040;
-          this.output.height = 1040;
-          this.output.ratio = 1.6507936508;
-          break;
-        case 'line-podcast-list':
-          this.value.logo.select = this.value.logo.podcast.square.cw;
-
-          this.value.group.first.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202102/article-603370ada2849.jpg';
-          this.value.group.first.title = '一行標題最多可放十二個字\n一行標題最多可放十二個字';
-          this.value.group.first.limit = 24;
-
-          this.value.group.second.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202210/article-63513f3a131b8.jpg';
-          this.value.group.second.title = '一行標題最多可放十二個字\n一行標題最多可放十二個字';
-          this.value.group.second.limit = 24;
-
-          this.value.group.third.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202209/article-63195fc1a5e82.jpg';
-          this.value.group.third.title = '一行標題最多可放十二個字\n一行標題最多可放十二個字';
-          this.value.group.third.limit = 24;
-
-          this.value.group.forth.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202206/article-62b45f8ee4206.jpg';
-          this.value.group.forth.title = '一行標題最多可放十二個字\n一行標題最多可放十二個字';
-          this.value.group.forth.limit = 24;
-          this.output.width = 1040;
-          this.output.height = 1040;
-          this.output.ratio = 1.6507936508;
-          break;
-        case 'line-weekly-popular':
-          this.value.logo.select = this.value.logo.white.primary;
-          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202210/article-633ce45a09679.jpg';
-          this.value.title.limit = 30;
-          this.value.title.value = '<p>標題一行最多十五個字，需放兩行</p><p>標題一行最多十五個字，需放兩行</p>';
-          this.value.subtitle.limit = 6;
-          this.value.subtitle.value = '本週最熱文章';
-          this.output.width = 1040;
-          this.output.height = 1040;
-          this.output.ratio = 1.6507936508;
-          break;
-        case 'line-specific-recommendation':
-          this.value.logo.select = this.value.logo.white.primary;
-          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202210/article-633ce45a09679.jpg';
-          this.value.title.value = '此行標題最多放十五個字，需兩行\n此行標題最多放十個字';
-          this.value.title.limit = 25;
-          this.value.subtitle.value = '專屬文章推薦';
-          this.value.subtitle.limit = 6;
-          this.value.cta.value = '24hr限時解鎖';
-          this.value.cta.limit = 6;
-          this.output.width = 1040;
-          this.output.height = 1040;
-          this.output.ratio = 1.6507936508;
-          break;
-        case 'edm-economist-podcast':
-          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202201/article-61d2f309ba56c.jpg';
-          this.value.logo.select = this.value.logo.podcast.square.cw;
-          this.value.label.limit = 8;
-          this.value.label.value = '聽天下｜經濟學人';
-          this.value.title.limit = 30;
-          this.value.title.value = '這行標題最多十五個字，需有兩行\n這行標題最多十五個字，需有兩行';
-          this.value.cta.limit = 4;
-          this.value.cta.value = '點擊收聽';
-          this.output.width = 1600;
-          this.output.height = 1072;
-          this.output.ratio = 2.6666666667;
-          break;
         case 'youtube-enterprise':
           this.value.logo.select = this.value.logo.video;
           this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202112/article-61b8060a2a536.jpg';
@@ -2084,34 +1287,6 @@ export default {
           this.output.width = 2560;
           this.output.height = 1440;
           this.output.ratio = 4;
-          break;
-        case 'webpush':
-          this.value.logo.select = this.value.logo.white.primary;
-          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202207/purchase-reauisition-62de4445582be.jpg';
-          this.value.title.value = '一行四字\n限定兩行';
-          this.value.title.limit = 8;
-          this.value.subtitle.value = '副標可有可無九字內';
-          this.value.subtitle.limit = 9;
-          this.output.width = 1024;
-          this.output.height = 512;
-          this.output.ratio = 1.7066666667;
-          break;
-        case 'cwvideo-slider':
-          this.output.width = 940;
-          this.output.height = 584;
-          this.output.ratio = 1.5384615385;
-          break;
-        case 'cwvideo-list':
-          this.output.width = 600;
-          this.output.height = 373;
-          this.output.ratio = 1;
-          break;
-        case 'cw-logo':
-          this.value.img = 'https://storage.googleapis.com/www-cw-com-tw/article/202210/article-633ce45a09679.jpg';
-          this.value.logo.select = this.value.logo.white.primary;
-          this.output.width = 1600;
-          this.output.height = 1072;
-          this.output.ratio = 2.6666666667;
           break;
         default:
           break;
@@ -2309,85 +1484,6 @@ export default {
   watch: {
     'social.select': function select() {
       switch (this.social.select) {
-        case 'line':
-          this.types = [
-            {
-              value: 'line-popular-articles',
-              display: '熱文',
-            },
-            {
-              value: 'line-podcast-cw',
-              display: '聽天下',
-            },
-            {
-              value: 'line-podcast-channel',
-              display: '闖天下',
-            },
-            {
-              value: 'line-english',
-              display: '英網',
-            },
-            {
-              value: 'line-podcast-list',
-              display: '聽天下選單',
-            },
-            {
-              value: 'line-weekly-popular',
-              display: '本週最熱文章',
-            },
-            {
-              value: 'line-specific-recommendation',
-              display: '專屬文章推薦',
-            },
-          ];
-          this.type.select = 'line-popular-articles';
-          break;
-        case 'instagram':
-          this.types = [
-            {
-              value: 'ig-cw-picture-post',
-              display: '天下圖擊圖卡',
-            },
-            {
-              value: 'ig-cw-picture-story',
-              display: '天下圖擊限動',
-            },
-            {
-              value: 'ig-summary-post',
-              display: '書摘圖卡（金句類）',
-            },
-            {
-              value: 'ig-summary-story',
-              display: '書摘限時動態',
-            },
-            {
-              value: 'ig-quote-post',
-              display: '金句圖卡',
-            },
-            {
-              value: 'ig-quote-story',
-              display: '金句限動',
-            },
-            {
-              value: 'ig-faq-word-story',
-              display: '問答限動（文字版）',
-            },
-            {
-              value: 'ig-faq-picture-story',
-              display: '問答限動（有圖版）',
-            },
-          ];
-          this.type.select = 'ig-cw-picture-post';
-          break;
-        case 'edm':
-          this.types = [
-            {
-              value: 'edm-economist-podcast',
-              display: '經濟學人聽天下首圖',
-            },
-          ];
-          this.type.select = 'edm-economist-podcast';
-          break;
         case 'youtube':
           this.types = [
             {
@@ -2428,37 +1524,6 @@ export default {
             },
           ];
           this.type.select = 'youtube-enterprise';
-          break;
-        case 'webpush':
-          this.types = [
-            {
-              value: 'webpush',
-              display: '推播版型',
-            },
-          ];
-          this.type.select = 'webpush';
-          break;
-        case 'cwvideo':
-          this.types = [
-            {
-              value: 'cwvideo-slider',
-              display: 'Slider',
-            },
-            {
-              value: 'cwvideo-list',
-              display: '列表圖',
-            },
-          ];
-          this.type.select = 'cwvideo-slider';
-          break;
-        case 'cw':
-          this.types = [
-            {
-              value: 'cw-logo',
-              display: '主圖壓 Logo',
-            },
-          ];
-          this.type.select = 'cw-logo';
           break;
         default:
           this.types = [];

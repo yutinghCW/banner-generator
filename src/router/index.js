@@ -3,7 +3,7 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 const routes = [
   {
     path: '/',
-    component: () => import('../views/EditorialView.vue'),
+    component: () => import('../views/IndexView.vue'),
     children: [
       {
         path: '/',
@@ -12,6 +12,12 @@ const routes = [
           title: '登入',
         },
       },
+    ],
+  },
+  {
+    path: '/editorial',
+    component: () => import('../views/EditorialView.vue'),
+    children: [
       {
         path: 'cw',
         component: () => import('../views/HomeView.vue'),
@@ -31,6 +37,19 @@ const routes = [
         component: () => import('../views/CwefView.vue'),
         meta: {
           title: 'CWEF 裁圖工具',
+        },
+      },
+    ],
+  },
+  {
+    path: '/ad',
+    component: () => import('../views/AdvertisingView.vue'),
+    children: [
+      {
+        path: 'youtube',
+        component: () => import('../views/YoutubeView.vue'),
+        meta: {
+          title: 'YouTube 封面產生器',
         },
       },
     ],

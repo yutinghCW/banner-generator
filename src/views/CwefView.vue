@@ -153,6 +153,13 @@ export default {
       },
     };
   },
+  created() {
+    if (!this.$cookies.get('cw-banner-generator-editorial-logged')) {
+      this.$router.push({
+        path: '/',
+      });
+    }
+  },
   methods: {
     /* eslint-disable */
     screenshot() {

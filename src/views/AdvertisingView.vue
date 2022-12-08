@@ -17,14 +17,14 @@ export default {
   data() {
     return {
       title: '',
-      group: 'editorial',
+      group: 'advertising',
     };
   },
   components: {
     HeaderComponent,
   },
   created() {
-    if (!this.$cookies.get('cw-banner-generator-editorial-logged')) {
+    if (!this.$cookies.get('cw-banner-generator-advertising-logged')) {
       this.$router.push({
         path: '/',
       });

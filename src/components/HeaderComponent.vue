@@ -5,7 +5,7 @@
         <img src="https://www.cw.com.tw/images/common/logo.svg" alt="天下雜誌 logo">
       </a>
       <select
-        v-if="selected !== '登入'"
+        v-if="emitGroup"
         v-model="selected"
         @change="changeType"
         name="type"
@@ -28,11 +28,20 @@ export default {
   data() {
     return {
       selected: '',
-      pagination: [
+      pagination: [],
+    };
+  },
+  props: ['emit-type', 'emit-group'],
+  created() {
+    if (this.emitGroup === 'advertising') {
+      this.pagination = [
         {
-          title: '登入',
-          link: '/',
+          title: 'YouTube 封面產生器',
+          link: 'youtube',
         },
+      ];
+    } else if (this.emitGroup === 'editorial') {
+      this.pagination = [
         {
           title: '天下社群圖卡產生器',
           link: 'cw',
@@ -41,19 +50,13 @@ export default {
           title: '一週大事圖卡產生器',
           link: 'weekly',
         },
-        {
-          title: 'CWEF 裁圖工具',
-          link: 'cwef',
-        },
-      ],
-    };
+      ];
+    }
   },
-  props: ['emit-type'],
   methods: {
     changeType() {
       this.pagination.forEach((element) => {
         if (element.title === this.selected) {
-          console.log(element.link);
           this.$router.push(element.link);
         }
       });
