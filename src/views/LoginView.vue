@@ -4,43 +4,23 @@
       <div class="col-md-3">
         <form
           class="form__group form__group--outlined"
-          @submit.prevent="getVerification(selected)"
+          @submit.prevent="clickLogin()"
         >
-          <div
-            class="form__group--defalt mb20"
-            :class="{
-              'hasValue': login.account,
-              'form__group--error':
-              login.account && submitState && login.account !== verification.account,
-            }"
-          >
+          <div class="form__group--defalt d-none">
             <label class="label form__group--defalt">
               <input
-                v-model="login.account"
-                @input="checkTyping()"
                 class="form__group__input d-block"
                 type="text"
-                autocomplete="current-password"
+                autocomplete="current-username"
               >
               <div class="form__group__placeholder">請輸入帳號</div>
-              <span
-                v-if="(login.account && submitState && login.account !== verification.account)"
-                class="form__group__help--strong d-block"
-                :class="{
-                  'form__group__help--highlight':
-                  login.account && submitState && login.account !== verification.account
-                }"
-              >
-                請輸入正確帳號
-              </span>
             </label>
           </div>
           <div
             class="form__group--defalt mb20"
             :class="{
               'hasValue': login.password,
-              'form__group--error':
-              login.password && submitState && login.password !== verification.password,
+              'form__group--error': login.password && submitState && checkPasswordCorrect
             }"
           >
             <label class="label form__group--defalt">
@@ -56,48 +36,20 @@
                 v-if="(
                   login.password
                   && submitState
-                  && login.password !== verification.password
+                  && checkPasswordCorrect
                 )"
                 class="form__group__help--strong d-block"
                 :class="{
-                  'form__group__help--highlight':
-                  login.password && submitState && login.password !== verification.password
+                  'form__group__help--highlight': checkPasswordCorrect
                 }"
               >
                 請輸入正確密碼
               </span>
             </label>
           </div>
-          <div class="d-flex">
-            <label class="d-block me-3">
-              <span class="label--radio">
-                <input type="radio"
-                  v-model="selected"
-                  :checked="selected === '編輯部'"
-                  name="部門"
-                  value="編輯部"
-                >
-                <span class="label__radio__mark"></span>
-                <span class="label__radio__txt">編輯部</span>
-              </span>
-            </label>
-            <label class="d-block me-3">
-              <span class="label--radio">
-                <input
-                  type="radio"
-                  v-model="selected"
-                  :checked="selected === '廣告部'"
-                  name="部門"
-                  value="廣告部"
-                >
-                <span class="label__radio__mark"></span>
-                <span class="label__radio__txt">廣告部</span>
-              </span>
-            </label>
-          </div>
           <button
             class="btn btn--contained mx-auto mt40 d-table"
-            :disabled="!(login.account && login.password)"
+            :disabled="!login.password"
             type="submit"
           >
             登入
@@ -113,66 +65,57 @@ export default {
   data() {
     return {
       login: {
-        account: '',
         password: '',
       },
-      selected: '編輯部',
-      cookieType: 'editorial',
       verification: {},
       submitState: false,
     };
   },
   created() {
+    this.getVerification();
     if (this.$router.currentRoute.value.meta.title === '登入') {
       document.body.classList.add('login-page');
     }
   },
   methods: {
-    getVerification(type) {
-      const data = `https://opensheet.elk.sh/1akcT3aiSAHRFsprHQpb0DjeTmb-ieYwFQjmGs7TwfB8/${type}`;
+    getVerification() {
+      const data = 'https://opensheet.elk.sh/1akcT3aiSAHRFsprHQpb0DjeTmb-ieYwFQjmGs7TwfB8/index';
       this.$http.get(data).then((response) => {
-        const [value] = response.data;
-        this.verification = value;
-      }).then(() => {
-        this.clickLogin();
+        response.data.forEach((element) => {
+          const object = {
+            platform: element.platform,
+            redirect: element.redirect,
+          };
+          this.verification[element.password] = object;
+        });
       });
     },
     clickLogin() {
-      this.submitState = true;
-      if (
-        this.login?.account === this.verification?.account
-        && this.login?.password === this.verification?.password
-      ) {
+      if (this.verification[this.login?.password]) {
+        this.cookieType = this.verification[this.login.password].platform;
         const key = `cw-banner-generator-${this.cookieType}-logged`;
-        const value = 'tkyXWaXf=mM*r6PwxUd#k4=47cxW%kkMc!T..Bn9dnpgMyY6YBHT.*uSF9StsZ5W%54sGFzRh*TCYqQbbW7@qDGNh5hhv-p%WpbS9d?%Y8@MarE44B6QFNHQ=MkcNbmc';
+        const value = 'tkyXWaXf=mM*r6PwxUd#k4=47cxW%kkMc!T..Bn9dnpgMyY6YBHT';
         const expires = 60 * 60 * 24 * 30;
 
         // 紀錄 Cookie: 存放 30 天
         this.$cookies.set(key, value, expires);
 
-        // 跳轉到各自頁面
-        if (this.cookieType === 'editorial') {
-          this.$router.push({
-            path: 'editorial/cw',
-          });
-        } else if (this.cookieType === 'advertising') {
-          this.$router.push({
-            path: 'ad/youtube',
-          });
-        }
+        // 轉址
+        this.$router.push({
+          path: this.verification[this.login?.password].redirect,
+        });
+      } else {
+        this.submitState = true;
       }
+    },
+    checkPasswordCorrect() {
+      if (this.verification[this.login?.password]) {
+        return true;
+      }
+      return false;
     },
     checkTyping() {
       this.submitState = false;
-    },
-  },
-  watch: {
-    selected() {
-      if (this.selected === '編輯部') {
-        this.cookieType = 'editorial';
-      } else if (this.selected === '廣告部') {
-        this.cookieType = 'advertising';
-      }
     },
   },
 };
