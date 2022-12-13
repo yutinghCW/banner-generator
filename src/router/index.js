@@ -12,6 +12,13 @@ const routes = [
           title: '登入',
         },
       },
+      {
+        path: 'password',
+        component: () => import('../views/PasswordView.vue'),
+        meta: {
+          title: '更改密碼',
+        },
+      },
     ],
   },
   {
