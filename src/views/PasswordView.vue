@@ -111,6 +111,8 @@
 </template>
 
 <script>
+import $ from 'jquery';
+
 export default {
   data() {
     return {
@@ -130,12 +132,13 @@ export default {
   },
   methods: {
     getVerification() {
-      const data = 'https://opensheet.elk.sh/1akcT3aiSAHRFsprHQpb0DjeTmb-ieYwFQjmGs7TwfB8/index';
+      const data = 'https://opensheet.elk.sh/1akcT3aiSAHRFsprHQpb0DjeTmb-ieYwFQjmGs7TwfB8/test';
       this.$http.get(data).then((response) => {
         response.data.forEach((element) => {
           const object = {
             platform: element.platform,
             redirect: element.redirect,
+            email: element.email,
           };
           this.verification[element.password] = object;
         });
@@ -150,14 +153,14 @@ export default {
         if (this.type.platform === 'advertising') {
           console.log('我是廣告');
           data = {
-            editorial: this.password.check,
-            advertising: '',
+            editorial: '',
+            advertising: this.password.check,
           };
         } else if (this.type.platform === 'editorial') {
           console.log('我是編輯');
           data = {
-            editorial: '',
-            advertising: this.password.check,
+            editorial: this.password.check,
+            advertising: '',
           };
         }
         // 呼叫 send ajax function 把資料送到 Google Sheet
@@ -167,18 +170,16 @@ export default {
       }
     },
     send(value) {
-      console.log(value);
-      const object = {
+      $.ajax({
         type: 'get',
-        url: 'https://script.google.com/macros/s/AKfycbwc1A3QQ_cQXTcV5PKtf7w57PyGakW6x5-jv21woYgbpgsZDgUp4JltdazgoPHjLPiilw/exec',
+        url: 'https://script.google.com/macros/s/AKfycbxH30V1QtGmENDrWd_Xd8RtCv4bqi-ZbtqJZ6DoUuJmD0ci290LBef3DkBoiXrfnCC5Dg/exec',
         data: value,
         dataType: 'JSON',
-      };
-      console.log(this);
-      console.log(object);
-      // this.$http.get(object).then((response) => {
-      //   console.log(response);
-      // });
+        success: this.sendEmail(this.verification[this.password.default].email),
+      });
+    },
+    sendEmail(mail) {
+      console.log(mail);
     },
     checkTyping() {
       this.submitState = false;
