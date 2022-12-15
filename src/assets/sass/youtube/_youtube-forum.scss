@@ -7,6 +7,7 @@
     color: $white;
     font-size: 1rem;
     line-height: 1.52;
+    white-space: nowrap;
     &::before {
       content: '';
       display: block;

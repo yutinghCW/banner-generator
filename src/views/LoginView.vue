@@ -2,50 +2,60 @@
   <div class="container">
     <div class="row justify-content-center align-items-center">
       <div class="col-md-3">
-        <form
-          class="form__group form__group--outlined"
-          @submit.prevent="clickLogin()"
-        >
-          <div class="form__group--defalt d-none">
-            <label class="label form__group--defalt">
-              <input
-                class="form__group__input d-block"
-                type="text"
-                autocomplete="current-username"
-              >
-              <div class="form__group__placeholder">請輸入帳號</div>
-            </label>
+        <form @submit.prevent="clickLogin()">
+          <div class="form__group form__group--outlined d-none">
+            <div class="form__group--defalt">
+              <label class="label form__group--defalt">
+                <input
+                  class="form__group__input d-block"
+                  type="text"
+                  autocomplete="current-username"
+                >
+                <div class="form__group__placeholder">請輸入帳號</div>
+              </label>
+            </div>
           </div>
-          <div
-            class="form__group--defalt mb20"
-            :class="{
-              'hasValue': login.password,
-              'form__group--error': login.password && submitState && checkPasswordCorrect
-            }"
-          >
-            <label class="label form__group--defalt">
-              <input
-                v-model="login.password"
-                @input="checkTyping()"
-                class="form__group__input d-block"
-                type="password"
-                autocomplete="current-password"
-              >
-              <div class="form__group__placeholder">請輸入密碼</div>
-              <span
-                v-if="(
-                  login.password
-                  && submitState
-                  && checkPasswordCorrect
-                )"
-                class="form__group__help--strong d-block"
-                :class="{
-                  'form__group__help--highlight': checkPasswordCorrect
-                }"
-              >
-                請輸入正確密碼
-              </span>
-            </label>
+          <div class="form__group form__group--outlined form__group--hasicon">
+            <div
+              class="form__group--defalt mb20"
+              :class="{
+                'hasValue': login.password,
+                'form__group--error': login.password && submitState && checkPasswordCorrect
+              }"
+            >
+              <label class="label form__group--defalt">
+                <input
+                  v-model="login.password"
+                  @input="checkTyping()"
+                  class="form__group__input d-block"
+                  :type="password.type"
+                  autocomplete="current-password"
+                >
+                <div class="form__group__placeholder">請輸入密碼</div>
+                <button
+                  @click="
+                    password.type === 'password'
+                    ? password.type = 'text'
+                    : password.type = 'password';
+                  "
+                  class="form__group__icon icon icon-eyeon"
+                  type="button"
+                ></button>
+                <span
+                  v-if="(
+                    login.password
+                    && submitState
+                    && checkPasswordCorrect
+                  )"
+                  class="form__group__help--strong d-block"
+                  :class="{
+                    'form__group__help--highlight': checkPasswordCorrect
+                  }"
+                >
+                  請輸入正確密碼
+                </span>
+              </label>
+            </div>
           </div>
           <button
             class="btn btn--contained mx-auto mt40 d-table"
@@ -67,6 +77,9 @@ export default {
       login: {
         password: '',
       },
+      password: {
+        type: 'password',
+      },
       verification: {},
       submitState: false,
     };
@@ -75,6 +88,16 @@ export default {
     this.getVerification();
     if (this.$router.currentRoute.value.meta.title === '登入') {
       document.body.classList.add('login-page');
+    }
+    if (this.$cookies.get('cw-banner-generator-editorial-logged')) {
+      this.$router.push({
+        path: 'editorial/cw',
+      });
+    }
+    if (this.$cookies.get('cw-banner-generator-advertising-logged')) {
+      this.$router.push({
+        path: 'ad/youtube',
+      });
     }
   },
   methods: {
@@ -143,5 +166,16 @@ label span.label__radio__txt {
       min-height: 100%;
     }
   }
+}
+.form__group--hasicon .icon {
+  position: absolute;
+  top: 1.25rem;
+  right: 1rem;
+  padding: 0;
+  font-size: 1rem;
+  border: 0;
+  background-color: transparent;
+  appearance: none;
+  transition: all 0.3s;
 }
 </style>
